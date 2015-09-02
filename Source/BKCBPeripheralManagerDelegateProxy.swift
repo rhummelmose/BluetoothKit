@@ -40,7 +40,7 @@ internal class BKCBPeripheralManagerDelegateProxy: NSObject, CBPeripheralManager
     
     internal weak var delegate: BKCBPeripheralManagerDelegate?
     
-    // MARK: Initializer
+    // MARK: Initialization
     
     internal init(delegate: BKCBPeripheralManagerDelegate) {
         self.delegate = delegate

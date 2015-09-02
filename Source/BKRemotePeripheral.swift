@@ -28,7 +28,6 @@ import CoreBluetooth
 public protocol BKRemotePeripheralDelegate: class {
     func remotePeripheral(remotePeripheral: BKRemotePeripheral, didUpdateName name: String)
     func remotePeripheral(remotePeripheral: BKRemotePeripheral, didReceiveArbitraryData data: NSData)
-    // func remotePeripheral(remotePeripheral: BKRemotePeripheral, didReceiveEncodedObject encodedObject: NSCoding, withClassName className: String)
 }
 
 public func ==(lhs: BKRemotePeripheral, rhs: BKRemotePeripheral) -> Bool {
@@ -43,29 +42,17 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
         case Shallow, Disconnected, Connecting, Connected, Disconnecting
     }
     
-    // MARK: Initialization
-    
-    public init(identifier: NSUUID, peripheral: CBPeripheral?) {
-        self.identifier = identifier
-        self.peripheralDelegate = BKCBPeripheralDelegateProxy(delegate: self)
-        self.peripheral = peripheral
-        self.peripheral?.delegate = peripheralDelegate
-    }
-    
     // MARK: Properties
-    
-    public weak var delegate: BKRemotePeripheralDelegate?
-    public let identifier: NSUUID
     
     public var state: State {
         if peripheral == nil {
             return .Shallow
         }
         switch peripheral!.state {
-            case .Disconnected: return .Disconnected
-            case .Connecting: return .Connecting
-            case .Connected: return .Connected
-            case .Disconnecting: return .Disconnecting
+        case .Disconnected: return .Disconnected
+        case .Connecting: return .Connecting
+        case .Connected: return .Connected
+        case .Disconnecting: return .Disconnecting
         }
     }
     
@@ -73,13 +60,26 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
         return peripheral?.name
     }
     
-    internal var peripheral: CBPeripheral? {
-        didSet {
-            peripheral?.delegate = peripheralDelegate
-        }
+    public weak var delegate: BKRemotePeripheralDelegate?
+    public let identifier: NSUUID
+    
+    internal var peripheral: CBPeripheral?
+    private var data: NSMutableData?
+    private var peripheralDelegate: BKCBPeripheralDelegateProxy!
+    
+    // MARK: Initialization
+    
+    public init(identifier: NSUUID, peripheral: CBPeripheral?) {
+        self.identifier = identifier
+        self.peripheralDelegate = BKCBPeripheralDelegateProxy(delegate: self)
+        self.peripheral = peripheral
     }
     
     // MARK: Internal Functions
+    
+    internal func prepareForConnection() {
+        peripheral?.delegate = peripheralDelegate
+    }
     
     internal func discoverServices() {
         if peripheral?.services != nil {
@@ -87,6 +87,37 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
             return
         }
         peripheral?.discoverServices([ CBUUID(string: BKService.DataTransferService.rawValue) ])
+    }
+    
+    internal func unsubscribe() {
+        guard peripheral?.services != nil else {
+            return
+        }
+        for service in peripheral!.services! {
+            guard service.characteristics != nil else {
+                continue
+            }
+            for characteristic in service.characteristics! {
+                peripheral?.setNotifyValue(false, forCharacteristic: characteristic)
+            }
+        }
+    }
+    
+    // MARK: Private Functions
+    
+    private func handleReceivedData(receivedData: NSData) {
+        if receivedData.isEqualToData(BKService.endOfDataMark) {
+            if let finalData = data {
+                delegate?.remotePeripheral(self, didReceiveArbitraryData: finalData)
+            }
+            data = nil
+            return
+        }
+        if let existingData = data {
+            existingData.appendData(receivedData)
+            return
+        }
+        data = NSMutableData(data: receivedData)
     }
     
     // MARK: BKCBPeripheralDelegate
@@ -121,26 +152,6 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
                 case .Data: handleReceivedData(characteristic.value!)
             }
         }
-    }
-    
-    // MARK: Private
-    
-    private var data: NSMutableData?
-    private var peripheralDelegate: BKCBPeripheralDelegateProxy!
-    
-    private func handleReceivedData(receivedData: NSData) {
-        if receivedData.isEqualToData(BKService.endOfDataMark) {
-            if let finalData = data {
-                delegate?.remotePeripheral(self, didReceiveArbitraryData: finalData)
-            }
-            data = nil
-            return
-        }
-        if let existingData = data {
-            existingData.appendData(receivedData)
-            return
-        }
-        data = NSMutableData(data: receivedData)
     }
     
 }

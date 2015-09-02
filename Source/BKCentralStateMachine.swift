@@ -37,10 +37,10 @@ internal class BKCentralStateMachine {
     }
     
     internal enum Event {
-        case Start, SetUnavailable(cause: BKUnavailabilityCause), SetAvailable, Scan, Connect
+        case Start, SetUnavailable(cause: BKUnavailabilityCause), SetAvailable, Scan, Connect, Stop
     }
     
-    // MARK: Stored Properties
+    // MARK: Properties
     
     internal var state: State
     
@@ -50,7 +50,7 @@ internal class BKCentralStateMachine {
         self.state = .Initialized
     }
     
-    // MARK: State Machine
+    // MARK: Functions
     
     internal func handleEvent(event: Event) throws {
         switch event {
@@ -73,6 +73,10 @@ internal class BKCentralStateMachine {
             case .Connect: switch state {
                 case .Available, .Scanning: break
                 default: throw Error.Transitioning(currentState: state, validStates: [ .Available, .Scanning ])
+            }
+            case .Stop: switch state {
+                case .Initialized: throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Unavailable(cause: nil), .Available, .Scanning ])
+                default: state = .Initialized
             }
         }
     }

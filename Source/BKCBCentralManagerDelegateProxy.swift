@@ -41,7 +41,7 @@ internal protocol BKCBCentralManagerConnectionDelegate: class {
 
 internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelegate {
     
-    // MARK: Public Implementation
+    // MARK: Initialization
     
     internal init(stateDelegate: BKCBCentralManagerStateDelegate, discoveryDelegate: BKCBCentralManagerDiscoveryDelegate, connectionDelegate: BKCBCentralManagerConnectionDelegate) {
         self.stateDelegate = stateDelegate
@@ -50,11 +50,13 @@ internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelega
         super.init()
     }
     
-    // MARK: Private Implementation
+    // MARK: Properties
     
     internal weak var stateDelegate: BKCBCentralManagerStateDelegate?
     internal weak var discoveryDelegate: BKCBCentralManagerDiscoveryDelegate?
     internal weak var connectionDelegate: BKCBCentralManagerConnectionDelegate?
+    
+    // MARK: CBCentralManagerDelegate
     
     internal func centralManagerDidUpdateState(central: CBCentralManager) {
         stateDelegate?.centralManagerDidUpdateState(central)

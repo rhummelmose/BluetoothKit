@@ -24,23 +24,24 @@
 
 import Foundation
 
-internal func ==(lhs: BKConnectionAttempt, rhs: BKConnectionAttempt) -> Bool {
-    return lhs.remotePeripheral.identifier.isEqual(rhs.remotePeripheral.identifier)
+public func ==(lhs: BKScanChange, rhs: BKScanChange) -> Bool {
+    switch (lhs, rhs) {
+        case (.Insert(let lhsPeripheral), .Insert(let rhsPeripheral)): return lhsPeripheral == rhsPeripheral || lhsPeripheral == nil || rhsPeripheral == nil
+        case (.Remove(let lhsPeripheral), .Remove(let rhsPeripheral)): return lhsPeripheral == rhsPeripheral || lhsPeripheral == nil || rhsPeripheral == nil
+        default: return false
+    }
 }
 
-internal class BKConnectionAttempt: Equatable {
+public enum BKScanChange: Equatable {
     
-    // MARK: Properties
+    case Insert(remotePeripheral: BKRemotePeripheral?)
+    case Remove(remotePeripheral: BKRemotePeripheral?)
     
-    internal let timer: NSTimer
-    internal let remotePeripheral: BKRemotePeripheral
-    internal let completionHandler: ((peripheralEntity: BKRemotePeripheral, error: BKConnectionPool.Error?) -> Void)
-    
-    // MARK: Initialization
-    
-    internal init(remotePeripheral: BKRemotePeripheral, timer: NSTimer, completionHandler: ((peripheralEntity: BKRemotePeripheral, error: BKConnectionPool.Error?) -> Void)) {
-        self.remotePeripheral = remotePeripheral
-        self.timer = timer
-        self.completionHandler = completionHandler
+    public var remotePeripheral: BKRemotePeripheral! {
+        switch self {
+            case .Insert(let remotePeripheral): return remotePeripheral
+            case .Remove(let remotePeripheral): return remotePeripheral
+        }
     }
+    
 }

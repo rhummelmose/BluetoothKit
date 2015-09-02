@@ -25,13 +25,34 @@
 import Foundation
 import CoreBluetooth
 
-public protocol BKCentralDelegate: class, BKAvailabilityDelegate {
+/**
+    The central's delegate is called when asynchronous events occur.
+*/
+public protocol BKCentralDelegate: class {
+    /**
+        Called when a remote peripheral disconnects or is disconnected.
+        - parameter central: The central from which it disconnected.
+        - parameter remotePeripheral: The remote peripheral that disconnected.
+    */
     func central(central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
 }
 
 private let singleton = BKCentral()
 
-public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate {
+/**
+    The class used to take the Bluetooth LE central role. The central discovers remote peripherals by scanning
+    and connects to them. When a connection is established the central can receive data from the remote peripheral.
+*/
+public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate, BKAvailabilityObservable {
+    
+    // MARK: Type Aliases
+    
+    public typealias ScanProgressHandler = ((newDiscoveries: [BKRemotePeripheral]) -> Void)
+    public typealias ScanCompletionHandler = ((result: [BKRemotePeripheral]?, error: Error?) -> Void)
+    public typealias ContinuousScanChangeHandler = ((changes: [BKScanChange], peripherals: [BKRemotePeripheral]) -> Void)
+    public typealias ContinuousScanStateHandler = ((newState: ContinuousScanState) -> Void)
+    public typealias ContinuousScanErrorHandler = ((error: Error) -> Void)
+    public typealias ConnectCompletionHandler = ((remotePeripheral: BKRemotePeripheral, error: Error?) -> Void)
     
     // MARK: Enums
     
@@ -39,6 +60,12 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         case InterruptedByUnavailability(BKUnavailabilityCause)
         case FailedToConnectDueToTimeout
         case InternalError(underlyingError: ErrorType?)
+    }
+    
+    public enum ContinuousScanState {
+        case Stopped
+        case Scanning
+        case Waiting
     }
     
     // MARK: Properties
@@ -51,14 +78,27 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         return BKAvailability(centralManagerState: centralManager.state)
     }
     
-    public weak var delegate: BKCentralDelegate?
+    public var connectedRemotePeripherals: [BKRemotePeripheral] {
+        return connectionPool.connectedRemotePeripherals
+    }
     
-    // MARK: Initializer
+    public weak var delegate: BKCentralDelegate?
+    public var availabilityObservers = [BKWeakAvailabilityObserver]()
+    
+    private let scanner = BKScanner()
+    private var continuousScanner: BKContinousScanner!
+    private let connectionPool = BKConnectionPool()
+    private var centralManagerDelegate: BKCBCentralManagerDelegateProxy!
+    private var stateMachine: BKCentralStateMachine!
+    private var centralManager: CBCentralManager!
+    
+    // MARK: Initialization
     
     public init() {
         centralManagerDelegate = BKCBCentralManagerDelegateProxy(stateDelegate: self, discoveryDelegate: scanner, connectionDelegate: connectionPool)
         stateMachine = BKCentralStateMachine()
         connectionPool.delegate = self;
+        continuousScanner = BKContinousScanner(scanner: scanner)
     }
     
     // MARK: Public Functions
@@ -74,7 +114,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
-    public func scanWithDuration(duration: NSTimeInterval = 10, progressHandler: ((newDiscovery: BKRemotePeripheral) -> Void)? = nil, completionHandler: ((result: [BKRemotePeripheral]?, error: Error?) -> Void)?) {
+    public func scanWithDuration(duration: NSTimeInterval = 3, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
         do {
             try stateMachine.handleEvent(.Scan)
             try scanner.scanWithDuration(duration, progressHandler: progressHandler) { result, error in
@@ -92,11 +132,28 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    public func scanContinuouslyWithChangeHandler(changeHandler: ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: NSTimeInterval = 3, inBetweenDelay: NSTimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
+        do {
+            try stateMachine.handleEvent(.Scan)
+            continuousScanner.scanContinuouslyWithChangeHandler(changeHandler, stateHandler: { newState in
+                if newState == .Stopped && self.availability == .Available {
+                    try! self.stateMachine.handleEvent(.SetAvailable)
+                }
+                stateHandler?(newState: newState)
+            }, duration: duration, inBetweenDelay: inBetweenDelay, errorHandler: { error in
+                errorHandler?(error: .InternalError(underlyingError: error))
+            })
+        } catch let error {
+            errorHandler?(error: .InternalError(underlyingError: error))
+        }
+    }
+    
     public func interrupScan() {
+        continuousScanner.interruptScan()
         scanner.interruptScan()
     }
     
-    public func connect(timeout: NSTimeInterval = 10, remotePeripheral: BKRemotePeripheral, completionHandler: ((remotePeripheral: BKRemotePeripheral, error: Error?) -> Void)) {
+    public func connect(timeout: NSTimeInterval = 3, remotePeripheral: BKRemotePeripheral, completionHandler: ConnectCompletionHandler) {
         do {
             try stateMachine.handleEvent(.Connect)
             try connectionPool.connectWithTimeout(timeout, remotePeripheral: remotePeripheral) { remotePeripheral, error in
@@ -114,13 +171,24 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
-    // MARK: Internal & Private Properties
+    public func disconnectRemotePeripheral(remotePeripheral: BKRemotePeripheral) throws {
+        do {
+            try connectionPool.disconnectRemotePeripheral(remotePeripheral)
+        } catch let error {
+            throw Error.InternalError(underlyingError: error)
+        }
+    }
     
-    private let scanner = BKScanner()
-    private let connectionPool = BKConnectionPool()
-    private var centralManagerDelegate: BKCBCentralManagerDelegateProxy!
-    private var stateMachine: BKCentralStateMachine!
-    private var centralManager: CBCentralManager!
+    public func stop() throws {
+        do {
+            try stateMachine.handleEvent(.Stop)
+            interrupScan()
+            connectionPool.reset()
+            centralManager = nil
+        } catch let error {
+            throw Error.InternalError(underlyingError: error)
+        }
+    }
     
     // MARK: Internal Functions
     
@@ -128,9 +196,13 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         scanner.interruptScan()
         connectionPool.reset()
         if oldCause == nil {
-            delegate?.availabilityObserver(self, availabilityDidChange: .Unavailable(cause: cause))
+            for availabilityObserver in availabilityObservers {
+                availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Unavailable(cause: cause))
+            }
         } else if oldCause != nil && oldCause != cause {
-            delegate?.availabilityObserver(self, unavailabilityCauseDidChange: cause)
+            for availabilityObserver in availabilityObservers {
+                availabilityObserver.availabilityObserver?.availabilityObserver(self, unavailabilityCauseDidChange: cause)
+            }
         }
     }
     
@@ -157,7 +229,9 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
                 try! stateMachine.handleEvent(.SetAvailable)
                 switch state {
                     case .Starting, .Unavailable:
-                        delegate?.availabilityObserver(self, availabilityDidChange: .Available)
+                        for availabilityObserver in availabilityObservers {
+                            availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Available)
+                        }
                     default:
                         break
                 }

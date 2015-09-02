@@ -31,10 +31,14 @@ public func ==(lhs: BKRemoteCentral, rhs: BKRemoteCentral) -> Bool {
 
 public struct BKRemoteCentral: Equatable {
     
+    // MARK: Properties
+    
     internal let central: CBCentral
     internal var identifier: NSUUID {
         return central.identifier
     }
+    
+    // MARK: Initialization
     
     internal init(central: CBCentral) {
         self.central = central

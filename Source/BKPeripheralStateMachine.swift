@@ -37,10 +37,10 @@ internal class BKPeripheralStateMachine {
     }
     
     internal enum Event {
-        case Start, SetUnavailable(cause: BKUnavailabilityCause), SetAvailable
+        case Start, SetUnavailable(cause: BKUnavailabilityCause), SetAvailable, Stop
     }
     
-    // MARK: Stored Properties
+    // MARK: Properties
     
     internal var state: State
     
@@ -50,7 +50,7 @@ internal class BKPeripheralStateMachine {
         self.state = .Initialized
     }
     
-    // MARK: State Machine
+    // MARK: Functions
     
     internal func handleEvent(event: Event) throws {
         switch event {
@@ -65,6 +65,10 @@ internal class BKPeripheralStateMachine {
             case let .SetUnavailable(newCause): switch state {
                 case .Initialized: throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
                 default: state = .Unavailable(cause: newCause)
+            }
+            case .Stop: switch state {
+                case .Initialized: throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
+                default: state = .Initialized
             }
         }
     }

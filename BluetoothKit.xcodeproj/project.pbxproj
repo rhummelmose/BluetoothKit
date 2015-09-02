@@ -23,6 +23,8 @@
 		C687E3BA1B8B4A2800B702D8 /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */; };
 		C687E3BB1B8B4A2800B702D8 /* BKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AF1B8B4A2800B702D8 /* BKService.swift */; };
 		C687E3C41B8B4CF100B702D8 /* BluetoothKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C687E3C31B8B4CF100B702D8 /* BluetoothKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6BFB2921B95885D00AB5CAE /* BKScanChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2911B95885D00AB5CAE /* BKScanChange.swift */; };
+		C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKScanner.swift; sourceTree = "<group>"; };
 		C687E3AF1B8B4A2800B702D8 /* BKService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKService.swift; sourceTree = "<group>"; };
 		C687E3C31B8B4CF100B702D8 /* BluetoothKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothKit.h; sourceTree = "<group>"; };
+		C6BFB2911B95885D00AB5CAE /* BKScanChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKScanChange.swift; sourceTree = "<group>"; };
+		C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKContinuousScanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 				C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */,
 				C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */,
 				C687E3A81B8B4A2800B702D8 /* BKCental.swift */,
+				C6BFB2911B95885D00AB5CAE /* BKScanChange.swift */,
 				C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */,
 				C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */,
 				C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */,
@@ -100,6 +105,7 @@
 				C67A22791B8CDC7D00CB74CE /* BKRemoteCentral.swift */,
 				C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */,
 				C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */,
+				C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */,
 				C687E3AF1B8B4A2800B702D8 /* BKService.swift */,
 			);
 			path = Source;
@@ -152,7 +158,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Wallmob A/S";
+				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
 				TargetAttributes = {
 					C687E3971B8B496400B702D8 = {
 						CreatedOnToolsVersion = 7.0;
@@ -195,7 +201,9 @@
 				C67A22751B8C83D900CB74CE /* BKPeripheralStateMachine.swift in Sources */,
 				C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */,
 				C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */,
+				C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */,
 				C687E3B21B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
+				C6BFB2921B95885D00AB5CAE /* BKScanChange.swift in Sources */,
 				C67A22731B8C80C300CB74CE /* BKAvailability.swift in Sources */,
 				C687E3B31B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C67A227C1B8CECB400CB74CE /* BKSendDataTask.swift in Sources */,

@@ -27,9 +27,11 @@ import CoreBluetooth
 
 internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
     
-    // MARK: Internal Implementaiton
+    // MARK: Type Aliases
     
-    internal var centralManager: CBCentralManager!
+    internal typealias ScanCompletionHandler = ((result: [BKRemotePeripheral]?, error: Error?) -> Void)
+    
+    // MARK: Enums
     
     internal enum Error: ErrorType {
         case NoCentralManagerSet
@@ -37,62 +39,92 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         case Interrupted
     }
     
-    internal func scanWithDuration(duration: NSTimeInterval, progressHandler: ((newDiscovery: BKRemotePeripheral) -> Void )? = nil, completionHandler: ((result: [BKRemotePeripheral]?, error: Error?) -> Void)) throws {
-        guard !busy else {
-            throw Error.Busy
+    // MARK: Properties
+    
+    internal var centralManager: CBCentralManager!
+    private var busy = false
+    private var scanHandlers: ( progressHandler: BKCentral.ScanProgressHandler?, completionHandler: ScanCompletionHandler )?
+    private var remotePeripherals = [BKRemotePeripheral]()
+    private var durationTimer: NSTimer?
+    
+    // MARK: Internal Functions
+    
+    internal func scanWithDuration(duration: NSTimeInterval, progressHandler: BKCentral.ScanProgressHandler? = nil, completionHandler: ScanCompletionHandler) throws {
+        do {
+            try validateForActivity()
+            busy = true
+            scanHandlers = (progressHandler: progressHandler, completionHandler: completionHandler)
+            if let connectedRemotePeripherals = connectedRemotePeripherals() {
+                remotePeripherals += connectedRemotePeripherals
+                scanHandlers?.progressHandler?(newDiscoveries: connectedRemotePeripherals)
+            }
+            centralManager.scanForPeripheralsWithServices([ BKService.DataTransferService.identifier ], options: nil)
+            durationTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "durationTimerElapsed", userInfo: nil, repeats: false)
+        } catch let error {
+            throw error
         }
-        guard centralManager != nil else {
-            throw Error.NoCentralManagerSet
-        }
-        busy = true
-        self.progressHandler = progressHandler
-        self.completionHandler = completionHandler
-        self.discoveredRemotePeripherals = [BKRemotePeripheral]()
-        centralManager.scanForPeripheralsWithServices([ BKService.DataTransferService.identifier ], options: nil)
-        timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "timerElapsed", userInfo: nil, repeats: false)
     }
     
     internal func interruptScan() {
         guard busy else {
             return
         }
-        self.discoveredRemotePeripherals = nil
         endScan(.Interrupted)
     }
     
-    // MARK: BKCBCentralManagerDiscoveryDelegate
+    // MARK: Private Functions
     
-    internal func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
-        let discoveredRemotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
-        discoveredRemotePeripherals?.append(discoveredRemotePeripheral)
-        progressHandler?(newDiscovery: discoveredRemotePeripheral)
+    private func validateForActivity() throws {
+        guard !busy else {
+            throw Error.Busy
+        }
+        guard centralManager != nil else {
+            throw Error.NoCentralManagerSet
+        }
     }
     
-    // MARK: Private Implementation
+    private func connectedRemotePeripherals() -> [BKRemotePeripheral]? {
+        var connectedRemotePeripherals: [BKRemotePeripheral]?
+        let connectedPeripherals = centralManager.retrieveConnectedPeripheralsWithServices([ BKService.DataTransferService.identifier ])
+        if !connectedPeripherals.isEmpty {
+            connectedRemotePeripherals = connectedPeripherals.map({ BKRemotePeripheral(identifier: $0.identifier, peripheral: $0) })
+        }
+        return connectedRemotePeripherals
+    }
     
-    private var busy = false
-    private var progressHandler: ((newDiscovery: BKRemotePeripheral) -> Void )?
-    private var completionHandler: ((result: [BKRemotePeripheral]?, error: Error?) -> Void)?
-    private var discoveredRemotePeripherals: [BKRemotePeripheral]?
-    private var timer: NSTimer?
-    
-    @objc private func timerElapsed() {
+    @objc private func durationTimerElapsed() {
         endScan(nil)
     }
     
     private func endScan(error: Error?) {
-        if let timer = self.timer {
-            timer.invalidate()
-            self.timer = nil
-        }
+        invalidateTimer()
         centralManager.stopScan()
-        let completionHandler = self.completionHandler!
-        let discoveredRemotePeripherals = self.discoveredRemotePeripherals
-        self.progressHandler = nil
-        self.completionHandler = nil
-        self.discoveredRemotePeripherals = nil
+        let completionHandler = scanHandlers?.completionHandler
+        let remotePeripherals = self.remotePeripherals
+        scanHandlers = nil
+        self.remotePeripherals.removeAll()
         busy = false
-        completionHandler(result: discoveredRemotePeripherals, error: error)
+        completionHandler?(result: remotePeripherals, error: error)
+    }
+    
+    private func invalidateTimer() {
+        if let durationTimer = self.durationTimer {
+            durationTimer.invalidate()
+            self.durationTimer = nil
+        }
+    }
+    
+    // MARK: BKCBCentralManagerDiscoveryDelegate
+    
+    internal func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String: AnyObject], RSSI: NSNumber) {
+        guard busy else {
+            return
+        }
+        if !remotePeripherals.contains({ $0.identifier.isEqual(peripheral.identifier) }) {
+            let discoveredRemotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+            remotePeripherals.append(discoveredRemotePeripheral)
+            scanHandlers?.progressHandler?(newDiscoveries: [ discoveredRemotePeripheral ])
+        }
     }
     
 }

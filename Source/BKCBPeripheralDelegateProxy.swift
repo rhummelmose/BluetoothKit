@@ -34,9 +34,11 @@ internal protocol BKCBPeripheralDelegate: class {
 
 internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
     
-    // MARK: Internal
+    // MARK: Properties
     
     internal weak var delegate: BKCBPeripheralDelegate?
+    
+    // MARK: Initialization
     
     internal init(delegate: BKCBPeripheralDelegate) {
         self.delegate = delegate

@@ -30,6 +30,8 @@ internal func ==(lhs: BKSendDataTask, rhs: BKSendDataTask) -> Bool {
 
 internal class BKSendDataTask: Equatable {
     
+    // MARK: Properties
+    
     internal let data: NSData
     internal let destination: BKRemoteCentral
     internal let completionHandler: ((data: NSData, remoteCentral: BKRemoteCentral, error: BKPeripheral.Error?) -> Void)?
@@ -40,7 +42,7 @@ internal class BKSendDataTask: Equatable {
     }
     
     internal var lengthOfRemainingData: Int {
-        return data.length - (offset + 1)
+        return data.length - offset
     }
     
     internal var sentAllData: Bool {
@@ -55,6 +57,8 @@ internal class BKSendDataTask: Equatable {
     internal var nextPayload: NSData {
         return data.subdataWithRange(rangeForNextPayload)
     }
+    
+    // MARK: Initialization
     
     internal init(data: NSData, destination: BKRemoteCentral, completionHandler: ((data: NSData, remoteCentral: BKRemoteCentral, error: BKPeripheral.Error?) -> Void)?) {
         self.data = data
