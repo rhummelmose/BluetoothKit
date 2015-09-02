@@ -1,0 +1,596 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; settings = {ASSET_TAGS = (); }; };
+		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; settings = {ASSET_TAGS = (); }; };
+		C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		C668889F1B970123003C8DBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888911B970123003C8DBB /* Colors.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A01B970123003C8DBB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888921B970123003C8DBB /* Logger.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A11B970123003C8DBB /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888941B970123003C8DBB /* AvailabilityViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A21B970123003C8DBB /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888961B970123003C8DBB /* CentralViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A31B970123003C8DBB /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888971B970123003C8DBB /* PeripheralViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A41B970123003C8DBB /* RemotePeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A51B970123003C8DBB /* RoleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888991B970123003C8DBB /* RoleSelectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888A61B970123003C8DBB /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668889B1B970123003C8DBB /* AvailabilityView.swift */; settings = {ASSET_TAGS = (); }; };
+		C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */; };
+		C67653F61B8E2D3C00D43F8E /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C67654401B8F051C00D43F8E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67654391B8F050600D43F8E /* SnapKit.framework */; };
+		C67654411B8F051C00D43F8E /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C67654391B8F050600D43F8E /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C67A225F1B8C7D5B00CB74CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
+		C67A22601B8C7D5B00CB74CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67A22571B8C7D5B00CB74CE /* LaunchScreen.storyboard */; };
+		C6BFB2A31B96E7D500AB5CAE /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6BFB2A01B96E7C000AB5CAE /* CryptoSwift.framework */; };
+		C6BFB2A41B96E7D500AB5CAE /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6BFB2A01B96E7C000AB5CAE /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C67653F31B8E2D2B00D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C687E3981B8B496400B702D8;
+			remoteInfo = BluetoothKit;
+		};
+		C67653F71B8E2D3C00D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C687E3971B8B496400B702D8;
+			remoteInfo = BluetoothKit;
+		};
+		C67654381B8F050600D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67654311B8F050600D43F8E /* SnapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEBCC9D819CC627D0083B827;
+			remoteInfo = "SnapKit iOS";
+		};
+		C676543A1B8F050600D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67654311B8F050600D43F8E /* SnapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EECDB37A1AC0C9D4006BBC11;
+			remoteInfo = "SnapKit OSX";
+		};
+		C676543C1B8F050600D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67654311B8F050600D43F8E /* SnapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEBCC9E219CC627E0083B827;
+			remoteInfo = "SnapKit iOS Tests";
+		};
+		C676543E1B8F050600D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67654311B8F050600D43F8E /* SnapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EECDB3841AC0C9D4006BBC11;
+			remoteInfo = "SnapKit OSX Tests";
+		};
+		C67654421B8F051C00D43F8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67654311B8F050600D43F8E /* SnapKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
+			remoteInfo = "SnapKit iOS";
+		};
+		C6BFB29F1B96E7C000AB5CAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		C6BFB2A11B96E7C000AB5CAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = CryptoSwiftTests;
+		};
+		C6BFB2A51B96E7D500AB5CAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C67653F91B8E2D3C00D43F8E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C6BFB2A41B96E7D500AB5CAE /* CryptoSwift.framework in Embed Frameworks */,
+				C67653F61B8E2D3C00D43F8E /* BluetoothKit.framework in Embed Frameworks */,
+				C67654411B8F051C00D43F8E /* SnapKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+NumberOfBytes.swift"; sourceTree = "<group>"; };
+		C668888E1B970123003C8DBB /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
+		C66888901B970123003C8DBB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C66888911B970123003C8DBB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C66888921B970123003C8DBB /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		C66888941B970123003C8DBB /* AvailabilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
+		C66888961B970123003C8DBB /* CentralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralViewController.swift; sourceTree = "<group>"; };
+		C66888971B970123003C8DBB /* PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
+		C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemotePeripheralViewController.swift; sourceTree = "<group>"; };
+		C66888991B970123003C8DBB /* RoleSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleSelectionViewController.swift; sourceTree = "<group>"; };
+		C668889B1B970123003C8DBB /* AvailabilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailabilityView.swift; sourceTree = "<group>"; };
+		C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BluetoothKit.xcodeproj; path = ../BluetoothKit.xcodeproj; sourceTree = "<group>"; };
+		C67654311B8F050600D43F8E /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = ../../SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
+		C67A22401B8C7D1B00CB74CE /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C67A22561B8C7D5B00CB74CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C67A22581B8C7D5B00CB74CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C67A225B1B8C7D5B00CB74CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = Vendor/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C67A223D1B8C7D1B00CB74CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6BFB2A31B96E7D500AB5CAE /* CryptoSwift.framework in Frameworks */,
+				C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */,
+				C67654401B8F051C00D43F8E /* SnapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C668888B1B970123003C8DBB /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C668888F1B970123003C8DBB /* Global */,
+				C66888951B970123003C8DBB /* View Controllers */,
+				C668889A1B970123003C8DBB /* Views */,
+				C66888931B970123003C8DBB /* Protocols */,
+				C668888C1B970123003C8DBB /* Extensions */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		C668888C1B970123003C8DBB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */,
+				C668888E1B970123003C8DBB /* UIImage+Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C668888F1B970123003C8DBB /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				C66888901B970123003C8DBB /* AppDelegate.swift */,
+				C66888911B970123003C8DBB /* Colors.swift */,
+				C66888921B970123003C8DBB /* Logger.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		C66888931B970123003C8DBB /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C66888941B970123003C8DBB /* AvailabilityViewController.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C66888951B970123003C8DBB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C66888961B970123003C8DBB /* CentralViewController.swift */,
+				C66888971B970123003C8DBB /* PeripheralViewController.swift */,
+				C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */,
+				C66888991B970123003C8DBB /* RoleSelectionViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		C668889A1B970123003C8DBB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C668889B1B970123003C8DBB /* AvailabilityView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C67653F01B8E2D2B00D43F8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C67654321B8F050600D43F8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C67654391B8F050600D43F8E /* SnapKit.framework */,
+				C676543B1B8F050600D43F8E /* SnapKit.framework */,
+				C676543D1B8F050600D43F8E /* SnapKit iOS Tests.xctest */,
+				C676543F1B8F050600D43F8E /* SnapKit OSX Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C67A22371B8C7D1B00CB74CE = {
+			isa = PBXGroup;
+			children = (
+				C668888B1B970123003C8DBB /* Source */,
+				C67A22551B8C7D5B00CB74CE /* Resources */,
+				C67A22411B8C7D1B00CB74CE /* Products */,
+				C67A226F1B8C7DE300CB74CE /* Frameworks */,
+				C67654311B8F050600D43F8E /* SnapKit.xcodeproj */,
+				C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */,
+				C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		C67A22411B8C7D1B00CB74CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C67A22401B8C7D1B00CB74CE /* BKExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C67A22551B8C7D5B00CB74CE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C67A22561B8C7D5B00CB74CE /* Assets.xcassets */,
+				C67A22571B8C7D5B00CB74CE /* LaunchScreen.storyboard */,
+				C67A225B1B8C7D5B00CB74CE /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C67A226F1B8C7DE300CB74CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6BFB29A1B96E7C000AB5CAE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6BFB2A01B96E7C000AB5CAE /* CryptoSwift.framework */,
+				C6BFB2A21B96E7C000AB5CAE /* CryptoSwiftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C67A223F1B8C7D1B00CB74CE /* BKExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample" */;
+			buildPhases = (
+				C67A223C1B8C7D1B00CB74CE /* Sources */,
+				C67A223D1B8C7D1B00CB74CE /* Frameworks */,
+				C67A223E1B8C7D1B00CB74CE /* Resources */,
+				C67653F91B8E2D3C00D43F8E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C67653F81B8E2D3C00D43F8E /* PBXTargetDependency */,
+				C67654431B8F051C00D43F8E /* PBXTargetDependency */,
+				C6BFB2A61B96E7D500AB5CAE /* PBXTargetDependency */,
+			);
+			name = BKExample;
+			productName = BluetoothKitExample;
+			productReference = C67A22401B8C7D1B00CB74CE /* BKExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C67A22381B8C7D1B00CB74CE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
+				TargetAttributes = {
+					C67A223F1B8C7D1B00CB74CE = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = AP8VQJ559X;
+					};
+				};
+			};
+			buildConfigurationList = C67A223B1B8C7D1B00CB74CE /* Build configuration list for PBXProject "BKExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C67A22371B8C7D1B00CB74CE;
+			productRefGroup = C67A22411B8C7D1B00CB74CE /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C67653F01B8E2D2B00D43F8E /* Products */;
+					ProjectRef = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
+				},
+				{
+					ProductGroup = C6BFB29A1B96E7C000AB5CAE /* Products */;
+					ProjectRef = C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */;
+				},
+				{
+					ProductGroup = C67654321B8F050600D43F8E /* Products */;
+					ProjectRef = C67654311B8F050600D43F8E /* SnapKit.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				C67A223F1B8C7D1B00CB74CE /* BKExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BluetoothKit.framework;
+			remoteRef = C67653F31B8E2D2B00D43F8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C67654391B8F050600D43F8E /* SnapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SnapKit.framework;
+			remoteRef = C67654381B8F050600D43F8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C676543B1B8F050600D43F8E /* SnapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SnapKit.framework;
+			remoteRef = C676543A1B8F050600D43F8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C676543D1B8F050600D43F8E /* SnapKit iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SnapKit iOS Tests.xctest";
+			remoteRef = C676543C1B8F050600D43F8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C676543F1B8F050600D43F8E /* SnapKit OSX Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SnapKit OSX Tests.xctest";
+			remoteRef = C676543E1B8F050600D43F8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C6BFB2A01B96E7C000AB5CAE /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = C6BFB29F1B96E7C000AB5CAE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C6BFB2A21B96E7C000AB5CAE /* CryptoSwiftTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CryptoSwiftTests.xctest;
+			remoteRef = C6BFB2A11B96E7C000AB5CAE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C67A223E1B8C7D1B00CB74CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C67A225F1B8C7D5B00CB74CE /* Assets.xcassets in Resources */,
+				C67A22601B8C7D5B00CB74CE /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C67A223C1B8C7D1B00CB74CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C66888A11B970123003C8DBB /* AvailabilityViewController.swift in Sources */,
+				C66888A01B970123003C8DBB /* Logger.swift in Sources */,
+				C66888A61B970123003C8DBB /* AvailabilityView.swift in Sources */,
+				C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */,
+				C66888A21B970123003C8DBB /* CentralViewController.swift in Sources */,
+				C66888A31B970123003C8DBB /* PeripheralViewController.swift in Sources */,
+				C668889F1B970123003C8DBB /* Colors.swift in Sources */,
+				C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */,
+				C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */,
+				C66888A41B970123003C8DBB /* RemotePeripheralViewController.swift in Sources */,
+				C66888A51B970123003C8DBB /* RoleSelectionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C67653F81B8E2D3C00D43F8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BluetoothKit;
+			targetProxy = C67653F71B8E2D3C00D43F8E /* PBXContainerItemProxy */;
+		};
+		C67654431B8F051C00D43F8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SnapKit iOS";
+			targetProxy = C67654421B8F051C00D43F8E /* PBXContainerItemProxy */;
+		};
+		C6BFB2A61B96E7D500AB5CAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = C6BFB2A51B96E7D500AB5CAE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C67A22571B8C7D5B00CB74CE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C67A22581B8C7D5B00CB74CE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C67A22501B8C7D1B00CB74CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C67A22511B8C7D1B00CB74CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C67A22531B8C7D1B00CB74CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wallmob.BluetoothKitExample;
+				PRODUCT_NAME = BKExample;
+			};
+			name = Debug;
+		};
+		C67A22541B8C7D1B00CB74CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wallmob.BluetoothKitExample;
+				PRODUCT_NAME = BKExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C67A223B1B8C7D1B00CB74CE /* Build configuration list for PBXProject "BKExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C67A22501B8C7D1B00CB74CE /* Debug */,
+				C67A22511B8C7D1B00CB74CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C67A22531B8C7D1B00CB74CE /* Debug */,
+				C67A22541B8C7D1B00CB74CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C67A22381B8C7D1B00CB74CE /* Project object */;
+}

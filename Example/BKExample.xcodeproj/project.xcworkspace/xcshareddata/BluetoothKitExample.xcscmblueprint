@@ -1,0 +1,29 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EF50CF03AA1E23E524F182DF992B5CD2E0F67319" : 0,
+    "3AF18F9C6F5D633BAA0B3F935459E0C777C82047" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6CB29874-0E4B-46C9-8DDF-BBF70150CB72",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EF50CF03AA1E23E524F182DF992B5CD2E0F67319" : "",
+    "3AF18F9C6F5D633BAA0B3F935459E0C777C82047" : "..\/SnapKit"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "BluetoothKitExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "BluetoothKitExample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/rasmusth\/SnapKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3AF18F9C6F5D633BAA0B3F935459E0C777C82047"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/rasmusth\/BluetoothKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EF50CF03AA1E23E524F182DF992B5CD2E0F67319"
+    }
+  ]
+}
