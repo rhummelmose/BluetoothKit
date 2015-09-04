@@ -29,7 +29,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
     
     // MARK: Type Aliases
     
-    internal typealias ScanCompletionHandler = ((result: [BKRemotePeripheral]?, error: Error?) -> Void)
+    internal typealias ScanCompletionHandler = ((result: [BKDiscovery]?, error: Error?) -> Void)
     
     // MARK: Enums
     
@@ -41,10 +41,11 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
     
     // MARK: Properties
     
+    internal var configuration: BKConfiguration!
     internal var centralManager: CBCentralManager!
     private var busy = false
     private var scanHandlers: ( progressHandler: BKCentral.ScanProgressHandler?, completionHandler: ScanCompletionHandler )?
-    private var remotePeripherals = [BKRemotePeripheral]()
+    private var discoveries = [BKDiscovery]()
     private var durationTimer: NSTimer?
     
     // MARK: Internal Functions
@@ -54,11 +55,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
             try validateForActivity()
             busy = true
             scanHandlers = (progressHandler: progressHandler, completionHandler: completionHandler)
-            if let connectedRemotePeripherals = connectedRemotePeripherals() {
-                remotePeripherals += connectedRemotePeripherals
-                scanHandlers?.progressHandler?(newDiscoveries: connectedRemotePeripherals)
-            }
-            centralManager.scanForPeripheralsWithServices([ BKService.DataTransferService.identifier ], options: nil)
+            centralManager.scanForPeripheralsWithServices(configuration.serviceUUIDs, options: nil)
             durationTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "durationTimerElapsed", userInfo: nil, repeats: false)
         } catch let error {
             throw error
@@ -83,15 +80,6 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         }
     }
     
-    private func connectedRemotePeripherals() -> [BKRemotePeripheral]? {
-        var connectedRemotePeripherals: [BKRemotePeripheral]?
-        let connectedPeripherals = centralManager.retrieveConnectedPeripheralsWithServices([ BKService.DataTransferService.identifier ])
-        if !connectedPeripherals.isEmpty {
-            connectedRemotePeripherals = connectedPeripherals.map({ BKRemotePeripheral(identifier: $0.identifier, peripheral: $0) })
-        }
-        return connectedRemotePeripherals
-    }
-    
     @objc private func durationTimerElapsed() {
         endScan(nil)
     }
@@ -100,11 +88,11 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         invalidateTimer()
         centralManager.stopScan()
         let completionHandler = scanHandlers?.completionHandler
-        let remotePeripherals = self.remotePeripherals
+        let discoveries = self.discoveries
         scanHandlers = nil
-        self.remotePeripherals.removeAll()
+        self.discoveries.removeAll()
         busy = false
-        completionHandler?(result: remotePeripherals, error: error)
+        completionHandler?(result: discoveries, error: error)
     }
     
     private func invalidateTimer() {
@@ -120,10 +108,13 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         guard busy else {
             return
         }
-        if !remotePeripherals.contains({ $0.identifier.isEqual(peripheral.identifier) }) {
-            let discoveredRemotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
-            remotePeripherals.append(discoveredRemotePeripheral)
-            scanHandlers?.progressHandler?(newDiscoveries: [ discoveredRemotePeripheral ])
+        let RSSI = Int(RSSI)
+        let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+        remotePeripheral.configuration = configuration
+        let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
+        if !discoveries.contains(discovery) {
+            discoveries.append(discovery)
+            scanHandlers?.progressHandler?(newDiscoveries: [ discovery ])
         }
     }
     

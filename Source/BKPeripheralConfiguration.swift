@@ -22,36 +22,20 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
 import CoreBluetooth
 
-internal enum BKService: String {
+public class BKPeripheralConfiguration: BKConfiguration {
     
-    case DataTransferService = "BA4EE259-A10D-4D7A-AF57-53741F24DEDF"
+    // MARK: Properties
     
-    internal var identifier: CBUUID {
-        return CBUUID(string: self.rawValue)
+    public let localName: String?
+    
+    // MARK: Initialization
+    
+    public init(dataServiceUUID: NSUUID, dataServiceCharacteristicUUID: NSUUID, localName: String? = nil) {
+        self.localName = localName
+        super.init(dataServiceUUID: dataServiceUUID, dataServiceCharacteristicUUID: dataServiceCharacteristicUUID)
     }
     
-    internal enum Characteristic: String {
-        case Data = "F96C5F17-3B1A-4FA1-A904-FD076825F048"
-        var identifier: CBUUID {
-            return CBUUID(string: self.rawValue)
-        }
-    }
-    
-    internal var characteristics: [Characteristic] {
-        switch self {
-            case .DataTransferService: return [ Characteristic.Data ]
-        }
-    }
-    
-    internal var characteristicIdentifiers: [CBUUID] {
-        return characteristics.map { characteristic -> CBUUID in
-            return CBUUID(string: characteristic.rawValue)
-        }
-    }
-    
-    internal static var endOfDataMark: NSData {
-        return "EOM".dataUsingEncoding(NSUTF8StringEncoding)!
-    }
 }

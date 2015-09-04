@@ -22,26 +22,30 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import CoreBluetooth
 
-public func ==(lhs: BKScanChange, rhs: BKScanChange) -> Bool {
-    switch (lhs, rhs) {
-        case (.Insert(let lhsPeripheral), .Insert(let rhsPeripheral)): return lhsPeripheral == rhsPeripheral || lhsPeripheral == nil || rhsPeripheral == nil
-        case (.Remove(let lhsPeripheral), .Remove(let rhsPeripheral)): return lhsPeripheral == rhsPeripheral || lhsPeripheral == nil || rhsPeripheral == nil
-        default: return false
-    }
+public func ==(lhs: BKDiscovery, rhs: BKDiscovery) -> Bool {
+    return lhs.remotePeripheral == rhs.remotePeripheral
 }
 
-public enum BKScanChange: Equatable {
+public struct BKDiscovery: Equatable {
     
-    case Insert(remotePeripheral: BKRemotePeripheral?)
-    case Remove(remotePeripheral: BKRemotePeripheral?)
+    // MARK: Properties
     
-    public var remotePeripheral: BKRemotePeripheral! {
-        switch self {
-            case .Insert(let remotePeripheral): return remotePeripheral
-            case .Remove(let remotePeripheral): return remotePeripheral
-        }
+    public var localName: String? {
+        return advertisementData[CBAdvertisementDataLocalNameKey] as? String
+    }
+    
+    public let advertisementData: [String: AnyObject]
+    public let remotePeripheral: BKRemotePeripheral
+    public let RSSI: Int
+    
+    // MARK: Initialization
+    
+    public init(advertisementData: [String: AnyObject], remotePeripheral: BKRemotePeripheral, RSSI: Int) {
+        self.advertisementData = advertisementData
+        self.remotePeripheral = remotePeripheral
+        self.RSSI = RSSI
     }
     
 }

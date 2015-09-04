@@ -56,17 +56,21 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
         return BKAvailability(peripheralManagerState: peripheralManager.state)
     }
     
+    public var configuration: BKPeripheralConfiguration? {
+        return _configuration
+    }
+    
     public weak var delegate: BKPeripheralDelegate?
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
     public var connectedRemoteCentrals = [BKRemoteCentral]()
     
-    private var name: String?
+    private var _configuration: BKPeripheralConfiguration!
     private var peripheralManager: CBPeripheralManager!
     private let stateMachine = BKPeripheralStateMachine()
     private var peripheralManagerDelegate: BKCBPeripheralManagerDelegateProxy!
     private var sendDataTasks = [BKSendDataTask]()
     private var characteristicData: CBMutableCharacteristic!
-    private var service: CBMutableService!
+    private var dataService: CBMutableService!
     
     // MARK: Initialization
     
@@ -76,10 +80,10 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     
     // MARK: Public Functions
     
-    public func startWithName(name: String?) throws {
+    public func startWithConfiguration(configuration: BKPeripheralConfiguration) throws {
         do {
             try stateMachine.handleEvent(.Start)
-            self.name = name
+            _configuration = configuration
             peripheralManager = CBPeripheralManager(delegate: peripheralManagerDelegate, queue: nil, options: nil)
         } catch let error {
             throw Error.InternalError(underlyingError: error)
@@ -101,7 +105,7 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     public func stop() throws {
         do {
             try stateMachine.handleEvent(.Stop)
-            self.name = nil
+            _configuration = nil
             if peripheralManager.isAdvertising {
                 peripheralManager.stopAdvertising()
             }
@@ -134,11 +138,11 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
             availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Available)
         }
         if !peripheralManager.isAdvertising {
-            service = CBMutableService(type: BKService.DataTransferService.identifier, primary: true)
+            dataService = CBMutableService(type: _configuration.dataServiceUUID, primary: true)
             let properties: CBCharacteristicProperties = [ CBCharacteristicProperties.Read, CBCharacteristicProperties.Notify ]
-            characteristicData = CBMutableCharacteristic(type: BKService.Characteristic.Data.identifier, properties: properties, value: nil, permissions: CBAttributePermissions.Readable)
-            service.characteristics = [ characteristicData ]
-            peripheralManager.addService(service)
+            characteristicData = CBMutableCharacteristic(type: _configuration.dataServiceCharacteristicUUID, properties: properties, value: nil, permissions: CBAttributePermissions.Readable)
+            dataService.characteristics = [ characteristicData ]
+            peripheralManager.addService(dataService)
         }
     }
     
@@ -148,7 +152,7 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
         }
         let nextTask = sendDataTasks.first!
         if nextTask.sentAllData {
-            let sentEndOfDataMark = peripheralManager.updateValue(BKService.endOfDataMark, forCharacteristic: characteristicData, onSubscribedCentrals: [ nextTask.destination.central ])
+            let sentEndOfDataMark = peripheralManager.updateValue(_configuration.endOfDataMark, forCharacteristic: characteristicData, onSubscribedCentrals: [ nextTask.destination.central ])
             if (sentEndOfDataMark) {
                 sendDataTasks.removeAtIndex(sendDataTasks.indexOf(nextTask)!)
                 nextTask.completionHandler?(data: nextTask.data, remoteCentral: nextTask.destination, error: nil)
@@ -210,15 +214,17 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     }
     
     internal func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager, error: NSError?) {
-        
+
     }
     
     internal func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
-        var advertisementDictionary: [String: AnyObject] = [ CBAdvertisementDataServiceUUIDsKey: [ BKService.DataTransferService.identifier ] ]
-        if let advertisementName = name {
-            advertisementDictionary[CBAdvertisementDataLocalNameKey] = advertisementName
+        if !peripheralManager.isAdvertising {
+            var advertisementData: [String: AnyObject] = [ CBAdvertisementDataServiceUUIDsKey: _configuration.serviceUUIDs ]
+            if let localName = _configuration.localName {
+                advertisementData[CBAdvertisementDataLocalNameKey] = localName
+            }
+            peripheralManager.startAdvertising(advertisementData)
         }
-        peripheralManager.startAdvertising(advertisementDictionary)
     }
     
     internal func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {

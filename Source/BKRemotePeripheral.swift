@@ -64,6 +64,8 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
     public let identifier: NSUUID
     
     internal var peripheral: CBPeripheral?
+    internal var configuration: BKConfiguration?
+    
     private var data: NSMutableData?
     private var peripheralDelegate: BKCBPeripheralDelegateProxy!
     
@@ -86,7 +88,7 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
             peripheral(peripheral!, didDiscoverServices: nil)
             return
         }
-        peripheral?.discoverServices([ CBUUID(string: BKService.DataTransferService.rawValue) ])
+        peripheral?.discoverServices(configuration!.serviceUUIDs)
     }
     
     internal func unsubscribe() {
@@ -106,7 +108,7 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
     // MARK: Private Functions
     
     private func handleReceivedData(receivedData: NSData) {
-        if receivedData.isEqualToData(BKService.endOfDataMark) {
+        if receivedData.isEqualToData(configuration!.endOfDataMark) {
             if let finalData = data {
                 delegate?.remotePeripheral(self, didReceiveArbitraryData: finalData)
             }
@@ -131,27 +133,27 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
             for service in services {
                 if service.characteristics != nil {
                     self.peripheral(peripheral, didDiscoverCharacteristicsForService: service, error: nil)
-                    return
-                }
-                if let knownService = BKService(rawValue: service.UUID.UUIDString) {
-                    peripheral.discoverCharacteristics(knownService.characteristicIdentifiers, forService: service)
+                } else  {
+                    peripheral.discoverCharacteristics(configuration!.characteristicUUIDsForServiceUUID(service.UUID), forService: service)
                 }
             }
         }
     }
     
     internal func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
-        for characteristic in service.characteristics as [CBCharacteristic]! {
-            peripheral.setNotifyValue(true, forCharacteristic: characteristic)
+        if service.UUID == configuration!.dataServiceUUID {
+            if let dataCharacteristic = service.characteristics?.filter({ $0.UUID == configuration!.dataServiceCharacteristicUUID }).last {
+                peripheral.setNotifyValue(true, forCharacteristic: dataCharacteristic)
+            }
         }
+        // TODO: Consider what to do with characteristics from additional services.
     }
     
     internal func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if let knownCharacteristic = BKService.Characteristic(rawValue: characteristic.UUID.UUIDString) {
-            switch knownCharacteristic {
-                case .Data: handleReceivedData(characteristic.value!)
-            }
+        if characteristic.UUID == configuration!.dataServiceCharacteristicUUID {
+            handleReceivedData(characteristic.value!)
         }
+        // TODO: Consider what to do with new values for characteristics from additional services.
     }
     
 }

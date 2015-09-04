@@ -45,7 +45,7 @@ internal class BKContinousScanner {
     internal var state: BKCentral.ContinuousScanState
     private let scanner: BKScanner
     private var busy = false
-    private var maintainedRemotePeripherals = [BKRemotePeripheral]()
+    private var maintainedDiscoveries = [BKDiscovery]()
     private var inBetweenDelayTimer: NSTimer?
     private var errorHandler: ErrorHandler?
     private var stateHandler: StateHandler?
@@ -88,23 +88,23 @@ internal class BKContinousScanner {
             state = .Scanning
             stateHandler?(newState: state)
             try scanner.scanWithDuration(duration, progressHandler: { newDiscoveries in
-                let actualDiscoveries = newDiscoveries.filter({ !self.maintainedRemotePeripherals.contains($0) })
+                let actualDiscoveries = newDiscoveries.filter({ !self.maintainedDiscoveries.contains($0) })
                 if !actualDiscoveries.isEmpty {
-                    self.maintainedRemotePeripherals += actualDiscoveries
-                    let changes = actualDiscoveries.map({ BKScanChange.Insert(remotePeripheral: $0) })
-                    self.changeHandler?(changes: changes, peripherals: self.maintainedRemotePeripherals)
+                    self.maintainedDiscoveries += actualDiscoveries
+                    let changes = actualDiscoveries.map({ BKDiscoveriesChange.Insert(discovery: $0) })
+                    self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
                 }
             }, completionHandler: { result, error in
                 guard result != nil && error == nil else {
                     self.endScanning(Error.InternalError(underlyingError: error!))
                     return
                 }
-                let peripheralsToRemove = self.maintainedRemotePeripherals.filter({ !result!.contains($0) })
-                let changes = peripheralsToRemove.map({ BKScanChange.Remove(remotePeripheral: $0) })
-                for peripheralToRemove in peripheralsToRemove {
-                    self.maintainedRemotePeripherals.removeAtIndex(self.maintainedRemotePeripherals.indexOf(peripheralToRemove)!)
+                let discoveriesToRemove = self.maintainedDiscoveries.filter({ !result!.contains($0) })
+                let changes = discoveriesToRemove.map({ BKDiscoveriesChange.Remove(discovery: $0) })
+                for discoveryToRemove in discoveriesToRemove {
+                    self.maintainedDiscoveries.removeAtIndex(self.maintainedDiscoveries.indexOf(discoveryToRemove)!)
                 }
-                self.changeHandler?(changes: changes, peripherals: self.maintainedRemotePeripherals)
+                self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
                 self.state = .Waiting
                 self.stateHandler?(newState: self.state)
                 self.inBetweenDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.inBetweenDelay, target: self, selector: "inBetweenDelayTimerElapsed", userInfo: nil, repeats: false)
@@ -116,7 +116,7 @@ internal class BKContinousScanner {
     
     private func reset() {
         inBetweenDelayTimer?.invalidate()
-        maintainedRemotePeripherals.removeAll()
+        maintainedDiscoveries.removeAll()
         errorHandler = nil
         stateHandler = nil
         changeHandler = nil

@@ -71,7 +71,11 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
         do {
             peripheral.delegate = self
             peripheral.addAvailabilityObserver(self)
-            try peripheral.startWithName(NSBundle.mainBundle().infoDictionary!["CFBundleName"] as? String)
+            let dataServiceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23")!
+            let dataServiceCharacteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
+            let localName = NSBundle.mainBundle().infoDictionary!["CFBundleName"] as? String
+            let configuration = BKPeripheralConfiguration(dataServiceUUID: dataServiceUUID, dataServiceCharacteristicUUID: dataServiceCharacteristicUUID, localName: localName)
+            try peripheral.startWithConfiguration(configuration)
             Logger.log("Awaiting connections from remote centrals")
         } catch let error {
             print("Error starting: \(error)")

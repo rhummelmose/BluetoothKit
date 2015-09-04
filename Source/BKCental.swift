@@ -47,9 +47,9 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: Type Aliases
     
-    public typealias ScanProgressHandler = ((newDiscoveries: [BKRemotePeripheral]) -> Void)
-    public typealias ScanCompletionHandler = ((result: [BKRemotePeripheral]?, error: Error?) -> Void)
-    public typealias ContinuousScanChangeHandler = ((changes: [BKScanChange], peripherals: [BKRemotePeripheral]) -> Void)
+    public typealias ScanProgressHandler = ((newDiscoveries: [BKDiscovery]) -> Void)
+    public typealias ScanCompletionHandler = ((result: [BKDiscovery]?, error: Error?) -> Void)
+    public typealias ContinuousScanChangeHandler = ((changes: [BKDiscoveriesChange], discoveries: [BKDiscovery]) -> Void)
     public typealias ContinuousScanStateHandler = ((newState: ContinuousScanState) -> Void)
     public typealias ContinuousScanErrorHandler = ((error: Error) -> Void)
     public typealias ConnectCompletionHandler = ((remotePeripheral: BKRemotePeripheral, error: Error?) -> Void)
@@ -74,23 +74,36 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         return singleton
     }
     
-    public var availability: BKAvailability {
-        return BKAvailability(centralManagerState: centralManager.state)
+    public var availability: BKAvailability? {
+        if let centralManager = _centralManager {
+            return BKAvailability(centralManagerState: centralManager.state)
+        } else {
+            return nil
+        }
     }
     
     public var connectedRemotePeripherals: [BKRemotePeripheral] {
         return connectionPool.connectedRemotePeripherals
     }
     
+    public var configuration: BKConfiguration? {
+        return _configuration
+    }
+    
+    public var centralManager: CBCentralManager? {
+        return _centralManager
+    }
+    
     public weak var delegate: BKCentralDelegate?
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
     
+    private var _configuration: BKConfiguration?
     private let scanner = BKScanner()
     private var continuousScanner: BKContinousScanner!
     private let connectionPool = BKConnectionPool()
     private var centralManagerDelegate: BKCBCentralManagerDelegateProxy!
     private var stateMachine: BKCentralStateMachine!
-    private var centralManager: CBCentralManager!
+    private var _centralManager: CBCentralManager!
     
     // MARK: Initialization
     
@@ -103,10 +116,12 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: Public Functions
     
-    public func start() throws {
+    public func startWithConfiguration(configuration: BKConfiguration) throws {
         do {
             try stateMachine.handleEvent(.Start)
-            centralManager = CBCentralManager(delegate: centralManagerDelegate, queue: nil, options: nil)
+            _configuration = configuration
+            _centralManager = CBCentralManager(delegate: centralManagerDelegate, queue: nil, options: nil)
+            scanner.configuration = configuration
             scanner.centralManager = centralManager
             connectionPool.centralManager = centralManager
         } catch let error {
@@ -184,7 +199,8 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
             try stateMachine.handleEvent(.Stop)
             interrupScan()
             connectionPool.reset()
-            centralManager = nil
+            _configuration = nil
+            _centralManager = nil
         } catch let error {
             throw Error.InternalError(underlyingError: error)
         }
