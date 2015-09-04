@@ -51,9 +51,9 @@ let peripheral = BKPeripheral()
 peripheral.delegate = self
 do {
 	let serviceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23")!
-        let characteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
+	let characteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
 	let localName = "My Cool Peripheral"
-	let configuration = BKPeripheralConfiguration(dataServiceUUID: serviceUUID, dataServiceCharacteristicUUID: characteristicUUID, localName: localName)
+	let configuration = BKPeripheralConfiguration(dataServiceUUID: serviceUUID, dataServiceCharacteristicUUID: 	characteristicUUID, localName: localName)
 	try peripheral.startWithConfiguration(configuration)
 	// You are now ready for incoming connections
 } catch let error {
