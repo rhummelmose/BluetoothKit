@@ -25,13 +25,23 @@
 import Foundation
 import CoreBluetooth
 
+/**
+    Class that represents a configuration used when starting a BKCentral object.
+*/
 public class BKConfiguration {
     
     // MARK: Properties
     
+    /// The UUID for the service used to send data. This should be unique to your applications.
     public let dataServiceUUID: CBUUID
+    
+    /// The UUID for the characteristic used to send data. This should be unique to your application.
     public var dataServiceCharacteristicUUID: CBUUID
+    
+    /// Data used to indicate that no more data is coming when communicating.
     public var endOfDataMark: NSData
+    
+    /// Data used to indicate that a transfer was cancellen when communicating.
     public var dataCancelledMark: NSData
     
     internal var serviceUUIDs: [CBUUID] {
@@ -40,8 +50,8 @@ public class BKConfiguration {
     }
     
     // MARK: Initialization
-    
-    public init(dataServiceUUID: NSUUID, dataServiceCharacteristicUUID: NSUUID, additionalServices: [CBMutableService]? = nil) {
+
+    public init(dataServiceUUID: NSUUID, dataServiceCharacteristicUUID: NSUUID) {
         self.dataServiceUUID = CBUUID(NSUUID: dataServiceUUID)
         self.dataServiceCharacteristicUUID = CBUUID(NSUUID: dataServiceCharacteristicUUID)
         endOfDataMark = "EOD".dataUsingEncoding(NSUTF8StringEncoding)!

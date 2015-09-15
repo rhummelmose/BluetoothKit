@@ -32,11 +32,19 @@ public func ==(lhs: BKDiscoveriesChange, rhs: BKDiscoveriesChange) -> Bool {
     }
 }
 
+/**
+    Change in available discoveries.
+    - Insert: A new discovery.
+    - Remove: A discovery has become unavailable.
+
+    Cases without associated discoveries can be used to validate whether or not a change is and insert or a remove.
+*/
 public enum BKDiscoveriesChange: Equatable {
     
     case Insert(discovery: BKDiscovery?)
     case Remove(discovery: BKDiscovery?)
     
+    /// The discovery associated with the change.
     public var discovery: BKDiscovery! {
         switch self {
             case .Insert(let discovery): return discovery

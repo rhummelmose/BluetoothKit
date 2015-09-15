@@ -37,8 +37,6 @@ public protocol BKCentralDelegate: class {
     func central(central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
 }
 
-private let singleton = BKCentral()
-
 /**
     The class used to take the Bluetooth LE central role. The central discovers remote peripherals by scanning
     and connects to them. When a connection is established the central can receive data from the remote peripheral.
@@ -56,12 +54,24 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: Enums
     
+    /**
+        Errors that can occur when interacting with BKCentral objects.
+        - InterruptedByUnavailability(cause): Will be returned if Bluetooth ie. is turned off while performing an action.
+        - FailedToConnectDueToTimeout: The time out elapsed while attempting to connect to a peripheral.
+        - InternalError(underlyingError): Will be returned if any of the internal or private classes returns an unhandled error.
+    */
     public enum Error: ErrorType {
-        case InterruptedByUnavailability(BKUnavailabilityCause)
+        case InterruptedByUnavailability(cause: BKUnavailabilityCause)
         case FailedToConnectDueToTimeout
         case InternalError(underlyingError: ErrorType?)
     }
     
+    /**
+        Possible states returned by the ContinuousScanStateHandler.
+        - Stopped: The scan has come to a complete stop and won't start again by triggered manually.
+        - Scanning: The scan is currently active.
+        - Waiting: The scan is on hold due while waiting for the in-between delay to expire, after which it will start again.
+    */
     public enum ContinuousScanState {
         case Stopped
         case Scanning
@@ -70,10 +80,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: Properties
     
-    public class var sharedInstance: BKCentral {
-        return singleton
-    }
-    
+    /// Bluetooth LE availability, derived from the underlying CBCentralManager.
     public var availability: BKAvailability? {
         if let centralManager = _centralManager {
             return BKAvailability(centralManagerState: centralManager.state)
@@ -82,25 +89,30 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    /// All currently connected remote peripherals.
     public var connectedRemotePeripherals: [BKRemotePeripheral] {
         return connectionPool.connectedRemotePeripherals
     }
     
+    /// The configuration the BKCentral object was started with.
     public var configuration: BKConfiguration? {
         return _configuration
     }
     
-    public var centralManager: CBCentralManager? {
+    /// The delegate of the BKCentral object.
+    public weak var delegate: BKCentralDelegate?
+    
+    /// Current availability observers.
+    public var availabilityObservers = [BKWeakAvailabilityObserver]()
+    
+    private var centralManager: CBCentralManager? {
         return _centralManager
     }
     
-    public weak var delegate: BKCentralDelegate?
-    public var availabilityObservers = [BKWeakAvailabilityObserver]()
-    
-    private var _configuration: BKConfiguration?
     private let scanner = BKScanner()
-    private var continuousScanner: BKContinousScanner!
     private let connectionPool = BKConnectionPool()
+    private var _configuration: BKConfiguration?
+    private var continuousScanner: BKContinousScanner!
     private var centralManagerDelegate: BKCBCentralManagerDelegateProxy!
     private var stateMachine: BKCentralStateMachine!
     private var _centralManager: CBCentralManager!
@@ -116,6 +128,11 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: Public Functions
     
+    /**
+        Start the BKCentral object with a configuration.
+        - parameter configuration: The configuration defining which UUIDs to use when discovering peripherals.
+        - throws: Throws an InternalError if the BKCentral object is already started.
+    */
     public func startWithConfiguration(configuration: BKConfiguration) throws {
         do {
             try stateMachine.handleEvent(.Start)
@@ -129,6 +146,12 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    /**
+        Scan for peripherals for a limited duration of time.
+        - parameter duration: The number of seconds to scan for (defaults to 3).
+        - parameter progressHandler: A progress handler allowing you to react immediately when a peripheral is discovered during a scan.
+        - parameter completionHandler: A completion handler allowing you to react on the full result of discovered peripherals or an error if one occured.
+    */
     public func scanWithDuration(duration: NSTimeInterval = 3, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
         do {
             try stateMachine.handleEvent(.Scan)
@@ -147,6 +170,14 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    /**
+        Scan for peripherals for a limited duration of time continuously with an in-between delay.
+        - parameter changeHandler: A change handler allowing you to react to changes in "maintained" discovered peripherals.
+        - parameter stateHandler: A state handler allowing you to react when the scanner is started, waiting and stopped.
+        - parameter duration: The number of seconds to scan for (defaults to 3).
+        - parameter inBetweenDelay: The number of seconds to wait for, in-between scans (defaults to 3).
+        - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
+    */
     public func scanContinuouslyWithChangeHandler(changeHandler: ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: NSTimeInterval = 3, inBetweenDelay: NSTimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
         do {
             try stateMachine.handleEvent(.Scan)
@@ -163,11 +194,20 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    /**
+        Interrupts the active scan session if present.
+    */
     public func interrupScan() {
         continuousScanner.interruptScan()
         scanner.interruptScan()
     }
     
+    /**
+        Connect to a remote peripheral.
+        - parameter timeout: The number of seconds the connection attempt should continue for before failing.
+        - parameter remotePeripheral: The remote peripheral to connect to.
+        - parameter completionHandler: A completion handler allowing you to react when the connection attempt succeeded or failed.
+    */
     public func connect(timeout: NSTimeInterval = 3, remotePeripheral: BKRemotePeripheral, completionHandler: ConnectCompletionHandler) {
         do {
             try stateMachine.handleEvent(.Connect)
@@ -186,6 +226,11 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    /**
+        Disconnects a connected peripheral.
+        - parameter remotePeripheral: The peripheral to disconnect.
+        - throws: Throws an InternalError if the remote peripheral is not currently connected.
+    */
     public func disconnectRemotePeripheral(remotePeripheral: BKRemotePeripheral) throws {
         do {
             try connectionPool.disconnectRemotePeripheral(remotePeripheral)
@@ -194,6 +239,10 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         }
     }
     
+    /**
+        Stops the BKCentral object.
+        - throws: Throws an InternalError if the BKCentral object isn't already started.
+    */
     public func stop() throws {
         do {
             try stateMachine.handleEvent(.Stop)
@@ -256,7 +305,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: BKConnectionPoolDelegate
     
-    func connectionPool(connectionPool: BKConnectionPool, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
+    internal func connectionPool(connectionPool: BKConnectionPool, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
         delegate?.central(self, remotePeripheralDidDisconnect: remotePeripheral)
     }
     

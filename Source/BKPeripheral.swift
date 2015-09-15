@@ -25,13 +25,28 @@
 import Foundation
 import CoreBluetooth
 
+/**
+    The peripheral's delegate is called when asynchronous events occur.
+*/
 public protocol BKPeripheralDelegate: class {
+    /**
+        Called when a remote central connects and is ready to receive data.
+        - parameter peripheral: The peripheral object to which the remote central connected.
+        - parameter remoteCentral: The remote central that connected.
+    */
     func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral)
+    /**
+        Called when a remote central disconnects and can no longer receive data.
+        - parameter peripheral: The peripheral object from which the remote central disconnected.
+        - parameter remoteCentral: The remote central that disconnected.
+    */
     func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral)
 }
 
-private let singleton = BKPeripheral()
-
+/**
+    The class used to take the Bluetooth LE peripheral role. Peripherals can be discovered and connected to by centrals.
+    One a central has connected, the peripheral can send data to it.
+*/
 public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservable {
     
     // MARK: Type Aliases
@@ -40,28 +55,37 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     
     // MARK: Enums
     
+    /**
+        Errors that can occur while interacting with a BKPeripheral object.
+        - InterruptedByUnavailability(cause): The action failed because Bluetooth LE became or was unavailable.
+        - RemoteCentralNotConnected: The action failed because the remote central attempted to interact with, was not connected.
+        - InternalError(underlyingError): The action failed because of an internal unhandled error, described by the associated underlying error.
+    */
     public enum Error: ErrorType {
-        case InterruptedByUnavailability(BKUnavailabilityCause)
+        case InterruptedByUnavailability(cause: BKUnavailabilityCause)
         case RemoteCentralNotConnected
         case InternalError(underlyingError: ErrorType?)
     }
     
     // MARK: Properies
     
-    public class var sharedInstance: BKPeripheral {
-        return singleton
-    }
-    
+    /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
     public var availability: BKAvailability {
         return BKAvailability(peripheralManagerState: peripheralManager.state)
     }
     
+    /// The configuration that the BKPeripheral object was started with.
     public var configuration: BKPeripheralConfiguration? {
         return _configuration
     }
     
+    /// The BKPeriheral object's delegate.
     public weak var delegate: BKPeripheralDelegate?
+    
+    /// Current availability observers
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
+    
+    /// Currently connected remote centrals
     public var connectedRemoteCentrals = [BKRemoteCentral]()
     
     private var _configuration: BKPeripheralConfiguration!
@@ -80,6 +104,12 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     
     // MARK: Public Functions
     
+    /**
+        Starts the BKPeripheral object. Once started the peripheral will be discoverable and possible to connect to
+        by remote centrals, provided that Bluetooth LE is available.
+        - parameter configuration: A configuration defining the unique identifiers along with the name to be broadcasted.
+        - throws: An internal error if the BKPeripheral object was already started.
+    */
     public func startWithConfiguration(configuration: BKPeripheralConfiguration) throws {
         do {
             try stateMachine.handleEvent(.Start)
@@ -90,6 +120,12 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
         }
     }
     
+    /**
+        Sends data to a connected remote central.
+        - parameter data: The data to send.
+        - parameter remoteCentral: The destination of the data payload.
+        - parameter completionHandler: A completion handler allowing you to react in case the data failed to send or once it was sent succesfully.
+    */
     public func sendData(data: NSData, toRemoteCentral remoteCentral: BKRemoteCentral, completionHandler: SendDataCompletionHandler?) {
         guard connectedRemoteCentrals.contains(remoteCentral) else {
             completionHandler?(data: data, remoteCentral: remoteCentral, error: Error.RemoteCentralNotConnected)
@@ -102,6 +138,10 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
         }
     }
     
+    /**
+        Stops the BKPeripheral object.
+        - throws: An internal error if the peripheral object wasn't started.
+    */
     public func stop() throws {
         do {
             try stateMachine.handleEvent(.Stop)

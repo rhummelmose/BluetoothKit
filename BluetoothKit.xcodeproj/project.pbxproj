@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C66888AD1B978181003C8DBB /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AC1B978181003C8DBB /* BKDiscovery.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888AF1B984792003C8DBB /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888B11B984AB7003C8DBB /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888B01B984AB7003C8DBB /* BKPeripheralConfiguration.swift */; settings = {ASSET_TAGS = (); }; };
+		C66888AD1B978181003C8DBB /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AC1B978181003C8DBB /* BKDiscovery.swift */; };
+		C66888AF1B984792003C8DBB /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; };
+		C66888B11B984AB7003C8DBB /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888B01B984AB7003C8DBB /* BKPeripheralConfiguration.swift */; };
 		C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */; };
 		C67A22711B8C7EF300CB74CE /* BKPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22701B8C7EF300CB74CE /* BKPeripheral.swift */; };
 		C67A22731B8C80C300CB74CE /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
@@ -163,6 +163,8 @@
 		C687E38F1B8B496400B702D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
 				TargetAttributes = {

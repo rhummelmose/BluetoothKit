@@ -45,7 +45,7 @@ internal struct Logger {
     internal static func log(string: String) {
         let date = NSDate()
         let stringWithDate = "[\(loggingDateFormatter.stringFromDate(date))] \(string)"
-        print(stringWithDate)
+        print(stringWithDate, terminator: "")
         Logger.delegate?.loggerDidLogString(stringWithDate)
     }
     

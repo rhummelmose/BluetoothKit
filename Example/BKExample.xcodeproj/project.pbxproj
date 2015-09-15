@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; settings = {ASSET_TAGS = (); }; };
-		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; settings = {ASSET_TAGS = (); }; };
-		C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; settings = {ASSET_TAGS = (); }; };
-		C668889F1B970123003C8DBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888911B970123003C8DBB /* Colors.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A01B970123003C8DBB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888921B970123003C8DBB /* Logger.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A11B970123003C8DBB /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888941B970123003C8DBB /* AvailabilityViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A21B970123003C8DBB /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888961B970123003C8DBB /* CentralViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A31B970123003C8DBB /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888971B970123003C8DBB /* PeripheralViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A41B970123003C8DBB /* RemotePeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A51B970123003C8DBB /* RoleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888991B970123003C8DBB /* RoleSelectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C66888A61B970123003C8DBB /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668889B1B970123003C8DBB /* AvailabilityView.swift */; settings = {ASSET_TAGS = (); }; };
+		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
+		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
+		C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
+		C668889F1B970123003C8DBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888911B970123003C8DBB /* Colors.swift */; };
+		C66888A01B970123003C8DBB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888921B970123003C8DBB /* Logger.swift */; };
+		C66888A11B970123003C8DBB /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888941B970123003C8DBB /* AvailabilityViewController.swift */; };
+		C66888A21B970123003C8DBB /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888961B970123003C8DBB /* CentralViewController.swift */; };
+		C66888A31B970123003C8DBB /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888971B970123003C8DBB /* PeripheralViewController.swift */; };
+		C66888A41B970123003C8DBB /* RemotePeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */; };
+		C66888A51B970123003C8DBB /* RoleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888991B970123003C8DBB /* RoleSelectionViewController.swift */; };
+		C66888A61B970123003C8DBB /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668889B1B970123003C8DBB /* AvailabilityView.swift */; };
 		C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */; };
 		C67653F61B8E2D3C00D43F8E /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C67654401B8F051C00D43F8E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67654391B8F050600D43F8E /* SnapKit.framework */; };
@@ -306,6 +306,8 @@
 		C67A22381B8C7D1B00CB74CE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
 				TargetAttributes = {

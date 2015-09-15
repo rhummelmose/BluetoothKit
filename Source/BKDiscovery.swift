@@ -28,16 +28,25 @@ public func ==(lhs: BKDiscovery, rhs: BKDiscovery) -> Bool {
     return lhs.remotePeripheral == rhs.remotePeripheral
 }
 
+/**
+    A discovery made while scanning, containing a peripheral, the advertisement data and RSSI.
+*/
 public struct BKDiscovery: Equatable {
     
     // MARK: Properties
     
+    /// The advertised name derived from the advertisement data.
     public var localName: String? {
         return advertisementData[CBAdvertisementDataLocalNameKey] as? String
     }
     
+    /// The data advertised while the discovery was made.
     public let advertisementData: [String: AnyObject]
+    
+    /// The remote peripheral that was discovered.
     public let remotePeripheral: BKRemotePeripheral
+    
+    /// The [RSSI (Received signal strength indication)](https://en.wikipedia.org/wiki/Received_signal_strength_indication) value when the discovery was made.
     public let RSSI: Int
     
     // MARK: Initialization

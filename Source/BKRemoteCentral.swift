@@ -29,14 +29,19 @@ public func ==(lhs: BKRemoteCentral, rhs: BKRemoteCentral) -> Bool {
     return lhs.identifier.isEqual(rhs.identifier)
 }
 
+/**
+    A struct representing a remote peripheral.
+*/
 public struct BKRemoteCentral: Equatable {
     
     // MARK: Properties
     
-    internal let central: CBCentral
-    internal var identifier: NSUUID {
+    /// A unique identifier for the central, derived from the underlying CBCentral object.
+    public var identifier: NSUUID {
         return central.identifier
     }
+    
+    internal let central: CBCentral
     
     // MARK: Initialization
     
