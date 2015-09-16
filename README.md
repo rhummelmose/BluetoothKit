@@ -22,13 +22,52 @@ BluetoothKit tries to address the challenges this may cause by providing a much 
 - Start broadcasting with only a single function call.
 - Send any size of data to connected remote centrals without having to worry about chunking.
 
+## Requirements
+- iOS 8.0+ / OSX 10.10+
+- Xcode 7.0+
+
 ## Installation
 
 ####Cocoapods
-Coming soon.
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
+
+CocoaPods 0.38.2 is required to build BluetoothKit. It adds support for Xcode 7, Swift 2.0 and embedded frameworks. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To integrate BluetoothKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'BluetoothKit', '~> 0.2.0'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
 
 ####Carthage
-Coming soon.
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that automates the process of adding frameworks to your Cocoa application.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate BluetoothKit into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "rasmusth/BluetoothKit" ~> 0.2.0
+```
 
 ####Manual
 Add the BluetoothKit project to your existing project and add BluetoothKit as an embedded binary of your target(s).
