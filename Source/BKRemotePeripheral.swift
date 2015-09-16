@@ -73,12 +73,20 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
         if peripheral == nil {
             return .Shallow
         }
+        #if os(iOS)
         switch peripheral!.state {
-        case .Disconnected: return .Disconnected
-        case .Connecting: return .Connecting
-        case .Connected: return .Connected
-        case .Disconnecting: return .Disconnecting
+            case .Disconnected: return .Disconnected
+            case .Connecting: return .Connecting
+            case .Connected: return .Connected
+            case .Disconnecting: return .Disconnecting
         }
+        #else
+        switch peripheral!.state {
+            case .Disconnected: return .Disconnected
+            case .Connecting: return .Connecting
+            case .Connected: return .Connected
+        }
+        #endif
     }
     
     /// The name of the remote peripheral, derived from an underlying CBPeripheral object.
