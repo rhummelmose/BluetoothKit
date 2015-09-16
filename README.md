@@ -1,6 +1,10 @@
 # BluetoothKit
 Easily communicate between iOS devices using BLE.
 
+[![Build Status](https://travis-ci.org/rasmusth/BluetoothKit.svg?branch=master)](https://travis-ci.org/rasmusth/BluetoothKit)
+[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/BluetoothKit.svg)](https://img.shields.io/cocoapods/v/BluetoothKit.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 ##Background
 Apple mostly did a great job with the CoreBluetooth API, but because it encapsulated the entire Bluetooth 4.0 LE specification, it can be a lot of work to achieve simple tasks like sending data back and forth between iOS devices, without having to worry about the specification and the inner workings of the CoreBluetooth stack.
 
