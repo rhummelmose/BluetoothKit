@@ -32,7 +32,7 @@ BluetoothKit tries to address the challenges this may cause by providing a much 
 
 ## Installation
 
-####Cocoapods
+####CocoaPods
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
 CocoaPods 0.38.2 is required to build BluetoothKit. It adds support for Xcode 7, Swift 2.0 and embedded frameworks. You can install it with the following command:
