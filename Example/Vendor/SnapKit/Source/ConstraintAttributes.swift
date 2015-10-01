@@ -66,17 +66,24 @@ internal struct ConstraintAttributes: OptionSetType, BooleanType {
     internal static var CenterY: ConstraintAttributes { return self.init(512) }
     internal static var Baseline: ConstraintAttributes { return self.init(1024) }
     
-    #if os(iOS)
+    @available(iOS 8.0, *)
     internal static var FirstBaseline: ConstraintAttributes { return self.init(2048) }
+    @available(iOS 8.0, *)
     internal static var LeftMargin: ConstraintAttributes { return self.init(4096) }
+    @available(iOS 8.0, *)
     internal static var RightMargin: ConstraintAttributes { return self.init(8192) }
+    @available(iOS 8.0, *)
     internal static var TopMargin: ConstraintAttributes { return self.init(16384) }
+    @available(iOS 8.0, *)
     internal static var BottomMargin: ConstraintAttributes { return self.init(32768) }
+    @available(iOS 8.0, *)
     internal static var LeadingMargin: ConstraintAttributes { return self.init(65536) }
+    @available(iOS 8.0, *)
     internal static var TrailingMargin: ConstraintAttributes { return self.init(131072) }
+    @available(iOS 8.0, *)
     internal static var CenterXWithinMargins: ConstraintAttributes { return self.init(262144) }
+    @available(iOS 8.0, *)
     internal static var CenterYWithinMargins: ConstraintAttributes { return self.init(524288) }
-    #endif
     
     // aggregates
     
@@ -84,10 +91,11 @@ internal struct ConstraintAttributes: OptionSetType, BooleanType {
     internal static var Size: ConstraintAttributes { return self.init(192) }
     internal static var Center: ConstraintAttributes { return self.init(768) }
     
-    #if os(iOS)
+    @available(iOS 8.0, *)
     internal static var Margins: ConstraintAttributes { return self.init(61440) }
+    
+    @available(iOS 8.0, *)
     internal static var CenterWithinMargins: ConstraintAttributes { return self.init(786432) }
-    #endif
     
     internal var layoutAttributes:[NSLayoutAttribute] {
         var attrs = [NSLayoutAttribute]()
@@ -124,7 +132,13 @@ internal struct ConstraintAttributes: OptionSetType, BooleanType {
         if (self.contains(ConstraintAttributes.Baseline)) {
             attrs.append(.Baseline)
         }
+        
         #if os(iOS)
+        #if SNAPKIT_DEPLOYMENT_LEGACY
+        guard #available(iOS 8.0, *) else {
+            return attrs
+        }
+        #endif
         if (self.contains(ConstraintAttributes.FirstBaseline)) {
             attrs.append(.FirstBaseline)
         }
@@ -153,6 +167,7 @@ internal struct ConstraintAttributes: OptionSetType, BooleanType {
             attrs.append(.CenterYWithinMargins)
         }
         #endif
+        
         return attrs
     }
 }
