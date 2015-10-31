@@ -73,7 +73,7 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
         if peripheral == nil {
             return .Shallow
         }
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         switch peripheral!.state {
             case .Disconnected: return .Disconnected
             case .Connecting: return .Connecting
