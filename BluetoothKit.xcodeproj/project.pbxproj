@@ -10,7 +10,7 @@
 		C64CDDFB1BE4C56C00F72549 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
 		C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
 		C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
-		C64CDDFF1BE4C56C00F72549 /* BKCental.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCental.swift */; };
+		C64CDDFF1BE4C56C00F72549 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCentral.swift */; };
 		C64CDE001BE4C56C00F72549 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */; };
 		C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; };
 		C64CDE021BE4C56C00F72549 /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */; };
@@ -33,7 +33,7 @@
 		C67A227C1B8CECB400CB74CE /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */; };
 		C687E3B21B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
 		C687E3B31B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
-		C687E3B41B8B4A2800B702D8 /* BKCental.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCental.swift */; };
+		C687E3B41B8B4A2800B702D8 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCentral.swift */; };
 		C687E3B71B8B4A2800B702D8 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */; };
 		C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */; };
 		C687E3B91B8B4A2800B702D8 /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */; };
@@ -45,7 +45,7 @@
 		C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
 		C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
 		C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */; };
-		C6ED86CD1BA955DB00C9B70B /* BKCental.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCental.swift */; };
+		C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCentral.swift */; };
 		C6ED86CE1BA955DB00C9B70B /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */; };
 		C6ED86CF1BA955DB00C9B70B /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; };
 		C6ED86D01BA955DB00C9B70B /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */; };
@@ -79,7 +79,7 @@
 		C687E3A41B8B4A2800B702D8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBCentralManagerDelegateProxy.swift; sourceTree = "<group>"; };
 		C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBPeripheralDelegateProxy.swift; sourceTree = "<group>"; };
-		C687E3A81B8B4A2800B702D8 /* BKCental.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCental.swift; sourceTree = "<group>"; };
+		C687E3A81B8B4A2800B702D8 /* BKCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCentral.swift; sourceTree = "<group>"; };
 		C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCentralStateMachine.swift; sourceTree = "<group>"; };
 		C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemotePeripheral.swift; sourceTree = "<group>"; };
 		C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConnectionPool.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */,
 				C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */,
 				C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */,
-				C687E3A81B8B4A2800B702D8 /* BKCental.swift */,
+				C687E3A81B8B4A2800B702D8 /* BKCentral.swift */,
 				C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */,
 				C66888AE1B984792003C8DBB /* BKConfiguration.swift */,
 				C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */,
@@ -334,7 +334,7 @@
 				C64CDDFB1BE4C56C00F72549 /* BKAvailability.swift in Sources */,
 				C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
 				C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */,
-				C64CDDFF1BE4C56C00F72549 /* BKCental.swift in Sources */,
+				C64CDDFF1BE4C56C00F72549 /* BKCentral.swift in Sources */,
 				C64CDE001BE4C56C00F72549 /* BKCentralStateMachine.swift in Sources */,
 				C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */,
 				C64CDE021BE4C56C00F72549 /* BKConnectionAttempt.swift in Sources */,
@@ -363,7 +363,7 @@
 				C67A22731B8C80C300CB74CE /* BKAvailability.swift in Sources */,
 				C687E3B31B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C67A227C1B8CECB400CB74CE /* BKSendDataTask.swift in Sources */,
-				C687E3B41B8B4A2800B702D8 /* BKCental.swift in Sources */,
+				C687E3B41B8B4A2800B702D8 /* BKCentral.swift in Sources */,
 				C67A227A1B8CDC7D00CB74CE /* BKRemoteCentral.swift in Sources */,
 				C66888AF1B984792003C8DBB /* BKConfiguration.swift in Sources */,
 				C67A22711B8C7EF300CB74CE /* BKPeripheral.swift in Sources */,
@@ -381,7 +381,7 @@
 				C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */,
 				C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
-				C6ED86CD1BA955DB00C9B70B /* BKCental.swift in Sources */,
+				C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */,
 				C6ED86CE1BA955DB00C9B70B /* BKCentralStateMachine.swift in Sources */,
 				C6ED86CF1BA955DB00C9B70B /* BKConfiguration.swift in Sources */,
 				C6ED86D01BA955DB00C9B70B /* BKConnectionAttempt.swift in Sources */,
