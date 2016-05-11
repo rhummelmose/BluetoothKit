@@ -56,7 +56,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
             busy = true
             scanHandlers = (progressHandler: progressHandler, completionHandler: completionHandler)
             centralManager.scanForPeripheralsWithServices(configuration.serviceUUIDs, options: nil)
-            durationTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "durationTimerElapsed", userInfo: nil, repeats: false)
+            durationTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: #selector(BKScanner.durationTimerElapsed), userInfo: nil, repeats: false)
         } catch let error {
             throw error
         }
