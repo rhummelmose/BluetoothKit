@@ -84,7 +84,7 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     }
     
     internal func remotePeripheral(remotePeripheral: BKRemotePeripheral, didSendArbitraryData data: NSData) {
-        Logger.log("Received data of length: \(data.length) with hash: \(data.md5()!.hexString)")
+        Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
     }
     
     // MARK: LoggerDelegate

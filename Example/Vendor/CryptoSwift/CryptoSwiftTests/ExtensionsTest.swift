@@ -5,10 +5,8 @@
 //  Created by Marcin Krzyzanowski on 15/08/14.
 //  Copyright (c) 2014 Marcin Krzyzanowski. All rights reserved.
 //
-
-import Foundation
 import XCTest
-import CryptoSwift
+@testable import CryptoSwift
 
 final class ExtensionsTest: XCTestCase {
 
@@ -76,6 +74,31 @@ final class ExtensionsTest: XCTestCase {
         XCTAssert(iii &<< 1 == iii << 1, "shift left failed")
         XCTAssert(iii &<< 8 == iii << 8, "shift left failed")
         XCTAssert((iii &<< 32) == 0, "shift left failed")
-
     }
+    
+    func testtoUInt32Array() {
+        let chunk:ArraySlice<UInt8> = [1,1,1,7,2,3,4,5]
+        let result = toUInt32Array(chunk)
+        
+        XCTAssert(result.count == 2, "Invalid conversion")
+        XCTAssert(result[0] == 117506305, "Invalid conversion")
+        XCTAssert(result[1] == 84148994, "Invalid conversion")
+    }
+
+    func test_NSData_init() {
+        let data = NSData(bytes: [0x01, 0x02, 0x03])
+        XCTAssert(data.length == 3, "Invalid data")
+    }
+
+    func test_String_encrypt_base64() {
+        let encryptedBase64 = try! "my secret string".encrypt(AES(key: "secret0key000000", iv: "0123456789012345")).toBase64()
+        XCTAssertEqual(encryptedBase64, "aPf/i9th9iX+vf49eR7PYk2q7S5xmm3jkRLejgzHNJs=")
+    }
+
+    func test_String_decrypt_base64() {
+        let encryptedBase64 = "aPf/i9th9iX+vf49eR7PYk2q7S5xmm3jkRLejgzHNJs="
+        let decrypted = try! encryptedBase64.decryptBase64ToString(AES(key: "secret0key000000", iv: "0123456789012345"))
+        XCTAssertEqual(decrypted, "my secret string")
+    }
+
 }
