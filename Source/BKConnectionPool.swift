@@ -67,7 +67,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         guard remotePeripheral.peripheral != nil else {
             throw Error.NoSupportForPeripheralEntitiesWithoutPeripheralsYet
         }
-        let timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: "timerElapsed:", userInfo: nil, repeats: false)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: #selector(BKConnectionPool.timerElapsed(_:)), userInfo: nil, repeats: false)
         remotePeripheral.prepareForConnection()
         connectionAttempts.append(BKConnectionAttempt(remotePeripheral: remotePeripheral, timer: timer, completionHandler: completionHandler))
         centralManager!.connectPeripheral(remotePeripheral.peripheral!, options: nil)
