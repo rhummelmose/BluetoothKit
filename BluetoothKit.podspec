@@ -10,4 +10,11 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.osx.deployment_target = '10.10'
   s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
+  s.tvos.exclude_files = 'Source/BKCBPeripheralManagerDelegateProxy.swift',
+                         'Source/BKPeripheral.swift',
+                         'Source/BKPeripheralConfiguration.swift',
+                         'Source/BKPeripheralStateMachine.swift',
+                         'Source/BKRemoteCentral.swift',
+                         'Source/BKSendDataTask.swift'
 end
