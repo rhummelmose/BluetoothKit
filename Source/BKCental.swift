@@ -197,7 +197,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     /**
         Interrupts the active scan session if present.
     */
-    public func interrupScan() {
+    public func interruptScan() {
         continuousScanner.interruptScan()
         scanner.interruptScan()
     }
@@ -246,7 +246,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     public func stop() throws {
         do {
             try stateMachine.handleEvent(.Stop)
-            interrupScan()
+            interruptScan()
             connectionPool.reset()
             _configuration = nil
             _centralManager = nil
