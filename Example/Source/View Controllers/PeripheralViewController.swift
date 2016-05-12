@@ -35,7 +35,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     
     private let peripheral = BKPeripheral()
     private let logTextView = UITextView()
-    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.Plain, target: self, action: "sendData") }()
+    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PeripheralViewController.sendData)) }()
     
     // MARK: UIViewController Life Cycle
     
@@ -87,7 +87,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     @objc private func sendData() {
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
         let data = NSData.dataWithNumberOfBytes(numberOfBytesToSend)
-        Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5()!.hexString)")
+        Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5().toHexString())")
         for remoteCentral in peripheral.connectedRemoteCentrals {
             Logger.log("Sending to \(remoteCentral)")
             peripheral.sendData(data, toRemoteCentral: remoteCentral) { data, remoteCentral, error in

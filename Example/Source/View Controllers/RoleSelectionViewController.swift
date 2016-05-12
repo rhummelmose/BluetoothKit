@@ -51,7 +51,7 @@ internal class RoleSelectionViewController: UIViewController {
         for button in buttons {
             button.setBackgroundImage(UIImage.imageWithColor(buttonColor), forState: UIControlState.Normal)
             button.titleLabel?.font = UIFont.boldSystemFontOfSize(30)
-            button.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             view.addSubview(button)
         }
     }

@@ -63,7 +63,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
     }
     
     internal override func viewWillDisappear(animated: Bool) {
-        central.interrupScan()
+        central.interruptScan()
     }
     
     deinit {
@@ -158,7 +158,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         if availability == .Available {
             scan()
         } else {
-            central.interrupScan()
+            central.interruptScan()
         }
     }
     

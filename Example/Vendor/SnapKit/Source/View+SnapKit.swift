@@ -21,7 +21,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 public typealias View = UIView
 #else
@@ -123,20 +123,20 @@ public extension View {
     /**
         Prepares constraints with a `ConstraintMaker` and returns the made constraints but does not install them.
 
-        :param: closure that will be passed the `ConstraintMaker` to make the constraints with
+        - parameter closure that will be passed the `ConstraintMaker` to make the constraints with
         
-        :returns: the constraints made
+        - returns: the constraints made
     */
-    public func snp_prepareConstraints(file: String = __FILE__, line: UInt = __LINE__, @noescape closure: (make: ConstraintMaker) -> Void) -> [Constraint] {
+    public func snp_prepareConstraints(file: String = #file, line: UInt = #line, @noescape closure: (make: ConstraintMaker) -> Void) -> [Constraint] {
         return ConstraintMaker.prepareConstraints(view: self, file: file, line: line, closure: closure)
     }
     
     /**
         Makes constraints with a `ConstraintMaker` and installs them along side any previous made constraints.
         
-        :param: closure that will be passed the `ConstraintMaker` to make the constraints with
+        - parameter closure that will be passed the `ConstraintMaker` to make the constraints with
     */
-    public func snp_makeConstraints(file: String = __FILE__, line: UInt = __LINE__, @noescape closure: (make: ConstraintMaker) -> Void) -> Void {
+    public func snp_makeConstraints(file: String = #file, line: UInt = #line, @noescape closure: (make: ConstraintMaker) -> Void) -> Void {
         ConstraintMaker.makeConstraints(view: self, file: file, line: line, closure: closure)
     }
     
@@ -145,18 +145,18 @@ public extension View {
     
         For constraints to match only the constant can be updated.
     
-        :param: closure that will be passed the `ConstraintMaker` to update the constraints with
+        - parameter closure that will be passed the `ConstraintMaker` to update the constraints with
     */
-    public func snp_updateConstraints(file: String = __FILE__, line: UInt = __LINE__, @noescape closure: (make: ConstraintMaker) -> Void) -> Void {
+    public func snp_updateConstraints(file: String = #file, line: UInt = #line, @noescape closure: (make: ConstraintMaker) -> Void) -> Void {
         ConstraintMaker.updateConstraints(view: self, file: file, line: line, closure: closure)
     }
     
     /**
         Remakes constraints with a `ConstraintMaker` that will first remove all previously made constraints and make and install new ones.
     
-        :param: closure that will be passed the `ConstraintMaker` to remake the constraints with
+        - parameter closure that will be passed the `ConstraintMaker` to remake the constraints with
     */
-    public func snp_remakeConstraints(file: String = __FILE__, line: UInt = __LINE__, @noescape closure: (make: ConstraintMaker) -> Void) -> Void {
+    public func snp_remakeConstraints(file: String = #file, line: UInt = #line, @noescape closure: (make: ConstraintMaker) -> Void) -> Void {
         ConstraintMaker.remakeConstraints(view: self, file: file, line: line, closure: closure)
     }
     

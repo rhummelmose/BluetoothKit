@@ -5,10 +5,8 @@
 //  Created by Marcin Krzyzanowski on 27/12/14.
 //  Copyright (c) 2014 Marcin Krzyzanowski. All rights reserved.
 //
-
-import Foundation
 import XCTest
-import CryptoSwift
+@testable import CryptoSwift
 
 final class PaddingTests: XCTestCase {
     func testPKCS7_0() {

@@ -1,4 +1,4 @@
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 typealias View = UIView
 extension View {
@@ -30,7 +30,7 @@ class SnapKitTests: XCTestCase {
     }
     
     func testLayoutGuideConstraints() {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         let vc = UIViewController()
         vc.view = UIView(frame: CGRectMake(0, 0, 300, 300))
         
@@ -227,4 +227,68 @@ class SnapKitTests: XCTestCase {
         
     }
     
+    func testSizeConstraints() {
+        let view = View()
+        self.container.addSubview(view)
+        
+        view.snp_makeConstraints { (make) -> Void in
+            make.size.equalTo(CGSizeMake(50, 50))
+            make.left.top.equalTo(self.container)
+        }
+        
+        XCTAssertEqual(view.snp_constraints.count, 2, "Should have 2 constraints")
+        
+        XCTAssertEqual(self.container.snp_constraints.count, 2, "Should have 2 constraints")
+        
+        
+        let constraints = view.snp_constraints as! [NSLayoutConstraint]
+        
+        XCTAssertEqual(constraints[0].firstAttribute, NSLayoutAttribute.Width, "Should be width")
+        XCTAssertEqual(constraints[1].firstAttribute, NSLayoutAttribute.Height, "Should be height")
+        XCTAssertEqual(constraints[0].constant, 50, "Should be 50")
+        XCTAssertEqual(constraints[1].constant, 50, "Should be 50")
+    }
+    
+    func testConstraintIdentifier() {
+        let identifier = "Test-Identifier"
+        let view = View()
+        self.container.addSubview(view)
+        
+        view.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.container.snp_top).labeled(identifier)
+        }
+        
+        let constraints = container.snp_constraints as! [NSLayoutConstraint]
+        XCTAssertEqual(constraints[0].identifier, identifier, "Identifier should be 'Test'")
+    }
+    
+    func testSuperviewConstraints() {
+        let view = View()
+        
+        container.addSubview(view)
+        
+        view.snp_makeConstraints { (make) -> Void in
+            make.top.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(10)
+        }
+        
+        XCTAssertEqual(container.snp_constraints.count, 2, "Should have 2 constraints")
+        
+        let constraints = container.snp_constraints as! [NSLayoutConstraint]
+        
+        XCTAssertEqual(constraints[0].firstAttribute, NSLayoutAttribute.Top, "Should be top")
+        XCTAssertEqual(constraints[1].firstAttribute, NSLayoutAttribute.Bottom, "Should be bottom")
+        
+        XCTAssertEqual(constraints[0].secondAttribute, NSLayoutAttribute.Top, "Should be top")
+        XCTAssertEqual(constraints[1].secondAttribute, NSLayoutAttribute.Bottom, "Should be bottom")
+        
+        XCTAssertEqual(constraints[0].firstItem as? View, view, "Should be added subview")
+        XCTAssertEqual(constraints[1].firstItem as? View, view, "Should be added subview")
+        
+        XCTAssertEqual(constraints[0].secondItem as? View, container, "Should be containerView")
+        XCTAssertEqual(constraints[1].secondItem as? View, container, "Should be containerView")
+        
+        XCTAssertEqual(constraints[0].constant, 10, "Should be 10")
+        XCTAssertEqual(constraints[1].constant, -10, "Should be 10")
+    }
 }

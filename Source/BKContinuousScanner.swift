@@ -107,7 +107,7 @@ internal class BKContinousScanner {
                 self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
                 self.state = .Waiting
                 self.stateHandler?(newState: self.state)
-                self.inBetweenDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.inBetweenDelay, target: self, selector: "inBetweenDelayTimerElapsed", userInfo: nil, repeats: false)
+                self.inBetweenDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.inBetweenDelay, target: self, selector: #selector(BKContinousScanner.inBetweenDelayTimerElapsed), userInfo: nil, repeats: false)
             })
         } catch let error {
             endScanning(Error.InternalError(underlyingError: error))
