@@ -30,7 +30,7 @@ internal protocol RemotePeripheralViewControllerDelegate: class {
     func remotePeripheralViewControllerWillDismiss(remotePeripheralViewController: RemotePeripheralViewController)
 }
 
-internal class RemotePeripheralViewController: UIViewController, BKRemotePeripheralDelegate, LoggerDelegate {
+internal class RemotePeripheralViewController: UIViewController, BKRemotePeripheralDelegate, BKRemotePeerDelegate, LoggerDelegate {
     
     // MARK: Properties
     
@@ -83,7 +83,7 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
         Logger.log("Name change: \(name)")
     }
     
-    internal func remotePeripheral(remotePeripheral: BKRemotePeripheral, didSendArbitraryData data: NSData) {
+    internal func remotePeer(remotePeer: BKRemotePeer, didSendArbitraryData data: NSData) {
         Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
     }
     

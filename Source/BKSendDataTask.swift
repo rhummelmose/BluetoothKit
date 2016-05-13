@@ -33,12 +33,12 @@ internal class BKSendDataTask: Equatable {
     // MARK: Properties
     
     internal let data: NSData
-    internal let destination: BKRemoteCentral
-    internal let completionHandler: ((data: NSData, remoteCentral: BKRemoteCentral, error: BKPeripheral.Error?) -> Void)?
+    internal let destination: BKRemotePeer
+    internal let completionHandler: BKSendDataCompletionHandler?
     internal var offset = 0
     
     internal var maximumPayloadLength: Int {
-        return destination.central.maximumUpdateValueLength
+        return destination.maximumUpdateValueLength
     }
     
     internal var lengthOfRemainingData: Int {
@@ -60,7 +60,7 @@ internal class BKSendDataTask: Equatable {
     
     // MARK: Initialization
     
-    internal init(data: NSData, destination: BKRemoteCentral, completionHandler: ((data: NSData, remoteCentral: BKRemoteCentral, error: BKPeripheral.Error?) -> Void)?) {
+    internal init(data: NSData, destination: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
         self.data = data
         self.destination = destination
         self.completionHandler = completionHandler

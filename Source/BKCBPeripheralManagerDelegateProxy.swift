@@ -31,6 +31,7 @@ internal protocol BKCBPeripheralManagerDelegate: class {
     func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?)
     func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic)
     func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic)
+    func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest])
     func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager)
 }
 
@@ -83,6 +84,7 @@ internal class BKCBPeripheralManagerDelegateProxy: NSObject, CBPeripheralManager
     
     internal func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
         // print("peripheralManager: \(peripheral) didReceiveWriteRequests: \(requests)")
+        delegate?.peripheralManager(peripheral, didReceiveWriteRequests: requests)
     }
     
     internal func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager) {

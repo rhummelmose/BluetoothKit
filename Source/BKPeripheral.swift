@@ -47,25 +47,7 @@ public protocol BKPeripheralDelegate: class {
     The class used to take the Bluetooth LE peripheral role. Peripherals can be discovered and connected to by centrals.
     One a central has connected, the peripheral can send data to it.
 */
-public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservable {
-    
-    // MARK: Type Aliases
-    
-    public typealias SendDataCompletionHandler = ((data: NSData, remoteCentral: BKRemoteCentral, error: Error?) -> Void)
-    
-    // MARK: Enums
-    
-    /**
-        Errors that can occur while interacting with a BKPeripheral object.
-        - InterruptedByUnavailability(cause): The action failed because Bluetooth LE became or was unavailable.
-        - RemoteCentralNotConnected: The action failed because the remote central attempted to interact with, was not connected.
-        - InternalError(underlyingError): The action failed because of an internal unhandled error, described by the associated underlying error.
-    */
-    public enum Error: ErrorType {
-        case InterruptedByUnavailability(cause: BKUnavailabilityCause)
-        case RemoteCentralNotConnected
-        case InternalError(underlyingError: ErrorType?)
-    }
+public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailabilityObservable {
     
     // MARK: Properies
     
@@ -75,7 +57,7 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     }
     
     /// The configuration that the BKPeripheral object was started with.
-    public var configuration: BKPeripheralConfiguration? {
+    override public var configuration: BKPeripheralConfiguration? {
         return _configuration
     }
     
@@ -85,20 +67,17 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     /// Current availability observers
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
     
-    /// Currently connected remote centrals
-    public var connectedRemoteCentrals = [BKRemoteCentral]()
-    
     private var _configuration: BKPeripheralConfiguration!
     private var peripheralManager: CBPeripheralManager!
     private let stateMachine = BKPeripheralStateMachine()
     private var peripheralManagerDelegate: BKCBPeripheralManagerDelegateProxy!
-    private var sendDataTasks = [BKSendDataTask]()
     private var characteristicData: CBMutableCharacteristic!
     private var dataService: CBMutableService!
     
     // MARK: Initialization
     
-    public init() {
+    public override init() {
+        super.init()
         peripheralManagerDelegate = BKCBPeripheralManagerDelegateProxy(delegate: self)
     }
     
@@ -116,25 +95,7 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
             _configuration = configuration
             peripheralManager = CBPeripheralManager(delegate: peripheralManagerDelegate, queue: nil, options: nil)
         } catch let error {
-            throw Error.InternalError(underlyingError: error)
-        }
-    }
-    
-    /**
-        Sends data to a connected remote central.
-        - parameter data: The data to send.
-        - parameter remoteCentral: The destination of the data payload.
-        - parameter completionHandler: A completion handler allowing you to react in case the data failed to send or once it was sent succesfully.
-    */
-    public func sendData(data: NSData, toRemoteCentral remoteCentral: BKRemoteCentral, completionHandler: SendDataCompletionHandler?) {
-        guard connectedRemoteCentrals.contains(remoteCentral) else {
-            completionHandler?(data: data, remoteCentral: remoteCentral, error: Error.RemoteCentralNotConnected)
-            return
-        }
-        let sendDataTask = BKSendDataTask(data: data, destination: remoteCentral, completionHandler: completionHandler)
-        sendDataTasks.append(sendDataTask)
-        if sendDataTasks.count == 1 {
-            processSendDataTasks()
+            throw BKError.InternalError(underlyingError: error)
         }
     }
     
@@ -152,7 +113,7 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
             peripheralManager.removeAllServices()
             peripheralManager = nil
         } catch let error {
-            throw Error.InternalError(underlyingError: error)
+            throw BKError.InternalError(underlyingError: error)
         }
     }
     
@@ -160,8 +121,10 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     
     private func setUnavailable(cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
         if oldCause == nil {
-            for remoteCentral in connectedRemoteCentrals {
-                handleDisconnectForRemoteCentral(remoteCentral)
+            for remotePeer in connectedRemotePeers {
+                if let remoteCentral = remotePeer as? BKRemoteCentral {
+                    handleDisconnectForRemoteCentral(remoteCentral)
+                }
             }
             for availabilityObserver in availabilityObservers {
                 availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Unavailable(cause: cause))
@@ -186,41 +149,16 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
         }
     }
     
-    private func processSendDataTasks() {
-        guard sendDataTasks.count > 0 else {
-            return
+    internal override func sendData(data: NSData, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
+        guard let remoteCentral = remotePeer as? BKRemoteCentral else {
+            return false
         }
-        let nextTask = sendDataTasks.first!
-        if nextTask.sentAllData {
-            let sentEndOfDataMark = peripheralManager.updateValue(_configuration.endOfDataMark, forCharacteristic: characteristicData, onSubscribedCentrals: [ nextTask.destination.central ])
-            if (sentEndOfDataMark) {
-                sendDataTasks.removeAtIndex(sendDataTasks.indexOf(nextTask)!)
-                nextTask.completionHandler?(data: nextTask.data, remoteCentral: nextTask.destination, error: nil)
-                processSendDataTasks()
-            } else {
-                return
-            }
-        }
-        let nextPayload = nextTask.nextPayload
-        let sentNextPayload = peripheralManager.updateValue(nextPayload, forCharacteristic: characteristicData, onSubscribedCentrals: [ nextTask.destination.central ])
-        if sentNextPayload {
-            nextTask.offset += nextPayload.length
-            processSendDataTasks()
-        } else {
-            return
-        }
-    }
-    
-    private func failSendDataTasksForRemoteCentral(remoteCentral: BKRemoteCentral) {
-        for sendDataTask in sendDataTasks.filter({ $0.destination == remoteCentral }) {
-            sendDataTasks.removeAtIndex(sendDataTasks.indexOf(sendDataTask)!)
-            sendDataTask.completionHandler?(data: sendDataTask.data, remoteCentral: sendDataTask.destination, error: .RemoteCentralNotConnected)
-        }
+        return peripheralManager.updateValue(_configuration.endOfDataMark, forCharacteristic: characteristicData, onSubscribedCentrals: [ remoteCentral.central ])
     }
     
     private func handleDisconnectForRemoteCentral(remoteCentral: BKRemoteCentral) {
-        failSendDataTasksForRemoteCentral(remoteCentral)
-        connectedRemoteCentrals.removeAtIndex(connectedRemoteCentrals.indexOf(remoteCentral)!)
+        failSendDataTasksForRemotePeer(remoteCentral)
+        connectedRemotePeers.removeAtIndex(connectedRemotePeers.indexOf(remoteCentral)!)
         delegate?.peripheral(self, remoteCentralDidDisconnect: remoteCentral)
     }
     
@@ -269,13 +207,26 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     
     internal func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
         let remoteCentral = BKRemoteCentral(central: central)
-        connectedRemoteCentrals.append(remoteCentral)
+        remoteCentral.configuration = configuration
+        connectedRemotePeers.append(remoteCentral)
         delegate?.peripheral(self, remoteCentralDidConnect: remoteCentral)
     }
     
     internal func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
-        if let remoteCentral = connectedRemoteCentrals.filter({ $0.central.identifier.isEqual(central.identifier) }).last {
+        if let remoteCentral = connectedRemotePeers.filter({ $0.identifier.isEqual(central.identifier) }).last as? BKRemoteCentral {
             handleDisconnectForRemoteCentral(remoteCentral)
+        }
+    }
+    
+    func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
+        for writeRequest in requests {
+            guard writeRequest.characteristic.UUID == characteristicData.UUID else {
+                continue
+            }
+            guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last), remoteCentral = remotePeer as? BKRemoteCentral, data = writeRequest.value else {
+                continue
+            }
+            remoteCentral.handleReceivedData(data)
         }
     }
     

@@ -25,28 +25,24 @@
 import Foundation
 import CoreBluetooth
 
-public func ==(lhs: BKRemoteCentral, rhs: BKRemoteCentral) -> Bool {
-    return lhs.identifier.isEqual(rhs.identifier)
-}
-
 /**
     A struct representing a remote peripheral.
 */
-public struct BKRemoteCentral: Equatable {
+public class BKRemoteCentral: BKRemotePeer {
     
     // MARK: Properties
     
-    /// A unique identifier for the central, derived from the underlying CBCentral object.
-    public var identifier: NSUUID {
-        return central.identifier
-    }
-    
     internal let central: CBCentral
+    
+    override internal var maximumUpdateValueLength: Int {
+        return central.maximumUpdateValueLength
+    }
     
     // MARK: Initialization
     
     internal init(central: CBCentral) {
         self.central = central
+        super.init(identifier: central.identifier)
     }
     
 }

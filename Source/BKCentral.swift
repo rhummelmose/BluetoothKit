@@ -41,30 +41,18 @@ public protocol BKCentralDelegate: class {
     The class used to take the Bluetooth LE central role. The central discovers remote peripherals by scanning
     and connects to them. When a connection is established the central can receive data from the remote peripheral.
 */
-public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate, BKAvailabilityObservable {
+public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate, BKAvailabilityObservable {
     
     // MARK: Type Aliases
     
     public typealias ScanProgressHandler = ((newDiscoveries: [BKDiscovery]) -> Void)
-    public typealias ScanCompletionHandler = ((result: [BKDiscovery]?, error: Error?) -> Void)
+    public typealias ScanCompletionHandler = ((result: [BKDiscovery]?, error: BKError?) -> Void)
     public typealias ContinuousScanChangeHandler = ((changes: [BKDiscoveriesChange], discoveries: [BKDiscovery]) -> Void)
     public typealias ContinuousScanStateHandler = ((newState: ContinuousScanState) -> Void)
-    public typealias ContinuousScanErrorHandler = ((error: Error) -> Void)
-    public typealias ConnectCompletionHandler = ((remotePeripheral: BKRemotePeripheral, error: Error?) -> Void)
+    public typealias ContinuousScanErrorHandler = ((error: BKError) -> Void)
+    public typealias ConnectCompletionHandler = ((remotePeripheral: BKRemotePeripheral, error: BKError?) -> Void)
     
     // MARK: Enums
-    
-    /**
-        Errors that can occur when interacting with BKCentral objects.
-        - InterruptedByUnavailability(cause): Will be returned if Bluetooth ie. is turned off while performing an action.
-        - FailedToConnectDueToTimeout: The time out elapsed while attempting to connect to a peripheral.
-        - InternalError(underlyingError): Will be returned if any of the internal or private classes returns an unhandled error.
-    */
-    public enum Error: ErrorType {
-        case InterruptedByUnavailability(cause: BKUnavailabilityCause)
-        case FailedToConnectDueToTimeout
-        case InternalError(underlyingError: ErrorType?)
-    }
     
     /**
         Possible states returned by the ContinuousScanStateHandler.
@@ -94,8 +82,8 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         return connectionPool.connectedRemotePeripherals
     }
     
-    /// The configuration the BKCentral object was started with.
-    public var configuration: BKConfiguration? {
+    
+    override public var configuration: BKConfiguration? {
         return _configuration
     }
     
@@ -119,7 +107,8 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
     
     // MARK: Initialization
     
-    public init() {
+    public override init() {
+        super.init()
         centralManagerDelegate = BKCBCentralManagerDelegateProxy(stateDelegate: self, discoveryDelegate: scanner, connectionDelegate: connectionPool)
         stateMachine = BKCentralStateMachine()
         connectionPool.delegate = self;
@@ -142,7 +131,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
             scanner.centralManager = centralManager
             connectionPool.centralManager = centralManager
         } catch let error {
-            throw Error.InternalError(underlyingError: error)
+            throw BKError.InternalError(underlyingError: error)
         }
     }
     
@@ -156,7 +145,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         do {
             try stateMachine.handleEvent(.Scan)
             try scanner.scanWithDuration(duration, progressHandler: progressHandler) { result, error in
-                var returnError: Error?
+                var returnError: BKError?
                 if error == nil {
                     try! self.stateMachine.handleEvent(.SetAvailable)
                 } else {
@@ -212,7 +201,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         do {
             try stateMachine.handleEvent(.Connect)
             try connectionPool.connectWithTimeout(timeout, remotePeripheral: remotePeripheral) { remotePeripheral, error in
-                var returnError: Error?
+                var returnError: BKError?
                 if error == nil {
                     try! self.stateMachine.handleEvent(.SetAvailable)
                 } else {
@@ -235,7 +224,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
         do {
             try connectionPool.disconnectRemotePeripheral(remotePeripheral)
         } catch let error {
-            throw Error.InternalError(underlyingError: error)
+            throw BKError.InternalError(underlyingError: error)
         }
     }
     
@@ -251,7 +240,7 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
             _configuration = nil
             _centralManager = nil
         } catch let error {
-            throw Error.InternalError(underlyingError: error)
+            throw BKError.InternalError(underlyingError: error)
         }
     }
     
@@ -269,6 +258,14 @@ public class BKCentral: BKCBCentralManagerStateDelegate, BKConnectionPoolDelegat
                 availabilityObserver.availabilityObserver?.availabilityObserver(self, unavailabilityCauseDidChange: cause)
             }
         }
+    }
+    
+    internal override func sendData(data: NSData, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
+        guard let remotePeripheral = remotePeer as? BKRemotePeripheral, peripheral = remotePeripheral.peripheral, characteristic = remotePeripheral.characteristicData else {
+            return false
+        }
+        peripheral.writeValue(data, forCharacteristic: characteristic, type: .WithoutResponse)
+        return true
     }
     
     // MARK: BKCBCentralManagerStateDelegate

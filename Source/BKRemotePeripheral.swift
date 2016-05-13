@@ -35,22 +35,12 @@ public protocol BKRemotePeripheralDelegate: class {
         - parameter name: The new name.
     */
     func remotePeripheral(remotePeripheral: BKRemotePeripheral, didUpdateName name: String)
-    /**
-        Called when the remote peripheral sent data.
-        - parameter remotePeripheral: The remote peripheral that sent the data.
-        - parameter data: The data it sent.
-    */
-    func remotePeripheral(remotePeripheral: BKRemotePeripheral, didSendArbitraryData data: NSData)
-}
-
-public func ==(lhs: BKRemotePeripheral, rhs: BKRemotePeripheral) -> Bool {
-    return lhs.identifier.UUIDString == rhs.identifier.UUIDString
 }
 
 /**
     Class to represent a remote peripheral that can be connected to by BKCentral objects.
 */
-public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
+public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
     
     // MARK: Enums
     
@@ -95,29 +85,32 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
     }
     
     /// The remote peripheral's delegate.
-    public weak var delegate: BKRemotePeripheralDelegate?
+    public weak var peripheralDelegate: BKRemotePeripheralDelegate?
     
-    /// The unique identifier of the remote peripheral object.
-    public let identifier: NSUUID
+    override internal var maximumUpdateValueLength: Int {
+        guard #available(iOS 9, *), let peripheral = peripheral else {
+            return super.maximumUpdateValueLength
+        }
+        return peripheral.maximumWriteValueLengthForType(.WithoutResponse)
+    }
     
+    internal var characteristicData: CBCharacteristic?
     internal var peripheral: CBPeripheral?
-    internal var configuration: BKConfiguration?
     
-    private var data: NSMutableData?
-    private var peripheralDelegate: BKCBPeripheralDelegateProxy!
+    private var peripheralDelegateProxy: BKCBPeripheralDelegateProxy!
     
     // MARK: Initialization
     
     public init(identifier: NSUUID, peripheral: CBPeripheral?) {
-        self.identifier = identifier
-        self.peripheralDelegate = BKCBPeripheralDelegateProxy(delegate: self)
+        super.init(identifier: identifier)
+        self.peripheralDelegateProxy = BKCBPeripheralDelegateProxy(delegate: self)
         self.peripheral = peripheral
     }
     
     // MARK: Internal Functions
     
     internal func prepareForConnection() {
-        peripheral?.delegate = peripheralDelegate
+        peripheral?.delegate = peripheralDelegateProxy
     }
     
     internal func discoverServices() {
@@ -142,27 +135,10 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
         }
     }
     
-    // MARK: Private Functions
-    
-    private func handleReceivedData(receivedData: NSData) {
-        if receivedData.isEqualToData(configuration!.endOfDataMark) {
-            if let finalData = data {
-                delegate?.remotePeripheral(self, didSendArbitraryData: finalData)
-            }
-            data = nil
-            return
-        }
-        if let existingData = data {
-            existingData.appendData(receivedData)
-            return
-        }
-        data = NSMutableData(data: receivedData)
-    }
-    
     // MARK: BKCBPeripheralDelegate
     
     internal func peripheralDidUpdateName(peripheral: CBPeripheral) {
-        delegate?.remotePeripheral(self, didUpdateName: name!)
+        peripheralDelegate?.remotePeripheral(self, didUpdateName: name!)
     }
     
     internal func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
@@ -180,6 +156,7 @@ public class BKRemotePeripheral: BKCBPeripheralDelegate, Equatable {
     internal func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
         if service.UUID == configuration!.dataServiceUUID {
             if let dataCharacteristic = service.characteristics?.filter({ $0.UUID == configuration!.dataServiceCharacteristicUUID }).last {
+                characteristicData = dataCharacteristic
                 peripheral.setNotifyValue(true, forCharacteristic: dataCharacteristic)
             }
         }
