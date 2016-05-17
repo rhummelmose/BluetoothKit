@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'BluetoothKit'
-  s.version  = '0.2.1'
+  s.version  = '0.3.0'
   s.license  = { :type => 'MIT' }
   s.homepage = 'https://github.com/rasmusth/BluetoothKit'
   s.authors  = { 'Rasmus Taulborg Hummelmose' => 'rasmus@hummelmose.dk' }
@@ -15,6 +15,5 @@ Pod::Spec.new do |s|
                          'Source/BKPeripheral.swift',
                          'Source/BKPeripheralConfiguration.swift',
                          'Source/BKPeripheralStateMachine.swift',
-                         'Source/BKRemoteCentral.swift',
-                         'Source/BKSendDataTask.swift'
+                         'Source/BKRemoteCentral.swift'
 end

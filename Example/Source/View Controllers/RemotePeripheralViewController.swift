@@ -63,7 +63,9 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
         Logger.delegate = self
         view.addSubview(logTextView)
         view.backgroundColor = UIColor.whiteColor()
-        logTextView.editable = false
+        #if os(iOS)
+            logTextView.editable = false
+        #endif
         logTextView.alwaysBounceVertical = true
         applyConstraints()
         Logger.log("Awaiting data from peripheral")

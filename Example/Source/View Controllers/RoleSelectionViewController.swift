@@ -43,6 +43,9 @@ internal class RoleSelectionViewController: UIViewController {
         peripheralButton.setTitle("Peripheral", forState: UIControlState.Normal)
         preparedButtons([ centralButton, peripheralButton ], andAddThemToView: view)
         applyConstraints()
+        #if os(tvOS)
+            peripheralButton.enabled = false
+        #endif
     }
     
     // MARK: Functions
@@ -51,7 +54,12 @@ internal class RoleSelectionViewController: UIViewController {
         for button in buttons {
             button.setBackgroundImage(UIImage.imageWithColor(buttonColor), forState: UIControlState.Normal)
             button.titleLabel?.font = UIFont.boldSystemFontOfSize(30)
-            button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            #if os(iOS)
+                button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            #elseif os(tvOS)
+                button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.PrimaryActionTriggered)
+            #endif
+            
             view.addSubview(button)
         }
     }
@@ -76,7 +84,9 @@ internal class RoleSelectionViewController: UIViewController {
         if button == centralButton {
             navigationController?.pushViewController(CentralViewController(), animated: true)
         } else if button == peripheralButton {
-            navigationController?.pushViewController(PeripheralViewController(), animated: true)
+            #if os(iOS)
+                navigationController?.pushViewController(PeripheralViewController(), animated: true)
+            #endif
         }
     }
     
