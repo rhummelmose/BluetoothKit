@@ -91,7 +91,11 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         guard #available(iOS 9, *), let peripheral = peripheral else {
             return super.maximumUpdateValueLength
         }
-        return peripheral.maximumWriteValueLengthForType(.WithoutResponse)
+        #if os(OSX)
+            return super.maximumUpdateValueLength
+        #else
+            return peripheral.maximumWriteValueLengthForType(.WithoutResponse)
+        #endif
     }
     
     internal var characteristicData: CBCharacteristic?
