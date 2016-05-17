@@ -26,7 +26,7 @@ import Foundation
 import CoreBluetooth
 
 /**
-    A struct representing a remote peripheral.
+    Representation of a remote central.
 */
 public class BKRemoteCentral: BKRemotePeer {
     

@@ -78,10 +78,6 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     }
     
     /// All currently connected remote peripherals.
-    public override var connectedRemotePeers: [BKRemotePeer] {
-        return connectedRemotePeripherals
-    }
-    
     public var connectedRemotePeripherals: [BKRemotePeripheral] {
         return connectionPool.connectedRemotePeripherals
     }
@@ -95,6 +91,10 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     
     /// Current availability observers.
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
+    
+    internal override var connectedRemotePeers: [BKRemotePeer] {
+        return connectedRemotePeripherals
+    }
     
     private var centralManager: CBCentralManager? {
         return _centralManager

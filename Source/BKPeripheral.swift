@@ -67,6 +67,16 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     /// Current availability observers
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
     
+    /// Currently connected remote centrals
+    public var connectedRemoteCentrals: [BKRemoteCentral] {
+        return connectedRemotePeers.flatMap({
+            guard let remoteCentral = $0 as? BKRemoteCentral else {
+                return nil
+            }
+            return remoteCentral
+        })
+    }
+    
     private var _configuration: BKPeripheralConfiguration!
     private var peripheralManager: CBPeripheralManager!
     private let stateMachine = BKPeripheralStateMachine()

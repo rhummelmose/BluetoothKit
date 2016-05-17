@@ -12,16 +12,14 @@ public typealias BKSendDataCompletionHandler = ((data: NSData, remotePeer: BKRem
 
 public class BKPeer {
     
-    /// Currently connected remote peers
-    public var connectedRemotePeers: [BKRemotePeer] {
-        return _connectedRemotePeers
-    }
-    
     /// The configuration the BKCentral object was started with.
     public var configuration: BKConfiguration? {
         return nil
     }
     
+    internal var connectedRemotePeers: [BKRemotePeer] {
+        return _connectedRemotePeers
+    }
     internal var _connectedRemotePeers: [BKRemotePeer] = []
     internal var sendDataTasks: [BKSendDataTask] = []
     

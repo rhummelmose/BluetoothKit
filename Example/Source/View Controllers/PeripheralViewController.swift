@@ -83,7 +83,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     }
     
     private func refreshControls() {
-        sendDataBarButtonItem.enabled = peripheral.connectedRemotePeers.count > 0
+        sendDataBarButtonItem.enabled = peripheral.connectedRemoteCentrals.count > 0
     }
     
     // MARK: Target Actions
@@ -92,7 +92,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
         let data = NSData.dataWithNumberOfBytes(numberOfBytesToSend)
         Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5().toHexString())")
-        for remoteCentral in peripheral.connectedRemotePeers {
+        for remoteCentral in peripheral.connectedRemoteCentrals {
             Logger.log("Sending to \(remoteCentral)")
             peripheral.sendData(data, toRemotePeer: remoteCentral) { data, remoteCentral, error in
                 guard error == nil else {
