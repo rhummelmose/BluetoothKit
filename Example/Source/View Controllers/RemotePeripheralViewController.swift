@@ -35,16 +35,20 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     // MARK: Properties
     
     internal weak var delegate: RemotePeripheralViewControllerDelegate?
+    internal let central: BKCentral
     internal let remotePeripheral: BKRemotePeripheral
     
     private let logTextView = UITextView()
+    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(RemotePeripheralViewController.sendData)) }()
     
     // MARK: Initialization
     
-    internal init(remotePeripheral: BKRemotePeripheral) {
+    internal init(central: BKCentral, remotePeripheral: BKRemotePeripheral) {
+        self.central = central
         self.remotePeripheral = remotePeripheral
         super.init(nibName: nil, bundle: nil)
-        self.remotePeripheral.delegate = self
+        remotePeripheral.delegate = self
+        remotePeripheral.peripheralDelegate = self
     }
 
     internal required init?(coder aDecoder: NSCoder) {
@@ -55,6 +59,7 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     
     internal override func viewDidLoad() {
         navigationItem.title = remotePeripheral.name
+        navigationItem.rightBarButtonItem = sendDataBarButtonItem
         Logger.delegate = self
         view.addSubview(logTextView)
         view.backgroundColor = UIColor.whiteColor()
@@ -85,6 +90,22 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     
     internal func remotePeer(remotePeer: BKRemotePeer, didSendArbitraryData data: NSData) {
         Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
+    }
+    
+    // MARK: Target Actions
+    
+    @objc private func sendData() {
+        let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
+        let data = NSData.dataWithNumberOfBytes(numberOfBytesToSend)
+        Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5().toHexString())")
+        Logger.log("Sending to \(remotePeripheral)")
+        central.sendData(data, toRemotePeer: remotePeripheral) { data, remotePeripheral, error in
+            guard error == nil else {
+                Logger.log("Failed sending to \(remotePeripheral)")
+                return
+            }
+            Logger.log("Sent to \(remotePeripheral)")
+        }
     }
     
     // MARK: LoggerDelegate

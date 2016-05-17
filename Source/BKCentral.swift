@@ -78,10 +78,13 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     }
     
     /// All currently connected remote peripherals.
+    public override var connectedRemotePeers: [BKRemotePeer] {
+        return connectedRemotePeripherals
+    }
+    
     public var connectedRemotePeripherals: [BKRemotePeripheral] {
         return connectionPool.connectedRemotePeripherals
     }
-    
     
     override public var configuration: BKConfiguration? {
         return _configuration

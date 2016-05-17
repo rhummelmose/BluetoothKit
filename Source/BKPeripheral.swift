@@ -142,8 +142,9 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         }
         if !peripheralManager.isAdvertising {
             dataService = CBMutableService(type: _configuration.dataServiceUUID, primary: true)
-            let properties: CBCharacteristicProperties = [ CBCharacteristicProperties.Read, CBCharacteristicProperties.Notify ]
-            characteristicData = CBMutableCharacteristic(type: _configuration.dataServiceCharacteristicUUID, properties: properties, value: nil, permissions: CBAttributePermissions.Readable)
+            let properties: CBCharacteristicProperties = [ .Read, .Notify, .WriteWithoutResponse, .Write ]
+            let permissions: CBAttributePermissions = [ .Readable, .Writeable ]
+            characteristicData = CBMutableCharacteristic(type: _configuration.dataServiceCharacteristicUUID, properties: properties, value: nil, permissions: permissions)
             dataService.characteristics = [ characteristicData ]
             peripheralManager.addService(dataService)
         }
@@ -153,12 +154,12 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         guard let remoteCentral = remotePeer as? BKRemoteCentral else {
             return false
         }
-        return peripheralManager.updateValue(_configuration.endOfDataMark, forCharacteristic: characteristicData, onSubscribedCentrals: [ remoteCentral.central ])
+        return peripheralManager.updateValue(data, forCharacteristic: characteristicData, onSubscribedCentrals: [ remoteCentral.central ])
     }
     
     private func handleDisconnectForRemoteCentral(remoteCentral: BKRemoteCentral) {
         failSendDataTasksForRemotePeer(remoteCentral)
-        connectedRemotePeers.removeAtIndex(connectedRemotePeers.indexOf(remoteCentral)!)
+        _connectedRemotePeers.removeAtIndex(connectedRemotePeers.indexOf(remoteCentral)!)
         delegate?.peripheral(self, remoteCentralDidDisconnect: remoteCentral)
     }
     
@@ -208,7 +209,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     internal func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
         let remoteCentral = BKRemoteCentral(central: central)
         remoteCentral.configuration = configuration
-        connectedRemotePeers.append(remoteCentral)
+        _connectedRemotePeers.append(remoteCentral)
         delegate?.peripheral(self, remoteCentralDidConnect: remoteCentral)
     }
     

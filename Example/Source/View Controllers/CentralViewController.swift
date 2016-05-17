@@ -145,7 +145,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
                 return
             }
-            let remotePeripheralViewController = RemotePeripheralViewController(remotePeripheral: remotePeripheral)
+            let remotePeripheralViewController = RemotePeripheralViewController(central: self.central, remotePeripheral: remotePeripheral)
             remotePeripheralViewController.delegate = self
             self.navigationController?.pushViewController(remotePeripheralViewController, animated: true)
         }

@@ -27,7 +27,7 @@ import SnapKit
 import BluetoothKit
 import CryptoSwift
 
-internal class PeripheralViewController: UIViewController, AvailabilityViewController, BKPeripheralDelegate, LoggerDelegate {
+internal class PeripheralViewController: UIViewController, AvailabilityViewController, BKPeripheralDelegate, LoggerDelegate, BKRemotePeerDelegate {
     
     // MARK: Properties
     
@@ -82,6 +82,10 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
         }
     }
     
+    private func refreshControls() {
+        sendDataBarButtonItem.enabled = peripheral.connectedRemotePeers.count > 0
+    }
+    
     // MARK: Target Actions
     
     @objc private func sendData() {
@@ -104,12 +108,19 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     
     internal func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral) {
         Logger.log("Remote central did connect: \(remoteCentral)")
-        sendDataBarButtonItem.enabled = true
+        remoteCentral.delegate = self
+        refreshControls()
     }
     
     internal func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral) {
         Logger.log("Remote central did disconnect: \(remoteCentral)")
-        sendDataBarButtonItem.enabled = false
+        refreshControls()
+    }
+    
+    // MARK: BKRemotePeerDelegate
+    
+    func remotePeer(remotePeer: BKRemotePeer, didSendArbitraryData data: NSData) {
+        Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
     }
     
     // MARK: LoggerDelegate
