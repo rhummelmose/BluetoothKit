@@ -26,7 +26,7 @@ import UIKit
 import BluetoothKit
 
 internal class AvailabilityView: UIView, BKAvailabilityObserver {
-    
+
     // Properties
 
     private let offset = 10
@@ -34,11 +34,11 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
     private let borderView = UIView()
     private let contentView = UIView()
     private let statusLabel = UILabel()
-    
+
     // Initialization
-    
+
     internal init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         backgroundColor = Colors.lightGrey
         addSubview(borderView)
         addSubview(contentView)
@@ -53,9 +53,9 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
     internal required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
-    
+
     // MARK: Functions
-    
+
     private func applyConstraints() {
         borderView.snp_makeConstraints { make in
             make.top.leading.trailing.equalTo(self)
@@ -70,13 +70,13 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
             make.bottom.trailing.equalTo(contentView).offset(-offset)
         }
     }
-    
+
     private func attributedStringForAvailability(availability: BKAvailability?) -> NSAttributedString {
         let leadingText = "Bluetooth: "
         let trailingText = availabilityLabelTrailingTextForAvailability(availability)
         let string = leadingText + trailingText as NSString
         let attributedString = NSMutableAttributedString(string: string as String)
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(14), range: NSMakeRange(0, string.length))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(14), range: NSRange(location: 0, length: string.length))
         attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: string.rangeOfString(leadingText))
         if let availability = availability {
             switch availability {
@@ -86,7 +86,7 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
         }
         return attributedString
     }
-    
+
     private func availabilityLabelTrailingTextForAvailability(availability: BKAvailability?) -> String {
         if let availability = availability {
             switch availability {
@@ -101,15 +101,15 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
             return "Unknown"
         }
     }
-    
+
     // MARK: BKAvailabilityObserver
-    
+
     internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         statusLabel.attributedText = attributedStringForAvailability(availability)
     }
-    
+
     internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
         statusLabel.attributedText = attributedStringForAvailability(.Unavailable(cause: unavailabilityCause))
     }
-    
+
 }

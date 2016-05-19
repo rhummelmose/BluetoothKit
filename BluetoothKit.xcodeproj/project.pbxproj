@@ -245,10 +245,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C687E3A01B8B496400B702D8 /* Build configuration list for PBXNativeTarget "BluetoothKit iOS" */;
 			buildPhases = (
+				C69063981CECA84C00EF67A3 /* SwiftLint Autocorrect */,
 				C687E3931B8B496400B702D8 /* Sources */,
 				C687E3941B8B496400B702D8 /* Frameworks */,
 				C687E3951B8B496400B702D8 /* Headers */,
 				C687E3961B8B496400B702D8 /* Resources */,
+				C69063971CECA83B00EF67A3 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -341,6 +343,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C69063971CECA83B00EF67A3 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\nswiftlint\nelse\necho \"Download SwiftLint: https://github.com/realm/SwiftLint\"\nfi";
+		};
+		C69063981CECA84C00EF67A3 /* SwiftLint Autocorrect */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Autocorrect";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\nswiftlint autocorrect --path Source\nelse\necho \"Download SwiftLint: https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C64CDDEE1BE4C46A00F72549 /* Sources */ = {

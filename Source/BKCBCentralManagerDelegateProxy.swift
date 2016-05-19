@@ -40,40 +40,40 @@ internal protocol BKCBCentralManagerConnectionDelegate: class {
 }
 
 internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelegate {
-    
+
     // MARK: Initialization
-    
+
     internal init(stateDelegate: BKCBCentralManagerStateDelegate, discoveryDelegate: BKCBCentralManagerDiscoveryDelegate, connectionDelegate: BKCBCentralManagerConnectionDelegate) {
         self.stateDelegate = stateDelegate
         self.discoveryDelegate = discoveryDelegate
         self.connectionDelegate = connectionDelegate
         super.init()
     }
-    
+
     // MARK: Properties
-    
+
     internal weak var stateDelegate: BKCBCentralManagerStateDelegate?
     internal weak var discoveryDelegate: BKCBCentralManagerDiscoveryDelegate?
     internal weak var connectionDelegate: BKCBCentralManagerConnectionDelegate?
-    
+
     // MARK: CBCentralManagerDelegate
-    
+
     internal func centralManagerDidUpdateState(central: CBCentralManager) {
         stateDelegate?.centralManagerDidUpdateState(central)
     }
-    
+
     internal func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         discoveryDelegate?.centralManager(central, didDiscoverPeripheral: peripheral, advertisementData: advertisementData, RSSI: RSSI)
     }
-    
+
     internal func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         connectionDelegate?.centralManager(central, didConnectPeripheral: peripheral)
     }
-    
+
     internal func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         connectionDelegate?.centralManager(central, didFailToConnectPeripheral: peripheral, error: error)
     }
-    
+
     internal func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         connectionDelegate?.centralManager(central, didDisconnectPeripheral: peripheral, error: error)
     }

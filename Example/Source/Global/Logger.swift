@@ -29,24 +29,24 @@ internal protocol LoggerDelegate: class {
 }
 
 internal struct Logger {
-    
+
     // MARK: Properties
-    
+
     internal static weak var delegate: LoggerDelegate?
-    
+
     internal static let loggingDateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSS"
         return formatter
     }()
-    
+
     // MARK: Functions
-    
+
     internal static func log(string: String) {
         let date = NSDate()
         let stringWithDate = "[\(loggingDateFormatter.stringFromDate(date))] \(string)"
         print(stringWithDate, terminator: "")
         Logger.delegate?.loggerDidLogString(stringWithDate)
     }
-    
+
 }

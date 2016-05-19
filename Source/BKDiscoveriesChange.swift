@@ -24,7 +24,7 @@
 
 import Foundation
 
-public func ==(lhs: BKDiscoveriesChange, rhs: BKDiscoveriesChange) -> Bool {
+public func == (lhs: BKDiscoveriesChange, rhs: BKDiscoveriesChange) -> Bool {
     switch (lhs, rhs) {
         case (.Insert(let lhsDiscovery), .Insert(let rhsDiscovery)): return lhsDiscovery == rhsDiscovery || lhsDiscovery == nil || rhsDiscovery == nil
         case (.Remove(let lhsDiscovery), .Remove(let rhsDiscovery)): return lhsDiscovery == rhsDiscovery || lhsDiscovery == nil || rhsDiscovery == nil
@@ -40,10 +40,10 @@ public func ==(lhs: BKDiscoveriesChange, rhs: BKDiscoveriesChange) -> Bool {
     Cases without associated discoveries can be used to validate whether or not a change is and insert or a remove.
 */
 public enum BKDiscoveriesChange: Equatable {
-    
+
     case Insert(discovery: BKDiscovery?)
     case Remove(discovery: BKDiscovery?)
-    
+
     /// The discovery associated with the change.
     public var discovery: BKDiscovery! {
         switch self {
@@ -51,5 +51,5 @@ public enum BKDiscoveriesChange: Equatable {
             case .Remove(let discovery): return discovery
         }
     }
-    
+
 }

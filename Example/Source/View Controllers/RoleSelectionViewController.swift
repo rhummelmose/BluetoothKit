@@ -26,16 +26,16 @@ import UIKit
 import SnapKit
 
 internal class RoleSelectionViewController: UIViewController {
-    
+
     // MARK: Properties
-    
+
     private let offset = CGFloat(20)
     private let buttonColor = Colors.darkBlue
     private let centralButton = UIButton(type: UIButtonType.Custom)
     private let peripheralButton = UIButton(type: UIButtonType.Custom)
-    
+
     // MARK: UIViewController Life Cycle
-    
+
     internal override func viewDidLoad() {
         navigationItem.title = "Select Role"
         view.backgroundColor = UIColor.whiteColor()
@@ -47,10 +47,10 @@ internal class RoleSelectionViewController: UIViewController {
             peripheralButton.enabled = false
         #endif
     }
-    
+
     // MARK: Functions
-    
-    private func preparedButtons(buttons:[UIButton], andAddThemToView view: UIView) {
+
+    private func preparedButtons(buttons: [UIButton], andAddThemToView view: UIView) {
         for button in buttons {
             button.setBackgroundImage(UIImage.imageWithColor(buttonColor), forState: UIControlState.Normal)
             button.titleLabel?.font = UIFont.boldSystemFontOfSize(30)
@@ -59,11 +59,11 @@ internal class RoleSelectionViewController: UIViewController {
             #elseif os(tvOS)
                 button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.PrimaryActionTriggered)
             #endif
-            
+
             view.addSubview(button)
         }
     }
-    
+
     private func applyConstraints() {
         centralButton.snp_makeConstraints { make in
             make.top.equalTo(snp_topLayoutGuideBottom).offset(offset)
@@ -77,9 +77,9 @@ internal class RoleSelectionViewController: UIViewController {
             make.bottom.equalTo(view).offset(-offset)
         }
     }
-    
+
     // MARK: Target Actions
-    
+
     @objc private func buttonTapped(button: UIButton) {
         if button == centralButton {
             navigationController?.pushViewController(CentralViewController(), animated: true)
@@ -89,5 +89,5 @@ internal class RoleSelectionViewController: UIViewController {
             #endif
         }
     }
-    
+
 }

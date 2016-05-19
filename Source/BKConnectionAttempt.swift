@@ -24,20 +24,20 @@
 
 import Foundation
 
-internal func ==(lhs: BKConnectionAttempt, rhs: BKConnectionAttempt) -> Bool {
+internal func == (lhs: BKConnectionAttempt, rhs: BKConnectionAttempt) -> Bool {
     return lhs.remotePeripheral.identifier.isEqual(rhs.remotePeripheral.identifier)
 }
 
 internal class BKConnectionAttempt: Equatable {
-    
+
     // MARK: Properties
-    
+
     internal let timer: NSTimer
     internal let remotePeripheral: BKRemotePeripheral
     internal let completionHandler: ((peripheralEntity: BKRemotePeripheral, error: BKConnectionPool.Error?) -> Void)
-    
+
     // MARK: Initialization
-    
+
     internal init(remotePeripheral: BKRemotePeripheral, timer: NSTimer, completionHandler: ((peripheralEntity: BKRemotePeripheral, error: BKConnectionPool.Error?) -> Void)) {
         self.remotePeripheral = remotePeripheral
         self.timer = timer

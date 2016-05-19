@@ -32,15 +32,15 @@ internal protocol AvailabilityViewController: class, BKAvailabilityObserver {
 }
 
 internal extension AvailabilityViewController where Self: UIViewController {
-    
+
     // MARK: Properties
-    
+
     internal var heightForAvailabilityView: CGFloat {
         return CGFloat(45)
     }
-    
+
     // MARK: Functions
-    
+
     internal func applyAvailabilityView() {
         view.addSubview(availabilityView)
         availabilityView.snp_makeConstraints { make in
@@ -48,13 +48,13 @@ internal extension AvailabilityViewController where Self: UIViewController {
             make.height.equalTo(heightForAvailabilityView)
         }
     }
-    
+
     // MARK: BKAvailabilityObserver
-    
+
     internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         availabilityView.availabilityObserver(availabilityObservable, availabilityDidChange: availability)
     }
-    
+
     internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
         availabilityView.availabilityObserver(availabilityObservable, unavailabilityCauseDidChange: unavailabilityCause)
     }

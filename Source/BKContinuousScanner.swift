@@ -25,23 +25,23 @@
 import Foundation
 
 internal class BKContinousScanner {
-    
+
     // MARK: Type Aliases
-    
+
     internal typealias ErrorHandler = ((error: Error) -> Void)
     internal typealias StateHandler = BKCentral.ContinuousScanStateHandler
     internal typealias ChangeHandler = BKCentral.ContinuousScanChangeHandler
-    
+
     // MARK: Enums
-    
+
     internal enum Error: ErrorType {
         case Busy
         case Interrupted
         case InternalError(underlyingError: ErrorType)
     }
-    
+
     // MARK: Properties
-    
+
     internal var state: BKCentral.ContinuousScanState
     private let scanner: BKScanner
     private var busy = false
@@ -52,16 +52,16 @@ internal class BKContinousScanner {
     private var changeHandler: ChangeHandler?
     private var duration: NSTimeInterval!
     private var inBetweenDelay: NSTimeInterval!
-    
+
     // MARK: Initialization
-    
+
     internal init(scanner: BKScanner) {
         self.scanner = scanner
         state = .Stopped
     }
-    
+
     // MARK Internal Functions
-    
+
     internal func scanContinuouslyWithChangeHandler(changeHandler: ChangeHandler, stateHandler: StateHandler? = nil, duration: NSTimeInterval = 3, inBetweenDelay: NSTimeInterval = 3, errorHandler: ErrorHandler?) {
         guard !busy else {
             errorHandler?(error: .Busy)
@@ -75,14 +75,14 @@ internal class BKContinousScanner {
         self.changeHandler = changeHandler
         scan()
     }
-    
+
     internal func interruptScan() {
         scanner.interruptScan()
         endScanning(.Interrupted)
     }
-    
+
     // MARK: Private Functions
-    
+
     private func scan() {
         do {
             state = .Scanning
@@ -113,7 +113,7 @@ internal class BKContinousScanner {
             endScanning(Error.InternalError(underlyingError: error))
         }
     }
-    
+
     private func reset() {
         inBetweenDelayTimer?.invalidate()
         maintainedDiscoveries.removeAll()
@@ -121,7 +121,7 @@ internal class BKContinousScanner {
         stateHandler = nil
         changeHandler = nil
     }
-    
+
     private func endScanning(error: Error?) {
         busy = false
         state = .Stopped
@@ -133,7 +133,7 @@ internal class BKContinousScanner {
             errorHandler?(error: error)
         }
     }
-    
+
     @objc private func inBetweenDelayTimerElapsed() {
         scan()
     }

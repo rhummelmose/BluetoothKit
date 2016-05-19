@@ -30,30 +30,30 @@ internal protocol BKConnectionPoolDelegate: class {
 }
 
 internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
-    
+
     // MARK: Enums
-    
+
     internal enum Error: ErrorType {
         case NoCentralManagerSet
         case AlreadyConnected
         case AlreadyConnecting
-        case NoSupportForPeripheralEntitiesWithoutPeripheralsYet
+        case ConnectionByUUIDIsNotImplementedYet
         case Interrupted
         case NoConnectionAttemptForRemotePeripheral
         case NoConnectionForRemotePeripheral
         case TimeoutElapsed
         case Internal(underlyingError: ErrorType?)
     }
-    
+
     // MARK: Properties
-    
+
     internal weak var delegate: BKConnectionPoolDelegate?
     internal var centralManager: CBCentralManager!
     internal var connectedRemotePeripherals = [BKRemotePeripheral]()
     private var connectionAttempts = [BKConnectionAttempt]()
-    
+
     // MARK: Internal Functions
-    
+
     internal func connectWithTimeout(timeout: NSTimeInterval, remotePeripheral: BKRemotePeripheral, completionHandler: ((peripheralEntity: BKRemotePeripheral, error: Error?) -> Void)) throws {
         guard centralManager != nil else {
             throw Error.NoCentralManagerSet
@@ -65,14 +65,14 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
             throw Error.AlreadyConnecting
         }
         guard remotePeripheral.peripheral != nil else {
-            throw Error.NoSupportForPeripheralEntitiesWithoutPeripheralsYet
+            throw Error.ConnectionByUUIDIsNotImplementedYet
         }
         let timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: #selector(BKConnectionPool.timerElapsed(_:)), userInfo: nil, repeats: false)
         remotePeripheral.prepareForConnection()
         connectionAttempts.append(BKConnectionAttempt(remotePeripheral: remotePeripheral, timer: timer, completionHandler: completionHandler))
         centralManager!.connectPeripheral(remotePeripheral.peripheral!, options: nil)
     }
-    
+
     internal func interruptConnectionAttemptForRemotePeripheral(remotePeripheral: BKRemotePeripheral) throws {
         let connectionAttempt = connectionAttemptForRemotePeripheral(remotePeripheral)
         guard connectionAttempt != nil else {
@@ -80,7 +80,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         }
         failConnectionAttempt(connectionAttempt!, error: .Interrupted)
     }
-    
+
     internal func disconnectRemotePeripheral(remotePeripheral: BKRemotePeripheral) throws {
         let connectedRemotePeripheral = connectedRemotePeripherals.filter({ $0 == remotePeripheral }).last
         guard connectedRemotePeripheral != nil else {
@@ -89,7 +89,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         connectedRemotePeripheral?.unsubscribe()
         centralManager.cancelPeripheralConnection(connectedRemotePeripheral!.peripheral!)
     }
-    
+
     internal func reset() {
         for connectionAttempt in connectionAttempts {
             failConnectionAttempt(connectionAttempt, error: .Interrupted)
@@ -100,25 +100,25 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         }
         connectedRemotePeripherals.removeAll()
     }
-    
+
     // MARK: Private Functions
-    
+
     private func connectionAttemptForRemotePeripheral(remotePeripheral: BKRemotePeripheral) -> BKConnectionAttempt? {
         return connectionAttempts.filter({ $0.remotePeripheral == remotePeripheral }).last
     }
-    
+
     private func connectionAttemptForTimer(timer: NSTimer) -> BKConnectionAttempt? {
         return connectionAttempts.filter({ $0.timer == timer }).last
     }
-    
+
     private func connectionAttemptForPeripheral(peripheral: CBPeripheral) -> BKConnectionAttempt? {
         return connectionAttempts.filter({ $0.remotePeripheral.peripheral == peripheral }).last
     }
-    
+
     @objc private func timerElapsed(timer: NSTimer) {
         failConnectionAttempt(connectionAttemptForTimer(timer)!, error: .TimeoutElapsed)
     }
-    
+
     private func failConnectionAttempt(connectionAttempt: BKConnectionAttempt, error: Error) {
         connectionAttempts.removeAtIndex(connectionAttempts.indexOf(connectionAttempt)!)
         connectionAttempt.timer.invalidate()
@@ -127,7 +127,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         }
         connectionAttempt.completionHandler(peripheralEntity: connectionAttempt.remotePeripheral, error: error)
     }
-    
+
     private func succeedConnectionAttempt(connectionAttempt: BKConnectionAttempt) {
         connectionAttempt.timer.invalidate()
         connectionAttempts.removeAtIndex(connectionAttempts.indexOf(connectionAttempt)!)
@@ -135,22 +135,22 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         connectionAttempt.remotePeripheral.discoverServices()
         connectionAttempt.completionHandler(peripheralEntity: connectionAttempt.remotePeripheral, error: nil)
     }
-    
+
     // MARK: CentralManagerConnectionDelegate
-    
+
     internal func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         succeedConnectionAttempt(connectionAttemptForPeripheral(peripheral)!)
     }
-    
+
     internal func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         failConnectionAttempt(connectionAttemptForPeripheral(peripheral)!, error: .Internal(underlyingError: error))
     }
-    
+
     internal func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         if let remotePeripheral = connectedRemotePeripherals.filter({ $0.peripheral == peripheral }).last {
             connectedRemotePeripherals.removeAtIndex(connectedRemotePeripherals.indexOf(remotePeripheral)!)
             delegate?.connectionPool(self, remotePeripheralDidDisconnect: remotePeripheral)
         }
     }
-    
+
 }

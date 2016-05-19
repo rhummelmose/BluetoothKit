@@ -42,18 +42,18 @@ public protocol BKCentralDelegate: class {
     and connects to them. When a connection is established the central can receive data from the remote peripheral.
 */
 public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate, BKAvailabilityObservable {
-    
+
     // MARK: Type Aliases
-    
+
     public typealias ScanProgressHandler = ((newDiscoveries: [BKDiscovery]) -> Void)
     public typealias ScanCompletionHandler = ((result: [BKDiscovery]?, error: BKError?) -> Void)
     public typealias ContinuousScanChangeHandler = ((changes: [BKDiscoveriesChange], discoveries: [BKDiscovery]) -> Void)
     public typealias ContinuousScanStateHandler = ((newState: ContinuousScanState) -> Void)
     public typealias ContinuousScanErrorHandler = ((error: BKError) -> Void)
     public typealias ConnectCompletionHandler = ((remotePeripheral: BKRemotePeripheral, error: BKError?) -> Void)
-    
+
     // MARK: Enums
-    
+
     /**
         Possible states returned by the ContinuousScanStateHandler.
         - Stopped: The scan has come to a complete stop and won't start again by triggered manually.
@@ -65,9 +65,9 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         case Scanning
         case Waiting
     }
-    
+
     // MARK: Properties
-    
+
     /// Bluetooth LE availability, derived from the underlying CBCentralManager.
     public var availability: BKAvailability? {
         if let centralManager = _centralManager {
@@ -76,30 +76,40 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             return nil
         }
     }
-    
+
     /// All currently connected remote peripherals.
     public var connectedRemotePeripherals: [BKRemotePeripheral] {
         return connectionPool.connectedRemotePeripherals
     }
-    
+
     override public var configuration: BKConfiguration? {
         return _configuration
     }
-    
+
     /// The delegate of the BKCentral object.
     public weak var delegate: BKCentralDelegate?
-    
+
     /// Current availability observers.
     public var availabilityObservers = [BKWeakAvailabilityObserver]()
-    
+
     internal override var connectedRemotePeers: [BKRemotePeer] {
-        return connectedRemotePeripherals
+        get {
+            return connectedRemotePeripherals
+        }
+        set {
+            connectionPool.connectedRemotePeripherals = newValue.flatMap({
+                guard let remotePeripheral = $0 as? BKRemotePeripheral else {
+                    return nil
+                }
+                return remotePeripheral
+            })
+        }
     }
-    
+
     private var centralManager: CBCentralManager? {
         return _centralManager
     }
-    
+
     private let scanner = BKScanner()
     private let connectionPool = BKConnectionPool()
     private var _configuration: BKConfiguration?
@@ -107,19 +117,19 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     private var centralManagerDelegate: BKCBCentralManagerDelegateProxy!
     private var stateMachine: BKCentralStateMachine!
     private var _centralManager: CBCentralManager!
-    
+
     // MARK: Initialization
-    
+
     public override init() {
         super.init()
         centralManagerDelegate = BKCBCentralManagerDelegateProxy(stateDelegate: self, discoveryDelegate: scanner, connectionDelegate: connectionPool)
         stateMachine = BKCentralStateMachine()
-        connectionPool.delegate = self;
+        connectionPool.delegate = self
         continuousScanner = BKContinousScanner(scanner: scanner)
     }
-    
+
     // MARK: Public Functions
-    
+
     /**
         Start the BKCentral object with a configuration.
         - parameter configuration: The configuration defining which UUIDs to use when discovering peripherals.
@@ -137,7 +147,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             throw BKError.InternalError(underlyingError: error)
         }
     }
-    
+
     /**
         Scan for peripherals for a limited duration of time.
         - parameter duration: The number of seconds to scan for (defaults to 3).
@@ -150,7 +160,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             try scanner.scanWithDuration(duration, progressHandler: progressHandler) { result, error in
                 var returnError: BKError?
                 if error == nil {
-                    try! self.stateMachine.handleEvent(.SetAvailable)
+                    _ = try? self.stateMachine.handleEvent(.SetAvailable)
                 } else {
                     returnError = .InternalError(underlyingError: error)
                 }
@@ -161,7 +171,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             return
         }
     }
-    
+
     /**
         Scan for peripherals for a limited duration of time continuously with an in-between delay.
         - parameter changeHandler: A change handler allowing you to react to changes in "maintained" discovered peripherals.
@@ -175,7 +185,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             try stateMachine.handleEvent(.Scan)
             continuousScanner.scanContinuouslyWithChangeHandler(changeHandler, stateHandler: { newState in
                 if newState == .Stopped && self.availability == .Available {
-                    try! self.stateMachine.handleEvent(.SetAvailable)
+                    _ = try? self.stateMachine.handleEvent(.SetAvailable)
                 }
                 stateHandler?(newState: newState)
             }, duration: duration, inBetweenDelay: inBetweenDelay, errorHandler: { error in
@@ -185,7 +195,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             errorHandler?(error: .InternalError(underlyingError: error))
         }
     }
-    
+
     /**
         Interrupts the active scan session if present.
     */
@@ -193,7 +203,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         continuousScanner.interruptScan()
         scanner.interruptScan()
     }
-    
+
     /**
         Connect to a remote peripheral.
         - parameter timeout: The number of seconds the connection attempt should continue for before failing.
@@ -206,7 +216,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             try connectionPool.connectWithTimeout(timeout, remotePeripheral: remotePeripheral) { remotePeripheral, error in
                 var returnError: BKError?
                 if error == nil {
-                    try! self.stateMachine.handleEvent(.SetAvailable)
+                    _ = try? self.stateMachine.handleEvent(.SetAvailable)
                 } else {
                     returnError = .InternalError(underlyingError: error)
                 }
@@ -217,7 +227,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             return
         }
     }
-    
+
     /**
         Disconnects a connected peripheral.
         - parameter remotePeripheral: The peripheral to disconnect.
@@ -230,7 +240,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             throw BKError.InternalError(underlyingError: error)
         }
     }
-    
+
     /**
         Stops the BKCentral object.
         - throws: Throws an InternalError if the BKCentral object isn't already started.
@@ -246,9 +256,9 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             throw BKError.InternalError(underlyingError: error)
         }
     }
-    
+
     // MARK: Internal Functions
-    
+
     internal func setUnavailable(cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
         scanner.interruptScan()
         connectionPool.reset()
@@ -262,7 +272,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             }
         }
     }
-    
+
     internal override func sendData(data: NSData, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
         guard let remotePeripheral = remotePeer as? BKRemotePeripheral, peripheral = remotePeripheral.peripheral, characteristic = remotePeripheral.characteristicData else {
             return false
@@ -270,9 +280,9 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         peripheral.writeValue(data, forCharacteristic: characteristic, type: .WithoutResponse)
         return true
     }
-    
+
     // MARK: BKCBCentralManagerStateDelegate
-    
+
     internal func centralManagerDidUpdateState(central: CBCentralManager) {
         switch central.state {
             case .Unknown, .Resetting:
@@ -282,16 +292,16 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 switch stateMachine.state {
                     case let .Unavailable(cause):
                         let oldCause = cause
-                        try! stateMachine.handleEvent(.SetUnavailable(cause: newCause))
+                        _ = try? stateMachine.handleEvent(.SetUnavailable(cause: newCause))
                         setUnavailable(oldCause, oldCause: newCause)
                     default:
-                        try! stateMachine.handleEvent(.SetUnavailable(cause: newCause))
+                        _ = try? stateMachine.handleEvent(.SetUnavailable(cause: newCause))
                         setUnavailable(newCause, oldCause: nil)
                 }
-            
+
             case .PoweredOn:
                 let state = stateMachine.state
-                try! stateMachine.handleEvent(.SetAvailable)
+                _ = try? stateMachine.handleEvent(.SetAvailable)
                 switch state {
                     case .Starting, .Unavailable:
                         for availabilityObserver in availabilityObservers {
@@ -302,11 +312,11 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 }
         }
     }
-    
+
     // MARK: BKConnectionPoolDelegate
-    
+
     internal func connectionPool(connectionPool: BKConnectionPool, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
         delegate?.central(self, remotePeripheralDidDisconnect: remotePeripheral)
     }
-    
+
 }

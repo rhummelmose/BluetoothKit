@@ -25,7 +25,7 @@
 import Foundation
 import CoreBluetooth
 
-public func ==(lhs: BKAvailability, rhs: BKAvailability) -> Bool {
+public func == (lhs: BKAvailability, rhs: BKAvailability) -> Bool {
     switch (lhs, rhs) {
         case (.Available, .Available): return true
         case (.Unavailable(cause: .Any), .Unavailable): return true
@@ -43,10 +43,10 @@ public func ==(lhs: BKAvailability, rhs: BKAvailability) -> Bool {
     The unavailable case can be accompanied by a cause.
 */
 public enum BKAvailability: Equatable {
-    
+
     case Available
     case Unavailable(cause: BKUnavailabilityCause)
-    
+
     internal init(centralManagerState: CBCentralManagerState) {
         switch centralManagerState {
             case .PoweredOn: self = .Available
@@ -60,7 +60,7 @@ public enum BKAvailability: Equatable {
             default: self = .Unavailable(cause: BKUnavailabilityCause(peripheralManagerState: peripheralManagerState))
         }
     }
-    
+
 }
 
 /**
@@ -72,17 +72,17 @@ public enum BKAvailability: Equatable {
     - PoweredOff: Bluetooth is turned off.
 */
 public enum BKUnavailabilityCause: NilLiteralConvertible {
-    
+
     case Any
     case Resetting
     case Unsupported
     case Unauthorized
     case PoweredOff
-    
+
     public init(nilLiteral: Void) {
         self = Any
     }
-    
+
     internal init(centralManagerState: CBCentralManagerState) {
         switch centralManagerState {
             case .PoweredOff: self = PoweredOff
@@ -92,7 +92,7 @@ public enum BKUnavailabilityCause: NilLiteralConvertible {
             default: self = nil
         }
     }
-    
+
     internal init(peripheralManagerState: CBPeripheralManagerState) {
         switch peripheralManagerState {
             case .PoweredOff: self = PoweredOff
@@ -102,7 +102,7 @@ public enum BKUnavailabilityCause: NilLiteralConvertible {
             default: self = nil
         }
     }
-    
+
 }
 
 /**
@@ -118,14 +118,14 @@ public protocol BKAvailabilityObservable: class {
     Class used to hold a weak reference to an observer of Bluetooth LE availability.
 */
 public class BKWeakAvailabilityObserver {
-    weak var availabilityObserver : BKAvailabilityObserver?
+    weak var availabilityObserver: BKAvailabilityObserver?
     init (availabilityObserver: BKAvailabilityObserver) {
         self.availabilityObserver = availabilityObserver
     }
 }
 
 public extension BKAvailabilityObservable {
-    
+
     /**
         Add a new availability observer. The observer will be weakly stored. If the observer is already subscribed the call will be ignored.
         - parameter availabilityObserver: The availability observer to add.
@@ -135,7 +135,7 @@ public extension BKAvailabilityObservable {
             availabilityObservers.append(BKWeakAvailabilityObserver(availabilityObserver: availabilityObserver))
         }
     }
-    
+
     /**
         Remove an availability observer. If the observer isn't subscribed the call will be ignored.
         - parameter availabilityObserver: The availability observer to remove.
@@ -145,21 +145,21 @@ public extension BKAvailabilityObservable {
             availabilityObservers.removeAtIndex(availabilityObservers.indexOf({ $0 === availabilityObserver })!)
         }
     }
-    
+
 }
 
 /**
     Observers of Bluetooth LE availability should implement this protocol.
 */
 public protocol BKAvailabilityObserver: class {
-    
+
     /**
         Informs the observer about a change in Bluetooth LE availability.
         - parameter availabilityObservable: The object that registered the availability change.
         - parameter availability: The new availability value.
     */
     func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability)
-    
+
     /**
         Informs the observer that the cause of Bluetooth LE unavailability changed.
         - parameter availabilityObservable: The object that registered the cause change.

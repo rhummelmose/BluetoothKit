@@ -25,60 +25,102 @@
 import Foundation
 
 internal class BKCentralStateMachine {
-    
+
     // MARK: Enums
-    
+
     internal enum Error: ErrorType {
         case Transitioning(currentState: State, validStates: [State])
     }
-    
+
     internal enum State {
         case Initialized, Starting, Unavailable(cause: BKUnavailabilityCause), Available, Scanning
     }
-    
+
     internal enum Event {
         case Start, SetUnavailable(cause: BKUnavailabilityCause), SetAvailable, Scan, Connect, Stop
     }
-    
+
     // MARK: Properties
-    
+
     internal var state: State
-    
+
     // MARK: Initialization
-    
+
     internal init() {
         self.state = .Initialized
     }
-    
+
     // MARK: Functions
-    
+
     internal func handleEvent(event: Event) throws {
         switch event {
-            case .Start: switch state {
-                case .Initialized: state = .Starting
-                default: throw Error.Transitioning(currentState: state, validStates: [ .Initialized ])
-            }
-            case .SetAvailable: switch state {
-                case .Initialized: throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
-                default: state = .Available
-            }
-            case let .SetUnavailable(newCause): switch state {
-                case .Initialized: throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
-                default: state = .Unavailable(cause: newCause)
-            }
-            case .Scan: switch state {
-                case .Available: state = .Scanning
-                default: throw Error.Transitioning(currentState: state, validStates: [ .Available ])
-            }
-            case .Connect: switch state {
-                case .Available, .Scanning: break
-                default: throw Error.Transitioning(currentState: state, validStates: [ .Available, .Scanning ])
-            }
-            case .Stop: switch state {
-                case .Initialized: throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Unavailable(cause: nil), .Available, .Scanning ])
-                default: state = .Initialized
-            }
+        case .Start:
+            try handleStartEvent(event)
+        case .SetAvailable:
+            try handleSetAvailableEvent(event)
+        case let .SetUnavailable(newCause):
+            try handleSetUnavailableEvent(event, cause: newCause)
+        case .Scan:
+            try handleScanEvent(event)
+        case .Connect:
+            try handleConnectEvent(event)
+        case .Stop:
+            try handleStopEvent(event)
         }
     }
-    
+
+    private func handleStartEvent(event: Event) throws {
+        switch state {
+        case .Initialized:
+            state = .Starting
+        default:
+            throw Error.Transitioning(currentState: state, validStates: [ .Initialized ])
+        }
+    }
+
+    private func handleSetAvailableEvent(event: Event) throws {
+        switch state {
+        case .Initialized:
+            throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
+        default:
+            state = .Available
+        }
+    }
+
+    private func handleSetUnavailableEvent(event: Event, cause: BKUnavailabilityCause) throws {
+        switch state {
+        case .Initialized:
+            throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
+        default:
+            state = .Unavailable(cause: cause)
+        }
+    }
+
+    private func handleScanEvent(event: Event) throws {
+        switch state {
+        case .Available:
+            state = .Scanning
+        default:
+            throw Error.Transitioning(currentState: state, validStates: [ .Available ])
+        }
+    }
+
+    private func handleConnectEvent(event: Event) throws {
+        switch state {
+        case .Available, .Scanning:
+            break
+        default:
+            throw Error.Transitioning(currentState: state, validStates: [ .Available, .Scanning ])
+        }
+    }
+
+    private func handleStopEvent(event: Event) throws {
+        switch state {
+        case .Initialized:
+            throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Unavailable(cause: nil), .Available, .Scanning ])
+        default:
+            state = .Initialized
+        }
+    }
+
 }

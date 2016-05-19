@@ -1,0 +1,4 @@
+included: # paths to include during linting. `--path` is ignored if present.
+  - Source
+disabled_rules: # rule identifiers to exclude from running
+  - line_length

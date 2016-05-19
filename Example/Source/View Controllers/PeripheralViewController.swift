@@ -28,17 +28,17 @@ import BluetoothKit
 import CryptoSwift
 
 internal class PeripheralViewController: UIViewController, AvailabilityViewController, BKPeripheralDelegate, LoggerDelegate, BKRemotePeerDelegate {
-    
+
     // MARK: Properties
-    
+
     internal var availabilityView = AvailabilityView()
-    
+
     private let peripheral = BKPeripheral()
     private let logTextView = UITextView()
     private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PeripheralViewController.sendData)) }()
-    
+
     // MARK: UIViewController Life Cycle
-    
+
     internal override func viewDidLoad() {
         navigationItem.title = "Peripheral"
         view.backgroundColor = UIColor.whiteColor()
@@ -52,13 +52,13 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
         sendDataBarButtonItem.enabled = false
         navigationItem.rightBarButtonItem = sendDataBarButtonItem
     }
-    
+
     deinit {
-        try! peripheral.stop()
+        _ = try? peripheral.stop()
     }
-    
+
     // MARK: Functions
-    
+
     private func applyConstraints() {
         logTextView.snp_makeConstraints { make in
             make.top.equalTo(snp_topLayoutGuideBottom)
@@ -66,7 +66,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
             make.bottom.equalTo(availabilityView.snp_top)
         }
     }
-    
+
     private func startPeripheral() {
         do {
             peripheral.delegate = self
@@ -81,13 +81,13 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
             print("Error starting: \(error)")
         }
     }
-    
+
     private func refreshControls() {
         sendDataBarButtonItem.enabled = peripheral.connectedRemoteCentrals.count > 0
     }
-    
+
     // MARK: Target Actions
-    
+
     @objc private func sendData() {
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
         let data = NSData.dataWithNumberOfBytes(numberOfBytesToSend)
@@ -103,35 +103,35 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
             }
         }
     }
-    
+
     // MARK: BKPeripheralDelegate
-    
+
     internal func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral) {
         Logger.log("Remote central did connect: \(remoteCentral)")
         remoteCentral.delegate = self
         refreshControls()
     }
-    
+
     internal func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral) {
         Logger.log("Remote central did disconnect: \(remoteCentral)")
         refreshControls()
     }
-    
+
     // MARK: BKRemotePeerDelegate
-    
+
     func remotePeer(remotePeer: BKRemotePeer, didSendArbitraryData data: NSData) {
         Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
     }
-    
+
     // MARK: LoggerDelegate
-    
+
     internal func loggerDidLogString(string: String) {
         if logTextView.text.characters.count > 0 {
             logTextView.text = logTextView.text.stringByAppendingString("\n" + string)
         } else {
             logTextView.text = string
         }
-        logTextView.scrollRangeToVisible(NSMakeRange(logTextView.text.characters.count - 1, 1))
+        logTextView.scrollRangeToVisible(NSRange(location: logTextView.text.characters.count - 1, length: 1))
     }
-    
+
 }

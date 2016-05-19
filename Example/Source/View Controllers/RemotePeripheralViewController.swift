@@ -31,18 +31,18 @@ internal protocol RemotePeripheralViewControllerDelegate: class {
 }
 
 internal class RemotePeripheralViewController: UIViewController, BKRemotePeripheralDelegate, BKRemotePeerDelegate, LoggerDelegate {
-    
+
     // MARK: Properties
-    
+
     internal weak var delegate: RemotePeripheralViewControllerDelegate?
     internal let central: BKCentral
     internal let remotePeripheral: BKRemotePeripheral
-    
+
     private let logTextView = UITextView()
     private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(RemotePeripheralViewController.sendData)) }()
-    
+
     // MARK: Initialization
-    
+
     internal init(central: BKCentral, remotePeripheral: BKRemotePeripheral) {
         self.central = central
         self.remotePeripheral = remotePeripheral
@@ -54,9 +54,9 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     internal required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
-    
+
     // MARK: UIViewController Life Cycle
-    
+
     internal override func viewDidLoad() {
         navigationItem.title = remotePeripheral.name
         navigationItem.rightBarButtonItem = sendDataBarButtonItem
@@ -70,32 +70,32 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
         applyConstraints()
         Logger.log("Awaiting data from peripheral")
     }
-    
+
     internal override func viewWillDisappear(animated: Bool) {
         delegate?.remotePeripheralViewControllerWillDismiss(self)
     }
-    
+
     // MARK: Functions
-    
+
     internal func applyConstraints() {
         logTextView.snp_makeConstraints { make in
             make.top.leading.trailing.bottom.equalTo(view)
         }
     }
-    
+
     // MARK: BKRemotePeripheralDelegate
-    
+
     internal func remotePeripheral(remotePeripheral: BKRemotePeripheral, didUpdateName name: String) {
         navigationItem.title = name
         Logger.log("Name change: \(name)")
     }
-    
+
     internal func remotePeer(remotePeer: BKRemotePeer, didSendArbitraryData data: NSData) {
         Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
     }
-    
+
     // MARK: Target Actions
-    
+
     @objc private func sendData() {
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
         let data = NSData.dataWithNumberOfBytes(numberOfBytesToSend)
@@ -109,15 +109,15 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
             Logger.log("Sent to \(remotePeripheral)")
         }
     }
-    
+
     // MARK: LoggerDelegate
-    
+
     internal func loggerDidLogString(string: String) {
         if logTextView.text.characters.count > 0 {
             logTextView.text = logTextView.text.stringByAppendingString("\n" + string)
         } else {
             logTextView.text = string
         }
-        logTextView.scrollRangeToVisible(NSMakeRange(logTextView.text.characters.count - 1, 1))
+        logTextView.scrollRangeToVisible(NSRange(location: logTextView.text.characters.count - 1, length: 1))
     }
 }

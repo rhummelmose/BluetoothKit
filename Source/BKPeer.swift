@@ -27,18 +27,25 @@ import Foundation
 public typealias BKSendDataCompletionHandler = ((data: NSData, remotePeer: BKRemotePeer, error: BKError?) -> Void)
 
 public class BKPeer {
-    
+
     /// The configuration the BKCentral object was started with.
     public var configuration: BKConfiguration? {
         return nil
     }
-    
+
     internal var connectedRemotePeers: [BKRemotePeer] {
-        return _connectedRemotePeers
+        get {
+            return _connectedRemotePeers
+        }
+        set {
+            _connectedRemotePeers = newValue
+        }
     }
-    internal var _connectedRemotePeers: [BKRemotePeer] = []
+
     internal var sendDataTasks: [BKSendDataTask] = []
-    
+
+    private var _connectedRemotePeers: [BKRemotePeer] = []
+
     /**
      Sends data to a connected remote central.
      - parameter data: The data to send.
@@ -56,7 +63,7 @@ public class BKPeer {
             processSendDataTasks()
         }
     }
-    
+
     internal func processSendDataTasks() {
         guard sendDataTasks.count > 0 else {
             return
@@ -64,7 +71,7 @@ public class BKPeer {
         let nextTask = sendDataTasks.first!
         if nextTask.sentAllData {
             let sentEndOfDataMark = sendData(configuration!.endOfDataMark, toRemotePeer: nextTask.destination)
-            if (sentEndOfDataMark) {
+            if sentEndOfDataMark {
                 sendDataTasks.removeAtIndex(sendDataTasks.indexOf(nextTask)!)
                 nextTask.completionHandler?(data: nextTask.data, remotePeer: nextTask.destination, error: nil)
                 processSendDataTasks()
@@ -81,16 +88,16 @@ public class BKPeer {
             return
         }
     }
-    
+
     internal func failSendDataTasksForRemotePeer(remotePeer: BKRemotePeer) {
         for sendDataTask in sendDataTasks.filter({ $0.destination == remotePeer }) {
             sendDataTasks.removeAtIndex(sendDataTasks.indexOf(sendDataTask)!)
             sendDataTask.completionHandler?(data: sendDataTask.data, remotePeer: sendDataTask.destination, error: .RemotePeerNotConnected)
         }
     }
-    
+
     internal func sendData(data: NSData, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
         fatalError("Function must be overridden by subclass")
     }
-    
+
 }

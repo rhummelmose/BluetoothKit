@@ -27,26 +27,29 @@ import BluetoothKit
 import CoreBluetooth
 
 internal class CentralViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BKCentralDelegate, AvailabilityViewController, RemotePeripheralViewControllerDelegate {
-    
+
     // MARK: Properties
 
     internal var availabilityView = AvailabilityView()
-    
-    private var activityIndicator: UIActivityIndicatorView {
-        return activityIndicatorBarButtonItem.customView as! UIActivityIndicatorView
+
+    private var activityIndicator: UIActivityIndicatorView? {
+        guard let activityIndicator = activityIndicatorBarButtonItem.customView as? UIActivityIndicatorView else {
+            return nil
+        }
+        return activityIndicator
     }
-    
+
     private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White))
     private let discoveriesTableView = UITableView()
     private var discoveries = [BKDiscovery]()
     private let discoveriesTableViewCellIdentifier = "Discoveries Table View Cell Identifier"
     private let central = BKCentral()
-    
+
     // MARK: UIViewController Life Cycle
-    
+
     internal override func viewDidLoad() {
         view.backgroundColor = UIColor.whiteColor()
-        activityIndicator.color = UIColor.blackColor()
+        activityIndicator?.color = UIColor.blackColor()
         navigationItem.title = "Central"
         navigationItem.rightBarButtonItem = activityIndicatorBarButtonItem
         applyAvailabilityView()
@@ -57,21 +60,21 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         applyConstraints()
         startCentral()
     }
-    
+
     internal override func viewDidAppear(animated: Bool) {
         scan()
     }
-    
+
     internal override func viewWillDisappear(animated: Bool) {
         central.interruptScan()
     }
-    
+
     deinit {
-        try! central.stop()
+        _ = try? central.stop()
     }
-    
+
     // MARK: Functions
-    
+
     private func applyConstraints() {
         discoveriesTableView.snp_makeConstraints { make in
             make.top.equalTo(snp_topLayoutGuideBottom)
@@ -79,7 +82,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
             make.bottom.equalTo(availabilityView.snp_top)
         }
     }
-    
+
     private func startCentral() {
         do {
             central.delegate = self
@@ -92,7 +95,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
             print("Error while starting: \(error)")
         }
     }
-    
+
     private func scan() {
         central.scanContinuouslyWithChangeHandler({ changes, discoveries in
             let indexPathsToRemove = changes.filter({ $0 == .Remove(discovery: nil) }).map({ NSIndexPath(forRow: self.discoveries.indexOf($0.discovery)!, inSection: 0) })
@@ -109,33 +112,33 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
             }
         }, stateHandler: { newState in
             if newState == .Scanning {
-                self.activityIndicator.startAnimating()
+                self.activityIndicator?.startAnimating()
                 return
             } else if newState == .Stopped {
                 self.discoveries.removeAll()
                 self.discoveriesTableView.reloadData()
             }
-            self.activityIndicator.stopAnimating()
+            self.activityIndicator?.stopAnimating()
         }, errorHandler: { error in
             Logger.log("Error from scanning: \(error)")
         })
     }
-    
+
     // MARK: UITableViewDataSource
-    
+
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return discoveries.count
     }
-    
+
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(discoveriesTableViewCellIdentifier, forIndexPath: indexPath)
         let discovery = discoveries[indexPath.row]
         cell.textLabel?.text = discovery.localName != nil ? discovery.localName : discovery.remotePeripheral.name
         return cell
     }
-    
+
     // MARK: UITableViewDelegate
-    
+
     internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.userInteractionEnabled = false
         central.connect(remotePeripheral: discoveries[indexPath.row].remotePeripheral) { remotePeripheral, error in
@@ -150,9 +153,9 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
             self.navigationController?.pushViewController(remotePeripheralViewController, animated: true)
         }
     }
-    
+
     // MARK: BKAvailabilityObserver
-    
+
     internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         availabilityView.availabilityObserver(availabilityObservable, availabilityDidChange: availability)
         if availability == .Available {
@@ -161,16 +164,16 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
             central.interruptScan()
         }
     }
-    
+
     // MARK: BKCentralDelegate
-    
+
     internal func central(central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
         Logger.log("Remote peripheral did disconnect: \(remotePeripheral)")
         self.navigationController?.popToViewController(self, animated: true)
     }
-    
+
     // MARK: RemotePeripheralViewControllerDelegate
-    
+
     internal func remotePeripheralViewControllerWillDismiss(remotePeripheralViewController: RemotePeripheralViewController) {
         do {
             try central.disconnectRemotePeripheral(remotePeripheralViewController.remotePeripheral)
@@ -178,5 +181,5 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
             Logger.log("Error disconnecting remote peripheral: \(error)")
         }
     }
-    
+
 }

@@ -25,12 +25,12 @@
 import Foundation
 
 internal extension NSData {
-    
+
     internal class func dataWithNumberOfBytes(numberOfBytes: Int) -> NSData {
         let bytes = malloc(numberOfBytes)
         let data = NSData(bytes: bytes, length: numberOfBytes)
         free(bytes)
         return data
     }
-    
+
 }
