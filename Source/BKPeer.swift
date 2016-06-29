@@ -70,7 +70,7 @@ public class BKPeer {
         }
         let nextTask = sendDataTasks.first!
         if nextTask.sentAllData {
-            let sentEndOfDataMark = sendData(configuration!.endOfDataMark, toRemotePeer: nextTask.destination)
+            let sentEndOfDataMark = sendData(data: configuration!.endOfDataMark, toRemotePeer: nextTask.destination)
             if sentEndOfDataMark {
                 sendDataTasks.removeAtIndex(sendDataTasks.indexOf(nextTask)!)
                 nextTask.completionHandler?(data: nextTask.data, remotePeer: nextTask.destination, error: nil)

@@ -31,9 +31,9 @@ import Foundation
     - RemotePeerNotConnected: The action failed because the remote peer attempted to interact with, was not connected.
     - InternalError(underlyingError): Will be returned if any of the internal or private classes returns an unhandled error.
  */
-public enum BKError: ErrorType {
+public enum BKError: ErrorProtocol {
     case InterruptedByUnavailability(cause: BKUnavailabilityCause)
     case FailedToConnectDueToTimeout
     case RemotePeerNotConnected
-    case InternalError(underlyingError: ErrorType?)
+    case InternalError(underlyingError: ErrorProtocol?)
 }

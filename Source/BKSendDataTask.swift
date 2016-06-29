@@ -25,7 +25,7 @@
 import Foundation
 
 internal func == (lhs: BKSendDataTask, rhs: BKSendDataTask) -> Bool {
-    return lhs.destination == rhs.destination && lhs.data.isEqualToData(rhs.data)
+    return lhs.destination == rhs.destination && lhs.data == rhs.data
 }
 
 internal class BKSendDataTask: Equatable {
@@ -55,7 +55,7 @@ internal class BKSendDataTask: Equatable {
     }
 
     internal var nextPayload: NSData {
-        return data.subdataWithRange(rangeForNextPayload)
+        return data.subdata(with: rangeForNextPayload)
     }
 
     // MARK: Initialization

@@ -28,7 +28,7 @@ internal class BKPeripheralStateMachine {
 
     // MARK: Enums
 
-    internal enum Error: ErrorType {
+    internal enum Error: ErrorProtocol {
         case Transitioning(currentState: State, validStates: [State])
     }
 
@@ -55,13 +55,13 @@ internal class BKPeripheralStateMachine {
     internal func handleEvent(event: Event) throws {
         switch event {
         case .Start:
-            try handleStartEvent(event)
+            try handleStartEvent(event: event)
         case .SetAvailable:
-            try handleSetAvailableEvent(event)
+            try handleSetAvailableEvent(event: event)
         case let .SetUnavailable(cause):
-            try handleSetUnavailableEvent(event, withCause: cause)
+            try handleSetUnavailableEvent(event: event, withCause: cause)
         case .Stop:
-            try handleStopEvent(event)
+            try handleStopEvent(event: event)
         }
     }
 
