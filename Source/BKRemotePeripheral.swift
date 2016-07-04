@@ -35,6 +35,12 @@ public protocol BKRemotePeripheralDelegate: class {
         - parameter name: The new name.
     */
     func remotePeripheral(remotePeripheral: BKRemotePeripheral, didUpdateName name: String)
+
+    /**
+     Called when services and charateristic are discovered and the device is ready for send/receive
+     - parameter remotePeripheral: The remote peripheral that is ready.
+     */
+    func remotePeripheralIsReady(remotePeripheral: BKRemotePeripheral)
 }
 
 /**
@@ -164,6 +170,7 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         }
         characteristicData = dataCharacteristic
         peripheral.setNotifyValue(true, forCharacteristic: dataCharacteristic)
+        peripheralDelegate?.remotePeripheralIsReady(self)
     }
 
     internal func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
