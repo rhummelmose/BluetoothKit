@@ -29,17 +29,17 @@ import CoreBluetooth
     A subclass of BKConfiguration for constructing configurations to use when starting BKPeripheral objects.
 */
 public class BKPeripheralConfiguration: BKConfiguration {
-
+    
     // MARK: Properties
-
+    
     /// The local name to broadcast to remote centrals.
     public let localName: String?
-
+    
     // MARK: Initialization
-
-    public init(dataServiceUUID: NSUUID, dataServiceCharacteristicUUID: NSUUID, localName: String? = nil) {
+    
+    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID, localName: String? = nil) {
         self.localName = localName
         super.init(dataServiceUUID: dataServiceUUID, dataServiceCharacteristicUUID: dataServiceCharacteristicUUID)
     }
-
+    
 }
