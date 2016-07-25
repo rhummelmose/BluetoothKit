@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DB03F021D427F1000E735CE /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C66982961CEB9FA100E23B57 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DB03F031D427F1800E735CE /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669829E1CEB9FA100E23B57 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
 		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
 		C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
@@ -28,7 +31,7 @@
 		C66982B21CEBA0C300E23B57 /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888941B970123003C8DBB /* AvailabilityViewController.swift */; };
 		C66982B31CEBA0C300E23B57 /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
 		C66982B41CEBA0C300E23B57 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
-		C66982B51CEBA0D600E23B57 /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; };
+		C66982B51CEBA0D600E23B57 /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C66982B61CEBA0D600E23B57 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66982961CEB9FA100E23B57 /* CryptoSwift.framework */; };
 		C66982B71CEBA0D600E23B57 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C669829E1CEB9FA100E23B57 /* SnapKit.framework */; };
 		C66982B81CEBA0E600E23B57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
@@ -193,6 +196,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2DB03EF71D427E9F00E735CE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2DB03F031D427F1800E735CE /* SnapKit.framework in Embed Frameworks */,
+				2DB03F021D427F1000E735CE /* CryptoSwift.framework in Embed Frameworks */,
+				2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C67653F91B8E2D3C00D43F8E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,9 +345,6 @@
 				C67A22551B8C7D5B00CB74CE /* Resources */,
 				C67A22411B8C7D1B00CB74CE /* Products */,
 				C67A226F1B8C7DE300CB74CE /* Frameworks */,
-				C6E04DD21BBDA5E00050C09A /* SnapKit.xcodeproj */,
-				C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */,
-				C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,6 +370,9 @@
 		C67A226F1B8C7DE300CB74CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6E04DD21BBDA5E00050C09A /* SnapKit.xcodeproj */,
+				C6BFB2991B96E7C000AB5CAE /* CryptoSwift.xcodeproj */,
+				C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -397,6 +413,7 @@
 				C66982771CEB9FA100E23B57 /* Sources */,
 				C66982781CEB9FA100E23B57 /* Frameworks */,
 				C66982791CEB9FA100E23B57 /* Resources */,
+				2DB03EF71D427E9F00E735CE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -736,6 +753,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
@@ -752,6 +770,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
