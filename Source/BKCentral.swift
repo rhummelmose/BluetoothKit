@@ -256,6 +256,23 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             throw BKError.InternalError(underlyingError: error)
         }
     }
+    
+    public func retrieveRemotePeripheralWithUUID (remoteUUID: NSUUID) -> BKRemotePeripheral? {
+        
+        if let centralManager = _centralManager {
+            let peripherals = centralManager.retrievePeripheralsWithIdentifiers([remoteUUID])
+            guard peripherals.count > 0 else {
+                // We have never scanned this peripheral before
+                return nil
+            }
+            
+            let peripheral = BKRemotePeripheral(identifier: remoteUUID, peripheral: peripherals[0])
+            return peripheral
+        }
+        else {
+            return nil
+        }
+    }
 
     // MARK: Internal Functions
 
