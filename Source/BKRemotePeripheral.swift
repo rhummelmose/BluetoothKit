@@ -118,10 +118,10 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
     }
 
     internal func discoverServices() {
-//        if peripheral?.services != nil {
-//            self.peripheral(peripheral!, didDiscoverServices: nil)
-//            return
-//        }
+        if peripheral?.services != nil {
+            self.peripheral(peripheral!, didDiscoverServices: nil)
+            return
+        }
         peripheral?.discoverServices(configuration!.serviceUUIDs)
     }
 

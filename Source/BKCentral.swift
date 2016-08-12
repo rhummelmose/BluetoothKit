@@ -267,6 +267,8 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             }
             
             let peripheral = BKRemotePeripheral(identifier: remoteUUID, peripheral: peripherals[0])
+            peripheral.configuration = configuration
+                        
             return peripheral
         }
         else {
