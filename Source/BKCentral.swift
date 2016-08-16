@@ -257,23 +257,43 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         }
     }
     
+    /**
+        Retrieves a previously-scanned peripheral for direct connection.
+        - parameter remoteUUID: The UUID of the remote peripheral to look for
+        - return: optional remote peripheral if found
+     */
     public func retrieveRemotePeripheralWithUUID (remoteUUID: NSUUID) -> BKRemotePeripheral? {
-        
+        guard let peripherals = retrieveRemotePeripheralsWithUUIDs([remoteUUID]) else {
+            return nil
+        }
+        guard peripherals.count > 0 else {
+            return nil
+        }
+        return peripherals[0]
+    }
+    
+    /**
+        Retrieves an array of previously-scanned peripherals for direct connection.
+        - parameter remoteUUIDs: An array of UUIDs of remote peripherals to look for
+        - return: optional array of found remote peripherals
+     */
+    public func retrieveRemotePeripheralsWithUUIDs (remoteUUIDs: [NSUUID]) -> [BKRemotePeripheral]? {
         if let centralManager = _centralManager {
-            let peripherals = centralManager.retrievePeripheralsWithIdentifiers([remoteUUID])
+            let peripherals = centralManager.retrievePeripheralsWithIdentifiers(remoteUUIDs)
             guard peripherals.count > 0 else {
-                // We have never scanned this peripheral before
                 return nil
             }
             
-            let peripheral = BKRemotePeripheral(identifier: remoteUUID, peripheral: peripherals[0])
-            peripheral.configuration = configuration
-                        
-            return peripheral
+            var remotePeripherals: [BKRemotePeripheral] = []
+            
+            for peripheral in peripherals {
+                let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+                remotePeripheral.configuration = configuration
+                remotePeripherals.append(remotePeripheral)
+            }
+            return remotePeripherals
         }
-        else {
-            return nil
-        }
+        return nil
     }
 
     // MARK: Internal Functions
