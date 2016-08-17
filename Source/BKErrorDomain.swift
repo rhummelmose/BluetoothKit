@@ -32,8 +32,8 @@ import Foundation
     - InternalError(underlyingError): Will be returned if any of the internal or private classes returns an unhandled error.
  */
 public enum BKError: ErrorProtocol {
-    case InterruptedByUnavailability(cause: BKUnavailabilityCause)
-    case FailedToConnectDueToTimeout
-    case RemotePeerNotConnected
-    case InternalError(underlyingError: ErrorProtocol?)
+    case interruptedByUnavailability(cause: BKUnavailabilityCause)
+    case failedToConnectDueToTimeout
+    case remotePeerNotConnected
+    case internalError(underlyingError: ErrorProtocol?)
 }
