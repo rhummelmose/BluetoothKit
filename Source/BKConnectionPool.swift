@@ -139,11 +139,19 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
     // MARK: CentralManagerConnectionDelegate
 
     internal func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        succeedConnectionAttempt(connectionAttemptForPeripheral(peripheral)!)
+        if let attempt = connectionAttemptForPeripheral(peripheral) {
+            succeedConnectionAttempt(attempt)
+        } else {
+//            print("do not found a corresponding attemp, because this method accidently called twice, look into http://stackoverflow.com/questions/11557500/corebluetooth-central-manager-callback-diddiscoverperipheral-twice for detail.")
+        }
     }
 
     internal func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        failConnectionAttempt(connectionAttemptForPeripheral(peripheral)!, error: .Internal(underlyingError: error))
+        if let attempt = connectionAttemptForPeripheral(peripheral) {
+            failConnectionAttempt(attempt, error: .Internal(underlyingError: error))
+        } else {
+//            print("calling failConnection cause attempt to be removed and then trigger this method.")
+        }
     }
 
     internal func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
