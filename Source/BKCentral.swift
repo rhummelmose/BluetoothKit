@@ -34,13 +34,15 @@ public protocol BKCentralDelegate: class {
         - parameter central: The central from which it disconnected.
         - parameter remotePeripheral: The remote peripheral that disconnected.
     */
-    func central(central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
+    @available(iOS 10.0, *)
+    func central(_ central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
 }
 
 /**
     The class used to take the Bluetooth LE central role. The central discovers remote peripherals by scanning
     and connects to them. When a connection is established the central can receive data from the remote peripheral.
 */
+@available(iOS 10.0, *)
 public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate, BKAvailabilityObservable {
 
     // MARK: Type Aliases
@@ -61,14 +63,15 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - Waiting: The scan is on hold due while waiting for the in-between delay to expire, after which it will start again.
     */
     public enum ContinuousScanState {
-        case Stopped
-        case Scanning
-        case Waiting
+        case stopped
+        case scanning
+        case waiting
     }
 
     // MARK: Properties
 
     /// Bluetooth LE availability, derived from the underlying CBCentralManager.
+    @available(iOS 10.0, *)
     public var availability: BKAvailability? {
         if let centralManager = _centralManager {
             return BKAvailability(centralManagerState: centralManager.state)
@@ -135,16 +138,16 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter configuration: The configuration defining which UUIDs to use when discovering peripherals.
         - throws: Throws an InternalError if the BKCentral object is already started.
     */
-    public func startWithConfiguration(configuration: BKConfiguration) throws {
+    public func startWithConfiguration(_ configuration: BKConfiguration) throws {
         do {
-            try stateMachine.handleEvent(.Start)
+            try stateMachine.handleEvent(.start)
             _configuration = configuration
             _centralManager = CBCentralManager(delegate: centralManagerDelegate, queue: nil, options: nil)
             scanner.configuration = configuration
             scanner.centralManager = centralManager
             connectionPool.centralManager = centralManager
         } catch let error {
-            throw BKError.InternalError(underlyingError: error)
+            throw BKError.internalError(underlyingError: error)
         }
     }
 
@@ -154,20 +157,20 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter progressHandler: A progress handler allowing you to react immediately when a peripheral is discovered during a scan.
         - parameter completionHandler: A completion handler allowing you to react on the full result of discovered peripherals or an error if one occured.
     */
-    public func scanWithDuration(duration: NSTimeInterval = 3, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
+    public func scanWithDuration(_ duration: TimeInterval = 3, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
         do {
-            try stateMachine.handleEvent(.Scan)
+            try stateMachine.handleEvent(.scan)
             try scanner.scanWithDuration(duration, progressHandler: progressHandler) { result, error in
                 var returnError: BKError?
                 if error == nil {
-                    _ = try? self.stateMachine.handleEvent(.SetAvailable)
+                    _ = try? self.stateMachine.handleEvent(.setAvailable)
                 } else {
-                    returnError = .InternalError(underlyingError: error)
+                    returnError = .internalError(underlyingError: error)
                 }
                 completionHandler?(result: result, error: returnError)
             }
         } catch let error {
-            completionHandler?(result: nil, error: .InternalError(underlyingError: error))
+            completionHandler?(result: nil, error: .internalError(underlyingError: error))
             return
         }
     }
@@ -180,19 +183,20 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter inBetweenDelay: The number of seconds to wait for, in-between scans (defaults to 3).
         - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
     */
-    public func scanContinuouslyWithChangeHandler(changeHandler: ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: NSTimeInterval = 3, inBetweenDelay: NSTimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
+    @available(iOS 10.0, *)
+    public func scanContinuouslyWithChangeHandler(_ changeHandler: ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
         do {
-            try stateMachine.handleEvent(.Scan)
+            try stateMachine.handleEvent(.scan)
             continuousScanner.scanContinuouslyWithChangeHandler(changeHandler, stateHandler: { newState in
-                if newState == .Stopped && self.availability == .Available {
-                    _ = try? self.stateMachine.handleEvent(.SetAvailable)
+                if newState == .stopped && self.availability == .available {
+                    _ = try? self.stateMachine.handleEvent(.setAvailable)
                 }
                 stateHandler?(newState: newState)
             }, duration: duration, inBetweenDelay: inBetweenDelay, errorHandler: { error in
-                errorHandler?(error: .InternalError(underlyingError: error))
+                errorHandler?(error: .internalError(underlyingError: error))
             })
         } catch let error {
-            errorHandler?(error: .InternalError(underlyingError: error))
+            errorHandler?(error: .internalError(underlyingError: error))
         }
     }
 
@@ -210,20 +214,20 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter remotePeripheral: The remote peripheral to connect to.
         - parameter completionHandler: A completion handler allowing you to react when the connection attempt succeeded or failed.
     */
-    public func connect(timeout: NSTimeInterval = 3, remotePeripheral: BKRemotePeripheral, completionHandler: ConnectCompletionHandler) {
+    public func connect(_ timeout: TimeInterval = 3, remotePeripheral: BKRemotePeripheral, completionHandler: ConnectCompletionHandler) {
         do {
-            try stateMachine.handleEvent(.Connect)
+            try stateMachine.handleEvent(.connect)
             try connectionPool.connectWithTimeout(timeout, remotePeripheral: remotePeripheral) { remotePeripheral, error in
                 var returnError: BKError?
                 if error == nil {
-                    _ = try? self.stateMachine.handleEvent(.SetAvailable)
+                    _ = try? self.stateMachine.handleEvent(.setAvailable)
                 } else {
-                    returnError = .InternalError(underlyingError: error)
+                    returnError = .internalError(underlyingError: error)
                 }
                 completionHandler(remotePeripheral: remotePeripheral, error: returnError)
             }
         } catch let error {
-            completionHandler(remotePeripheral: remotePeripheral, error: .InternalError(underlyingError: error))
+            completionHandler(remotePeripheral: remotePeripheral, error: .internalError(underlyingError: error))
             return
         }
     }
@@ -233,11 +237,11 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter remotePeripheral: The peripheral to disconnect.
         - throws: Throws an InternalError if the remote peripheral is not currently connected.
     */
-    public func disconnectRemotePeripheral(remotePeripheral: BKRemotePeripheral) throws {
+    public func disconnectRemotePeripheral(_ remotePeripheral: BKRemotePeripheral) throws {
         do {
             try connectionPool.disconnectRemotePeripheral(remotePeripheral)
         } catch let error {
-            throw BKError.InternalError(underlyingError: error)
+            throw BKError.internalError(underlyingError: error)
         }
     }
 
@@ -247,24 +251,24 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     */
     public func stop() throws {
         do {
-            try stateMachine.handleEvent(.Stop)
+            try stateMachine.handleEvent(.stop)
             interruptScan()
             connectionPool.reset()
             _configuration = nil
             _centralManager = nil
         } catch let error {
-            throw BKError.InternalError(underlyingError: error)
+            throw BKError.internalError(underlyingError: error)
         }
     }
 
     // MARK: Internal Functions
 
-    internal func setUnavailable(cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
+    internal func setUnavailable(_ cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
         scanner.interruptScan()
         connectionPool.reset()
         if oldCause == nil {
             for availabilityObserver in availabilityObservers {
-                availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Unavailable(cause: cause))
+                availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .unavailable(cause: cause))
             }
         } else if oldCause != nil && oldCause != cause {
             for availabilityObserver in availabilityObservers {
@@ -273,39 +277,40 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         }
     }
 
-    internal override func sendData(data: NSData, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
+    internal override func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
         guard let remotePeripheral = remotePeer as? BKRemotePeripheral, peripheral = remotePeripheral.peripheral, characteristic = remotePeripheral.characteristicData else {
             return false
         }
-        peripheral.writeValue(data, forCharacteristic: characteristic, type: .WithoutResponse)
+        peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
         return true
     }
 
     // MARK: BKCBCentralManagerStateDelegate
 
-    internal func centralManagerDidUpdateState(central: CBCentralManager) {
+    
+    internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-            case .Unknown, .Resetting:
+            case .unknown, .resetting:
                 break
-            case .Unsupported, .Unauthorized, .PoweredOff:
+            case .unsupported, .unauthorized, .poweredOff:
                 let newCause = BKUnavailabilityCause(centralManagerState: central.state)
                 switch stateMachine.state {
-                    case let .Unavailable(cause):
+                    case let .unavailable(cause):
                         let oldCause = cause
-                        _ = try? stateMachine.handleEvent(.SetUnavailable(cause: newCause))
+                        _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
                         setUnavailable(oldCause, oldCause: newCause)
                     default:
-                        _ = try? stateMachine.handleEvent(.SetUnavailable(cause: newCause))
+                        _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
                         setUnavailable(newCause, oldCause: nil)
                 }
 
-            case .PoweredOn:
+            case .poweredOn:
                 let state = stateMachine.state
-                _ = try? stateMachine.handleEvent(.SetAvailable)
+                _ = try? stateMachine.handleEvent(.setAvailable)
                 switch state {
-                    case .Starting, .Unavailable:
+                    case .starting, .unavailable:
                         for availabilityObserver in availabilityObservers {
-                            availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Available)
+                            availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .available)
                         }
                     default:
                         break
@@ -315,7 +320,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     // MARK: BKConnectionPoolDelegate
 
-    internal func connectionPool(connectionPool: BKConnectionPool, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
+    internal func connectionPool(_ connectionPool: BKConnectionPool, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
         delegate?.central(self, remotePeripheralDidDisconnect: remotePeripheral)
     }
 
