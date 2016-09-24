@@ -28,16 +28,16 @@ internal class BKContinousScanner {
 
     // MARK: Type Aliases
 
-    internal typealias ErrorHandler = ((error: Error) -> Void)
+    internal typealias ErrorHandler = ((_ error: BKError) -> Void)
     internal typealias StateHandler = BKCentral.ContinuousScanStateHandler
     internal typealias ChangeHandler = BKCentral.ContinuousScanChangeHandler
 
     // MARK: Enums
 
-    internal enum Error: ErrorProtocol {
+    internal enum BKError: Error {
         case busy
         case interrupted
-        case internalError(underlyingError: ErrorProtocol)
+        case internalError(underlyingError: Error)
     }
 
     // MARK: Properties
@@ -62,9 +62,9 @@ internal class BKContinousScanner {
 
     // MARK Internal Functions
 
-    internal func scanContinuouslyWithChangeHandler(_ changeHandler: ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ErrorHandler?) {
+    internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ErrorHandler?) {
         guard !busy else {
-            errorHandler?(error: .busy)
+            errorHandler?(.busy)
             return
         }
         busy = true
@@ -86,17 +86,17 @@ internal class BKContinousScanner {
     private func scan() {
         do {
             state = .scanning
-            stateHandler?(newState: state)
+            stateHandler?(state)
             try scanner.scanWithDuration(duration, progressHandler: { newDiscoveries in
                 let actualDiscoveries = newDiscoveries.filter({ !self.maintainedDiscoveries.contains($0) })
                 if !actualDiscoveries.isEmpty {
                     self.maintainedDiscoveries += actualDiscoveries
                     let changes = actualDiscoveries.map({ BKDiscoveriesChange.insert(discovery: $0) })
-                    self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
+                    self.changeHandler?(changes, self.maintainedDiscoveries)
                 }
             }, completionHandler: { result, error in
                 guard result != nil && error == nil else {
-                    self.endScanning(Error.internalError(underlyingError: error!))
+                    self.endScanning(BKError.internalError(underlyingError: error! as! Error))
                     return
                 }
                 let discoveriesToRemove = self.maintainedDiscoveries.filter({ !result!.contains($0) })
@@ -104,13 +104,13 @@ internal class BKContinousScanner {
                 for discoveryToRemove in discoveriesToRemove {
                     self.maintainedDiscoveries.remove(at: self.maintainedDiscoveries.index(of: discoveryToRemove)!)
                 }
-                self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
+                self.changeHandler?(changes, self.maintainedDiscoveries)
                 self.state = .waiting
-                self.stateHandler?(newState: self.state)
+                self.stateHandler?(self.state)
                 self.inBetweenDelayTimer = Timer.scheduledTimer(timeInterval: self.inBetweenDelay, target: self, selector: #selector(BKContinousScanner.inBetweenDelayTimerElapsed), userInfo: nil, repeats: false)
             })
         } catch let error {
-            endScanning(Error.internalError(underlyingError: error))
+            endScanning(BKError.internalError(underlyingError: error))
         }
     }
 
@@ -122,15 +122,15 @@ internal class BKContinousScanner {
         changeHandler = nil
     }
 
-    private func endScanning(_ error: Error?) {
+    private func endScanning(_ error: BKError?) {
         busy = false
         state = .stopped
         let errorHandler = self.errorHandler
         let stateHandler = self.stateHandler
         reset()
-        stateHandler?(newState: state)
+        stateHandler?(state)
         if let error = error {
-            errorHandler?(error: error)
+            errorHandler?(error)
         }
     }
 

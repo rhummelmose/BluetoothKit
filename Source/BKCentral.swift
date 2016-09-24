@@ -47,12 +47,12 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     // MARK: Type Aliases
 
-    public typealias ScanProgressHandler = ((newDiscoveries: [BKDiscovery]) -> Void)
-    public typealias ScanCompletionHandler = ((result: [BKDiscovery]?, error: BKError?) -> Void)
-    public typealias ContinuousScanChangeHandler = ((changes: [BKDiscoveriesChange], discoveries: [BKDiscovery]) -> Void)
-    public typealias ContinuousScanStateHandler = ((newState: ContinuousScanState) -> Void)
-    public typealias ContinuousScanErrorHandler = ((error: BKError) -> Void)
-    public typealias ConnectCompletionHandler = ((remotePeripheral: BKRemotePeripheral, error: BKError?) -> Void)
+    public typealias ScanProgressHandler = ((_ newDiscoveries: [BKDiscovery]) -> Void)
+    public typealias ScanCompletionHandler = ((_ result: [BKDiscovery]?, _ error: BKError?) -> Void)
+    public typealias ContinuousScanChangeHandler = ((_ changes: [BKDiscoveriesChange], _ discoveries: [BKDiscovery]) -> Void)
+    public typealias ContinuousScanStateHandler = ((_ newState: ContinuousScanState) -> Void)
+    public typealias ContinuousScanErrorHandler = ((_ error: BKError) -> Void)
+    public typealias ConnectCompletionHandler = ((_ remotePeripheral: BKRemotePeripheral, _ error: BKError?) -> Void)
 
     // MARK: Enums
 
@@ -167,10 +167,10 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 } else {
                     returnError = .internalError(underlyingError: error)
                 }
-                completionHandler?(result: result, error: returnError)
+                completionHandler?(result, returnError)
             }
         } catch let error {
-            completionHandler?(result: nil, error: .internalError(underlyingError: error))
+            completionHandler?(nil, .internalError(underlyingError: error))
             return
         }
     }
@@ -184,19 +184,19 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
     */
     @available(iOS 10.0, *)
-    public func scanContinuouslyWithChangeHandler(_ changeHandler: ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
+    public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
             continuousScanner.scanContinuouslyWithChangeHandler(changeHandler, stateHandler: { newState in
                 if newState == .stopped && self.availability == .available {
                     _ = try? self.stateMachine.handleEvent(.setAvailable)
                 }
-                stateHandler?(newState: newState)
+                stateHandler?(newState)
             }, duration: duration, inBetweenDelay: inBetweenDelay, errorHandler: { error in
-                errorHandler?(error: .internalError(underlyingError: error))
+                errorHandler?(.internalError(underlyingError: error))
             })
         } catch let error {
-            errorHandler?(error: .internalError(underlyingError: error))
+            errorHandler?(.internalError(underlyingError: error))
         }
     }
 
@@ -214,7 +214,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter remotePeripheral: The remote peripheral to connect to.
         - parameter completionHandler: A completion handler allowing you to react when the connection attempt succeeded or failed.
     */
-    public func connect(_ timeout: TimeInterval = 3, remotePeripheral: BKRemotePeripheral, completionHandler: ConnectCompletionHandler) {
+    public func connect(_ timeout: TimeInterval = 3, remotePeripheral: BKRemotePeripheral, completionHandler: @escaping ConnectCompletionHandler) {
         do {
             try stateMachine.handleEvent(.connect)
             try connectionPool.connectWithTimeout(timeout, remotePeripheral: remotePeripheral) { remotePeripheral, error in
@@ -222,12 +222,12 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 if error == nil {
                     _ = try? self.stateMachine.handleEvent(.setAvailable)
                 } else {
-                    returnError = .internalError(underlyingError: error)
+                    returnError = .internalError(underlyingError: error as! Error?)
                 }
-                completionHandler(remotePeripheral: remotePeripheral, error: returnError)
+                completionHandler(remotePeripheral, returnError)
             }
         } catch let error {
-            completionHandler(remotePeripheral: remotePeripheral, error: .internalError(underlyingError: error))
+            completionHandler(remotePeripheral, .internalError(underlyingError: error))
             return
         }
     }
@@ -278,7 +278,9 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     }
 
     internal override func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
-        guard let remotePeripheral = remotePeer as? BKRemotePeripheral, peripheral = remotePeripheral.peripheral, characteristic = remotePeripheral.characteristicData else {
+        guard let remotePeripheral = remotePeer as? BKRemotePeripheral,
+                let peripheral = remotePeripheral.peripheral,
+                let characteristic = remotePeripheral.characteristicData else {
             return false
         }
         peripheral.writeValue(data, for: characteristic, type: .withoutResponse)

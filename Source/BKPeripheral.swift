@@ -211,7 +211,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
         if !peripheralManager.isAdvertising {
-            var advertisementData: [String: AnyObject] = [ CBAdvertisementDataServiceUUIDsKey: _configuration.serviceUUIDs ]
+            var advertisementData: [String: Any] = [ CBAdvertisementDataServiceUUIDsKey: _configuration.serviceUUIDs ]
             if let localName = _configuration.localName {
                 advertisementData[CBAdvertisementDataLocalNameKey] = localName
             }
@@ -237,7 +237,9 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             guard writeRequest.characteristic.uuid == characteristicData.uuid else {
                 continue
             }
-            guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last), remoteCentral = remotePeer as? BKRemoteCentral, data = writeRequest.value else {
+            guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last),
+                  let remoteCentral = remotePeer as? BKRemoteCentral,
+                  let data = writeRequest.value else {
                 continue
             }
             remoteCentral.handleReceivedData(data)
