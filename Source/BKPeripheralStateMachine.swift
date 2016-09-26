@@ -28,16 +28,16 @@ internal class BKPeripheralStateMachine {
 
     // MARK: Enums
 
-    internal enum Error: ErrorType {
-        case Transitioning(currentState: State, validStates: [State])
+    internal enum Error: ErrorProtocol {
+        case transitioning(currentState: State, validStates: [State])
     }
 
     internal enum State {
-        case Initialized, Starting, Unavailable(cause: BKUnavailabilityCause), Available
+        case initialized, starting, unavailable(cause: BKUnavailabilityCause), available
     }
 
     internal enum Event {
-        case Start, SetUnavailable(cause: BKUnavailabilityCause), SetAvailable, Stop
+        case start, setUnavailable(cause: BKUnavailabilityCause), setAvailable, stop
     }
 
     // MARK: Properties
@@ -47,57 +47,57 @@ internal class BKPeripheralStateMachine {
     // MARK: Initialization
 
     internal init() {
-        self.state = .Initialized
+        self.state = .initialized
     }
 
     // MARK: Functions
 
     internal func handleEvent(event: Event) throws {
         switch event {
-        case .Start:
-            try handleStartEvent(event)
-        case .SetAvailable:
-            try handleSetAvailableEvent(event)
-        case let .SetUnavailable(cause):
-            try handleSetUnavailableEvent(event, withCause: cause)
-        case .Stop:
-            try handleStopEvent(event)
+        case .start:
+            try handleStartEvent(event: event)
+        case .setAvailable:
+            try handleSetAvailableEvent(event: event)
+        case let .setUnavailable(cause):
+            try handleSetUnavailableEvent(event: event, withCause: cause)
+        case .stop:
+            try handleStopEvent(event: event)
         }
     }
 
     private func handleStartEvent(event: Event) throws {
         switch state {
-        case .Initialized:
-            state = .Starting
+        case .initialized:
+            state = .starting
         default:
-            throw Error.Transitioning(currentState: state, validStates: [ .Initialized ])
+            throw Error.transitioning(currentState: state, validStates: [ .initialized ])
         }
     }
 
     private func handleSetAvailableEvent(event: Event) throws {
         switch state {
-        case .Initialized:
-            throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
+        case .initialized:
+            throw Error.transitioning(currentState: state, validStates: [ .starting, .available, .unavailable(cause: nil) ])
         default:
-            state = .Available
+            state = .available
         }
     }
 
     private func handleSetUnavailableEvent(event: Event, withCause cause: BKUnavailabilityCause) throws {
         switch state {
-        case .Initialized:
-            throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
+        case .initialized:
+            throw Error.transitioning(currentState: state, validStates: [ .starting, .available, .unavailable(cause: nil) ])
         default:
-            state = .Unavailable(cause: cause)
+            state = .unavailable(cause: cause)
         }
     }
 
     private func handleStopEvent(event: Event) throws {
         switch state {
-        case .Initialized:
-            throw Error.Transitioning(currentState: state, validStates: [ .Starting, .Available, .Unavailable(cause: nil) ])
+        case .initialized:
+            throw Error.transitioning(currentState: state, validStates: [ .starting, .available, .unavailable(cause: nil) ])
         default:
-            state = .Initialized
+            state = .initialized
         }
     }
 

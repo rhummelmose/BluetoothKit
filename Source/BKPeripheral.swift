@@ -28,30 +28,33 @@ import CoreBluetooth
 /**
     The peripheral's delegate is called when asynchronous events occur.
 */
+@available(iOS 10.0, *)
 public protocol BKPeripheralDelegate: class {
     /**
         Called when a remote central connects and is ready to receive data.
         - parameter peripheral: The peripheral object to which the remote central connected.
         - parameter remoteCentral: The remote central that connected.
     */
-    func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral)
+    func peripheral(_ peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral)
     /**
         Called when a remote central disconnects and can no longer receive data.
         - parameter peripheral: The peripheral object from which the remote central disconnected.
         - parameter remoteCentral: The remote central that disconnected.
     */
-    func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral)
+    func peripheral(_ peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral)
 }
 
 /**
     The class used to take the Bluetooth LE peripheral role. Peripherals can be discovered and connected to by centrals.
     One a central has connected, the peripheral can send data to it.
 */
+@available(iOS 10.0, *)
 public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailabilityObservable {
 
     // MARK: Properies
 
     /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
+    @available(iOS 10.0, *)
     public var availability: BKAvailability {
         return BKAvailability(peripheralManagerState: peripheralManager.state)
     }
@@ -99,13 +102,13 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         - parameter configuration: A configuration defining the unique identifiers along with the name to be broadcasted.
         - throws: An internal error if the BKPeripheral object was already started.
     */
-    public func startWithConfiguration(configuration: BKPeripheralConfiguration) throws {
+    public func startWithConfiguration(_ configuration: BKPeripheralConfiguration) throws {
         do {
-            try stateMachine.handleEvent(.Start)
+            try stateMachine.handleEvent(event: .start)
             _configuration = configuration
             peripheralManager = CBPeripheralManager(delegate: peripheralManagerDelegate, queue: nil, options: nil)
         } catch let error {
-            throw BKError.InternalError(underlyingError: error)
+            throw BKError.internalError(underlyingError: error)
         }
     }
 
@@ -115,7 +118,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     */
     public func stop() throws {
         do {
-            try stateMachine.handleEvent(.Stop)
+            try stateMachine.handleEvent(event: .stop)
             _configuration = nil
             if peripheralManager.isAdvertising {
                 peripheralManager.stopAdvertising()
@@ -123,13 +126,13 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             peripheralManager.removeAllServices()
             peripheralManager = nil
         } catch let error {
-            throw BKError.InternalError(underlyingError: error)
+            throw BKError.internalError(underlyingError: error)
         }
     }
 
     // MARK: Private Functions
 
-    private func setUnavailable(cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
+    private func setUnavailable(_ cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
         if oldCause == nil {
             for remotePeer in connectedRemotePeers {
                 if let remoteCentral = remotePeer as? BKRemoteCentral {
@@ -137,7 +140,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
                 }
             }
             for availabilityObserver in availabilityObservers {
-                availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Unavailable(cause: cause))
+                availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .unavailable(cause: cause))
             }
         } else if oldCause != nil && oldCause != cause {
             for availabilityObserver in availabilityObservers {
@@ -148,53 +151,53 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     private func setAvailable() {
         for availabilityObserver in availabilityObservers {
-            availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .Available)
+            availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .available)
         }
         if !peripheralManager.isAdvertising {
             dataService = CBMutableService(type: _configuration.dataServiceUUID, primary: true)
-            let properties: CBCharacteristicProperties = [ .Read, .Notify, .WriteWithoutResponse, .Write ]
-            let permissions: CBAttributePermissions = [ .Readable, .Writeable ]
+            let properties: CBCharacteristicProperties = [ .read, .notify, .writeWithoutResponse, .write ]
+            let permissions: CBAttributePermissions = [ .readable, .writeable ]
             characteristicData = CBMutableCharacteristic(type: _configuration.dataServiceCharacteristicUUID, properties: properties, value: nil, permissions: permissions)
             dataService.characteristics = [ characteristicData ]
-            peripheralManager.addService(dataService)
+            peripheralManager.add(dataService)
         }
     }
 
-    internal override func sendData(data: NSData, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
+    internal override func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
         guard let remoteCentral = remotePeer as? BKRemoteCentral else {
             return false
         }
-        return peripheralManager.updateValue(data, forCharacteristic: characteristicData, onSubscribedCentrals: [ remoteCentral.central ])
+        return peripheralManager.updateValue(data, for: characteristicData, onSubscribedCentrals: [ remoteCentral.central ])
     }
 
-    private func handleDisconnectForRemoteCentral(remoteCentral: BKRemoteCentral) {
+    private func handleDisconnectForRemoteCentral(_ remoteCentral: BKRemoteCentral) {
         failSendDataTasksForRemotePeer(remoteCentral)
-        connectedRemotePeers.removeAtIndex(connectedRemotePeers.indexOf(remoteCentral)!)
+        connectedRemotePeers.remove(at: connectedRemotePeers.index(of: remoteCentral)!)
         delegate?.peripheral(self, remoteCentralDidDisconnect: remoteCentral)
     }
 
     // MARK: BKCBPeripheralManagerDelegate
 
-    internal func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+    internal func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         switch peripheral.state {
-        case .Unknown, .Resetting:
+        case .unknown, .resetting:
             break
-        case .Unsupported, .Unauthorized, .PoweredOff:
+        case .unsupported, .unauthorized, .poweredOff:
             let newCause = BKUnavailabilityCause(peripheralManagerState: peripheral.state)
             switch stateMachine.state {
-                case let .Unavailable(cause):
+                case let .unavailable(cause):
                     let oldCause = cause
-                    _ = try? stateMachine.handleEvent(.SetUnavailable(cause: newCause))
+                    _ = try? stateMachine.handleEvent(event: .setUnavailable(cause: newCause))
                     setUnavailable(oldCause, oldCause: newCause)
                 default:
-                    _ = try? stateMachine.handleEvent(.SetUnavailable(cause: newCause))
+                    _ = try? stateMachine.handleEvent(event: .setUnavailable(cause: newCause))
                     setUnavailable(newCause, oldCause: nil)
                 }
-            case .PoweredOn:
+            case .poweredOn:
                 let state = stateMachine.state
-                _ = try? stateMachine.handleEvent(.SetAvailable)
+                _ = try? stateMachine.handleEvent(event: .setAvailable)
                 switch state {
-                case .Starting, .Unavailable:
+                case .starting, .unavailable:
                     setAvailable()
                 default:
                     break
@@ -202,11 +205,11 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         }
     }
 
-    internal func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager, error: NSError?) {
+    internal func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: NSError?) {
 
     }
 
-    internal func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
+    internal func peripheralManager(_ peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
         if !peripheralManager.isAdvertising {
             var advertisementData: [String: AnyObject] = [ CBAdvertisementDataServiceUUIDsKey: _configuration.serviceUUIDs ]
             if let localName = _configuration.localName {
@@ -216,22 +219,22 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         }
     }
 
-    internal func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
+    internal func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
         let remoteCentral = BKRemoteCentral(central: central)
         remoteCentral.configuration = configuration
         connectedRemotePeers.append(remoteCentral)
         delegate?.peripheral(self, remoteCentralDidConnect: remoteCentral)
     }
 
-    internal func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
-        if let remoteCentral = connectedRemotePeers.filter({ $0.identifier.isEqual(central.identifier) }).last as? BKRemoteCentral {
+    internal func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
+        if let remoteCentral = connectedRemotePeers.filter({ ($0.identifier == central.identifier) }).last as? BKRemoteCentral {
             handleDisconnectForRemoteCentral(remoteCentral)
         }
     }
 
-    func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
+    func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
         for writeRequest in requests {
-            guard writeRequest.characteristic.UUID == characteristicData.UUID else {
+            guard writeRequest.characteristic.uuid == characteristicData.uuid else {
                 continue
             }
             guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last), remoteCentral = remotePeer as? BKRemoteCentral, data = writeRequest.value else {
@@ -241,7 +244,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         }
     }
 
-    internal func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager) {
+    internal func peripheralManagerIsReadyToUpdateSubscribers(_ peripheral: CBPeripheralManager) {
         processSendDataTasks()
     }
 
