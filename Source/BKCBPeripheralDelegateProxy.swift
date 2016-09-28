@@ -94,10 +94,12 @@ internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
         // print("peripheral: \(peripheral) didDiscoverDescriptorsForCharacteristic: \(characteristic), error: \(error)")
     }
 
+    @nonobjc
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor descriptor: CBDescriptor, error: NSError?) {
         // print("peripheral: \(peripheral) didUpdateValueForDescriptor: \(descriptor), error: \(error)")
     }
 
+    @nonobjc
     internal func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: NSError?) {
         // print("peripheral: \(peripheral) didWriteValueForDescriptor: \(descriptor), error: \(error)")
     }
