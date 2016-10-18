@@ -145,20 +145,20 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         peripheralDelegate?.remotePeripheral(self, didUpdateName: name!)
     }
 
-    internal func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    internal func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else {
             return
         }
         for service in services {
             if service.characteristics != nil {
-                self.peripheral(peripheral, didDiscoverCharacteristicsForService: service, error: nil)
+                self.peripheral(peripheral, didDiscoverCharacteristicsFor: service, error: nil)
             } else {
                 peripheral.discoverCharacteristics(configuration!.characteristicUUIDsForServiceUUID(service.uuid), for: service)
             }
         }
     }
 
-    internal func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+    internal func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard service.uuid == configuration!.dataServiceUUID, let dataCharacteristic = service.characteristics?.filter({ $0.uuid == configuration!.dataServiceCharacteristicUUID }).last else {
             return
         }
@@ -166,11 +166,12 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         peripheral.setNotifyValue(true, for: dataCharacteristic)
     }
 
-    internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+    internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard characteristic.uuid == configuration!.dataServiceCharacteristicUUID else {
             return
         }
         handleReceivedData(characteristic.value!)
     }
+
 
 }
