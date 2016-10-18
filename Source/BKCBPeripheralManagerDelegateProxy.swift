@@ -50,41 +50,41 @@ internal class BKCBPeripheralManagerDelegateProxy: NSObject, CBPeripheralManager
     // MARK: CBPeripheralManagerDelegate
 
     internal func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-         print("peripheralManagerDidUpdateState: \(peripheral)")
+//         print("peripheralManagerDidUpdateState: \(peripheral)")
         delegate?.peripheralManagerDidUpdateState(peripheral)
     }
     
     internal func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
-         print("peripheralManagerDidStartAdvertising: \(peripheral) error: \(error)")
+//         print("peripheralManagerDidStartAdvertising: \(peripheral) error: \(error)")
         delegate?.peripheralManagerDidStartAdvertising(peripheral, error: error)
     }
     
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
-         print("peripheralManager: \(peripheral) didAddService: \(service) error: \(error)")
+//         print("peripheralManager: \(peripheral) didAddService: \(service) error: \(error)")
         delegate?.peripheralManager(peripheral, didAdd: service, error: error)
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-         print("peripheralManager: \(peripheral) central: \(central) didSubscribeToCharacteristic: \(characteristic)")
+//         print("peripheralManager: \(peripheral) central: \(central) didSubscribeToCharacteristic: \(characteristic)")
         delegate?.peripheralManager(peripheral, central: central, didSubscribeToCharacteristic: characteristic)
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
-         print("peripheralManager: \(peripheral) central: \(central) didUnsubscribeFromCharacteristic: \(characteristic)")
+//         print("peripheralManager: \(peripheral) central: \(central) didUnsubscribeFromCharacteristic: \(characteristic)")
         delegate?.peripheralManager(peripheral, central: central, didUnsubscribeFromCharacteristic: characteristic)
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
-         print("peripheralManager: \(peripheral) didReceiveReadRequest: \(request)")
+//         print("peripheralManager: \(peripheral) didReceiveReadRequest: \(request)")
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
-         print("peripheralManager: \(peripheral) didReceiveWriteRequests: \(requests)")
+//         print("peripheralManager: \(peripheral) didReceiveWriteRequests: \(requests)")
         delegate?.peripheralManager(peripheral, didReceiveWriteRequests: requests)
     }
 
     internal func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
-         print("peripheralManagerIsReadyToUpdateSubscribers: \(peripheral)")
+//         print("peripheralManagerIsReadyToUpdateSubscribers: \(peripheral)")
         delegate?.peripheralManagerIsReadyToUpdateSubscribers(peripheral)
     }
 
