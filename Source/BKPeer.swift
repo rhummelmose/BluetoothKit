@@ -70,17 +70,17 @@ public class BKPeer {
         }
         let nextTask = sendDataTasks.first!
         if nextTask.sentAllData {
-            let sentEndOfDataMark = sendData(configuration!.endOfDataMark as Data, toRemotePeer: nextTask.destination)
+            let sentEndOfDataMark = sendData(configuration!.endOfDataMark, toRemotePeer: nextTask.destination)
             if sentEndOfDataMark {
                 sendDataTasks.remove(at: sendDataTasks.index(of: nextTask)!)
-                nextTask.completionHandler?(nextTask.data as Data, nextTask.destination, nil)
+                nextTask.completionHandler?(nextTask.data, nextTask.destination, nil)
                 processSendDataTasks()
             } else {
                 return
             }
         }
         if let nextPayload = nextTask.nextPayload {
-            let sentNextPayload = sendData(nextPayload as Data, toRemotePeer: nextTask.destination)
+            let sentNextPayload = sendData(nextPayload, toRemotePeer: nextTask.destination)
             if sentNextPayload {
                 nextTask.offset += nextPayload.count
                 processSendDataTasks()
@@ -96,7 +96,7 @@ public class BKPeer {
     internal func failSendDataTasksForRemotePeer(_ remotePeer: BKRemotePeer) {
         for sendDataTask in sendDataTasks.filter({ $0.destination == remotePeer }) {
             sendDataTasks.remove(at: sendDataTasks.index(of: sendDataTask)!)
-            sendDataTask.completionHandler?(sendDataTask.data as Data, sendDataTask.destination, .remotePeerNotConnected)
+            sendDataTask.completionHandler?(sendDataTask.data, sendDataTask.destination, .remotePeerNotConnected)
         }
     }
 
