@@ -41,7 +41,7 @@ public struct BKDiscovery: Equatable {
     }
 
     /// The data advertised while the discovery was made.
-    public let advertisementData: [String: AnyObject]
+    public let advertisementData: [String: Any]
 
     /// The remote peripheral that was discovered.
     public let remotePeripheral: BKRemotePeripheral
@@ -51,7 +51,7 @@ public struct BKDiscovery: Equatable {
 
     // MARK: Initialization
 
-    public init(advertisementData: [String: AnyObject], remotePeripheral: BKRemotePeripheral, RSSI: Int) {
+    public init(advertisementData: [String: Any], remotePeripheral: BKRemotePeripheral, RSSI: Int) {
         self.advertisementData = advertisementData
         self.remotePeripheral = remotePeripheral
         self.RSSI = RSSI

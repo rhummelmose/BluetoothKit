@@ -34,7 +34,7 @@ public protocol BKCentralDelegate: class {
         - parameter central: The central from which it disconnected.
         - parameter remotePeripheral: The remote peripheral that disconnected.
     */
-    @available(iOS 10.0, *)
+    
     func central(_ central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
 }
 
@@ -42,7 +42,7 @@ public protocol BKCentralDelegate: class {
     The class used to take the Bluetooth LE central role. The central discovers remote peripherals by scanning
     and connects to them. When a connection is established the central can receive data from the remote peripheral.
 */
-@available(iOS 10.0, *)
+
 public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoolDelegate, BKAvailabilityObservable {
 
     // MARK: Type Aliases
@@ -71,10 +71,15 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     // MARK: Properties
 
     /// Bluetooth LE availability, derived from the underlying CBCentralManager.
-    @available(iOS 10.0, *)
+    
     public var availability: BKAvailability? {
         if let centralManager = _centralManager {
-            return BKAvailability(centralManagerState: centralManager.state)
+            if #available(iOS 10.0, *) {
+                return BKAvailability(centralState: centralManager.state)
+            }
+            else {
+                return BKAvailability(centralManagerState: CBCentralManagerState(rawValue: centralManager.state.rawValue)!)
+            }
         } else {
             return nil
         }
@@ -183,7 +188,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter inBetweenDelay: The number of seconds to wait for, in-between scans (defaults to 3).
         - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
     */
-    @available(iOS 10.0, *)
+    
     public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
@@ -295,7 +300,15 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             case .unknown, .resetting:
                 break
             case .unsupported, .unauthorized, .poweredOff:
-                let newCause = BKUnavailabilityCause(centralManagerState: central.state)
+                let newCause: BKUnavailabilityCause
+                
+                if #available(iOS 10.0, *) {
+                    newCause = BKUnavailabilityCause(centralState: central.state)
+                }
+                else {
+                    newCause = BKUnavailabilityCause(centralManagerState: CBCentralManagerState(rawValue: central.state.rawValue)!)
+                }
+                
                 switch stateMachine.state {
                     case let .unavailable(cause):
                         let oldCause = cause
