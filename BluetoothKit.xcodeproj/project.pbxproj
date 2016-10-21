@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91575CE01DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
+		91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
+		91575CE21DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
 		C64CDDFB1BE4C56C00F72549 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
 		C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
 		C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
@@ -74,6 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBLegacyManagerState.swift; sourceTree = "<group>"; };
 		C64CDDF31BE4C46A00F72549 /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66888AC1B978181003C8DBB /* BKDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscovery.swift; sourceTree = "<group>"; };
 		C66888AE1B984792003C8DBB /* BKConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConfiguration.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */,
 				C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */,
 				C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */,
+				91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */,
 				C687E3A81B8B4A2800B702D8 /* BKCentral.swift */,
 				C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */,
 				C66888AE1B984792003C8DBB /* BKConfiguration.swift */,
@@ -386,6 +391,7 @@
 				C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
 				C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C64CDDFF1BE4C56C00F72549 /* BKCentral.swift in Sources */,
+				91575CE21DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C64CDE001BE4C56C00F72549 /* BKCentralStateMachine.swift in Sources */,
 				C6B2E3771CE52DD900D25393 /* BKRemotePeer.swift in Sources */,
 				C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */,
@@ -409,6 +415,7 @@
 				C67A22781B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
 				C6B2E3711CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
 				C67A22751B8C83D900CB74CE /* BKPeripheralStateMachine.swift in Sources */,
+				91575CE01DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */,
 				C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */,
 				C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */,
@@ -438,6 +445,7 @@
 				C6ED86C91BA955DB00C9B70B /* BKAvailability.swift in Sources */,
 				C6B2E3721CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
 				C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */,
+				91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
 				C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */,

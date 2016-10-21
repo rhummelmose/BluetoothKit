@@ -75,11 +75,16 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         guard let centralManager = _centralManager else {
             return nil
         }
-        if #available(iOS 10.0, tvOS 10.0, *) {
-            return BKAvailability(managerState: centralManager.state)
-        } else {
-            return BKAvailability(centralManagerState: CBCentralManagerState(rawValue: centralManager.state.rawValue)!)
-        }
+            #if os(iOS) || os(tvOS)
+                if #available(tvOS 10.0, iOS 10.0, *) {
+                    return BKAvailability(managerState: centralManager.state)
+                } else {
+                    return BKAvailability(centralManagerState: centralManager.centralManagerState)
+                }
+            #else
+                return BKAvailability(centralManagerState: centralManager.state)
+            #endif
+
     }
 
     /// All currently connected remote peripherals.
@@ -337,13 +342,15 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 break
             case .unsupported, .unauthorized, .poweredOff:
                 let newCause: BKUnavailabilityCause
-
-                if #available(iOS 10.0, *), #available(tvOS 10.0, *) {
-                    newCause = BKUnavailabilityCause(managerState: central.state)
-                } else {
-                    newCause = BKUnavailabilityCause(centralManagerState: CBCentralManagerState(rawValue: central.state.rawValue)!)
-                }
-
+                #if os(iOS) || os(tvOS)
+                    if #available(iOS 10.0, tvOS 10.0, *) {
+                        newCause = BKUnavailabilityCause(managerState: central.state)
+                    } else {
+                        newCause = BKUnavailabilityCause(centralManagerState: central.centralManagerState)
+                    }
+                #else
+                    newCause = BKUnavailabilityCause(centralManagerState: central.state)
+                #endif
                 switch stateMachine.state {
                     case let .unavailable(cause):
                         let oldCause = cause

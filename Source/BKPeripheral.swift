@@ -56,11 +56,15 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
 
     public var availability: BKAvailability {
-        if #available(iOS 10.0, *), #available(tvOS 10.0, *) {
-            return BKAvailability(managerState: peripheralManager.state)
-        } else {
-            return BKAvailability(peripheralManagerState: CBPeripheralManagerState(rawValue:peripheralManager.state.rawValue)!)
-        }
+        #if os(iOS) || os(tvOS)
+            if #available(iOS 10.0, tvOS 10.0, *) {
+                return BKAvailability(managerState: peripheralManager.state)
+            } else {
+                return BKAvailability(peripheralManagerState: peripheralManager.peripheralManagerState)
+            }
+        #else
+            return BKAvailability(peripheralManagerState: peripheralManager.state)
+        #endif
     }
 
 
@@ -189,15 +193,16 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         case .unknown, .resetting:
             break
         case .unsupported, .unauthorized, .poweredOff:
-
             let newCause: BKUnavailabilityCause
-            if #available(iOS 10.0, *), #available(tvOS 10.0, *) {
-                newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
-            } else {
-                newCause = BKUnavailabilityCause(peripheralManagerState: CBPeripheralManagerState(rawValue: peripheralManager.state.rawValue)!)
-            }
-
-
+            #if os(iOS) || os(tvOS)
+                if #available(iOS 10.0, tvOS 10.0, *) {
+                    newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
+                } else {
+                    newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.peripheralManagerState)
+                }
+            #else
+                newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.state)
+            #endif
             switch stateMachine.state {
                 case let .unavailable(cause):
                     let oldCause = cause
