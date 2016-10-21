@@ -37,7 +37,7 @@ public class BKPeripheralConfiguration: BKConfiguration {
 
     // MARK: Initialization
 
-    public init(dataServiceUUID: NSUUID, dataServiceCharacteristicUUID: NSUUID, localName: String? = nil) {
+    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID, localName: String? = nil) {
         self.localName = localName
         super.init(dataServiceUUID: dataServiceUUID, dataServiceCharacteristicUUID: dataServiceCharacteristicUUID)
     }

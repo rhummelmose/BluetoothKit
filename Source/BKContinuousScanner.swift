@@ -28,16 +28,16 @@ internal class BKContinousScanner {
 
     // MARK: Type Aliases
 
-    internal typealias ErrorHandler = ((error: Error) -> Void)
+    internal typealias ErrorHandler = ((_ error: BKError) -> Void)
     internal typealias StateHandler = BKCentral.ContinuousScanStateHandler
     internal typealias ChangeHandler = BKCentral.ContinuousScanChangeHandler
 
     // MARK: Enums
 
-    internal enum Error: ErrorType {
-        case Busy
-        case Interrupted
-        case InternalError(underlyingError: ErrorType)
+    internal enum BKError: Error {
+        case busy
+        case interrupted
+        case internalError(underlyingError: Error)
     }
 
     // MARK: Properties
@@ -46,25 +46,25 @@ internal class BKContinousScanner {
     private let scanner: BKScanner
     private var busy = false
     private var maintainedDiscoveries = [BKDiscovery]()
-    private var inBetweenDelayTimer: NSTimer?
+    private var inBetweenDelayTimer: Timer?
     private var errorHandler: ErrorHandler?
     private var stateHandler: StateHandler?
     private var changeHandler: ChangeHandler?
-    private var duration: NSTimeInterval!
-    private var inBetweenDelay: NSTimeInterval!
+    private var duration: TimeInterval!
+    private var inBetweenDelay: TimeInterval!
 
     // MARK: Initialization
 
     internal init(scanner: BKScanner) {
         self.scanner = scanner
-        state = .Stopped
+        state = .stopped
     }
 
     // MARK Internal Functions
 
-    internal func scanContinuouslyWithChangeHandler(changeHandler: ChangeHandler, stateHandler: StateHandler? = nil, duration: NSTimeInterval = 3, inBetweenDelay: NSTimeInterval = 3, errorHandler: ErrorHandler?) {
+    internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ErrorHandler?) {
         guard !busy else {
-            errorHandler?(error: .Busy)
+            errorHandler?(.busy)
             return
         }
         busy = true
@@ -78,39 +78,39 @@ internal class BKContinousScanner {
 
     internal func interruptScan() {
         scanner.interruptScan()
-        endScanning(.Interrupted)
+        endScanning(.interrupted)
     }
 
     // MARK: Private Functions
 
     private func scan() {
         do {
-            state = .Scanning
-            stateHandler?(newState: state)
+            state = .scanning
+            stateHandler?(state)
             try scanner.scanWithDuration(duration, progressHandler: { newDiscoveries in
                 let actualDiscoveries = newDiscoveries.filter({ !self.maintainedDiscoveries.contains($0) })
                 if !actualDiscoveries.isEmpty {
                     self.maintainedDiscoveries += actualDiscoveries
-                    let changes = actualDiscoveries.map({ BKDiscoveriesChange.Insert(discovery: $0) })
-                    self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
+                    let changes = actualDiscoveries.map({ BKDiscoveriesChange.insert(discovery: $0) })
+                    self.changeHandler?(changes, self.maintainedDiscoveries)
                 }
             }, completionHandler: { result, error in
                 guard result != nil && error == nil else {
-                    self.endScanning(Error.InternalError(underlyingError: error!))
+                    self.endScanning(BKError.internalError(underlyingError: error! as! Error))
                     return
                 }
                 let discoveriesToRemove = self.maintainedDiscoveries.filter({ !result!.contains($0) })
-                let changes = discoveriesToRemove.map({ BKDiscoveriesChange.Remove(discovery: $0) })
+                let changes = discoveriesToRemove.map({ BKDiscoveriesChange.remove(discovery: $0) })
                 for discoveryToRemove in discoveriesToRemove {
-                    self.maintainedDiscoveries.removeAtIndex(self.maintainedDiscoveries.indexOf(discoveryToRemove)!)
+                    self.maintainedDiscoveries.remove(at: self.maintainedDiscoveries.index(of: discoveryToRemove)!)
                 }
-                self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
-                self.state = .Waiting
-                self.stateHandler?(newState: self.state)
-                self.inBetweenDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.inBetweenDelay, target: self, selector: #selector(BKContinousScanner.inBetweenDelayTimerElapsed), userInfo: nil, repeats: false)
+                self.changeHandler?(changes, self.maintainedDiscoveries)
+                self.state = .waiting
+                self.stateHandler?(self.state)
+                self.inBetweenDelayTimer = Timer.scheduledTimer(timeInterval: self.inBetweenDelay, target: self, selector: #selector(BKContinousScanner.inBetweenDelayTimerElapsed), userInfo: nil, repeats: false)
             })
         } catch let error {
-            endScanning(Error.InternalError(underlyingError: error))
+            endScanning(BKError.internalError(underlyingError: error))
         }
     }
 
@@ -122,15 +122,15 @@ internal class BKContinousScanner {
         changeHandler = nil
     }
 
-    private func endScanning(error: Error?) {
+    private func endScanning(_ error: BKError?) {
         busy = false
-        state = .Stopped
+        state = .stopped
         let errorHandler = self.errorHandler
         let stateHandler = self.stateHandler
         reset()
-        stateHandler?(newState: state)
+        stateHandler?(state)
         if let error = error {
-            errorHandler?(error: error)
+            errorHandler?(error)
         }
     }
 

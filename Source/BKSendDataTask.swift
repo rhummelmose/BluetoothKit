@@ -25,14 +25,14 @@
 import Foundation
 
 internal func == (lhs: BKSendDataTask, rhs: BKSendDataTask) -> Bool {
-    return lhs.destination == rhs.destination && lhs.data.isEqualToData(rhs.data)
+    return lhs.destination == rhs.destination && lhs.data == rhs.data
 }
 
 internal class BKSendDataTask: Equatable {
 
     // MARK: Properties
 
-    internal let data: NSData
+    internal let data: Data
     internal let destination: BKRemotePeer
     internal let completionHandler: BKSendDataCompletionHandler?
     internal var offset = 0
@@ -42,25 +42,30 @@ internal class BKSendDataTask: Equatable {
     }
 
     internal var lengthOfRemainingData: Int {
-        return data.length - offset
+        return data.count - offset
     }
 
     internal var sentAllData: Bool {
         return lengthOfRemainingData == 0
     }
 
-    internal var rangeForNextPayload: NSRange {
+    internal var rangeForNextPayload: Range<Int>? {
         let lenghtOfNextPayload = maximumPayloadLength <= lengthOfRemainingData ? maximumPayloadLength : lengthOfRemainingData
-        return NSRange(location: offset, length: lenghtOfNextPayload)
+        let payLoadRange = NSRange(location: offset, length: lenghtOfNextPayload)
+        return payLoadRange.toRange()
     }
 
-    internal var nextPayload: NSData {
-        return data.subdataWithRange(rangeForNextPayload)
+    internal var nextPayload: Data? {
+        if let range = rangeForNextPayload {
+             return data.subdata(in: range)
+        } else {
+            return nil
+        }
     }
 
     // MARK: Initialization
 
-    internal init(data: NSData, destination: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
+    internal init(data: Data, destination: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
         self.data = data
         self.destination = destination
         self.completionHandler = completionHandler

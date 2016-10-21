@@ -26,17 +26,17 @@ import Foundation
 import CoreBluetooth
 
 internal protocol BKCBCentralManagerStateDelegate: class {
-    func centralManagerDidUpdateState(central: CBCentralManager)
+    func centralManagerDidUpdateState(_ central: CBCentralManager)
 }
 
 internal protocol BKCBCentralManagerDiscoveryDelegate: class {
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
 }
 
 internal protocol BKCBCentralManagerConnectionDelegate: class {
-    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral)
-    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?)
-    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?)
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral)
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?)
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?)
 }
 
 internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelegate {
@@ -58,23 +58,28 @@ internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelega
 
     // MARK: CBCentralManagerDelegate
 
-    internal func centralManagerDidUpdateState(central: CBCentralManager) {
+    internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         stateDelegate?.centralManagerDidUpdateState(central)
     }
 
-    internal func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
-        discoveryDelegate?.centralManager(central, didDiscoverPeripheral: peripheral, advertisementData: advertisementData, RSSI: RSSI)
+    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        discoveryDelegate?.centralManager(central, didDiscover: peripheral, advertisementData: advertisementData, rssi: RSSI)
     }
 
-    internal func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        connectionDelegate?.centralManager(central, didConnectPeripheral: peripheral)
+    internal func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        connectionDelegate?.centralManager(central, didConnect: peripheral)
     }
 
-    internal func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        connectionDelegate?.centralManager(central, didFailToConnectPeripheral: peripheral, error: error)
+    internal func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        connectionDelegate?.centralManager(central, didFailToConnect: peripheral, error: error)
     }
-
-    internal func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    
+    internal func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         connectionDelegate?.centralManager(central, didDisconnectPeripheral: peripheral, error: error)
     }
+    
+
+    
+
+    
 }

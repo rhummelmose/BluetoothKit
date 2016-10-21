@@ -27,10 +27,10 @@ import CoreBluetooth
 
 public func == (lhs: BKAvailability, rhs: BKAvailability) -> Bool {
     switch (lhs, rhs) {
-        case (.Available, .Available): return true
-        case (.Unavailable(cause: .Any), .Unavailable): return true
-        case (.Unavailable, .Unavailable(cause: .Any)): return true
-        case (.Unavailable(let lhsCause), .Unavailable(let rhsCause)): return lhsCause == rhsCause
+        case (.available, .available): return true
+        case (.unavailable(cause: .any), .unavailable): return true
+        case (.unavailable, .unavailable(cause: .any)): return true
+        case (.unavailable(let lhsCause), .unavailable(let rhsCause)): return lhsCause == rhsCause
         default: return false
     }
 }
@@ -44,23 +44,30 @@ public func == (lhs: BKAvailability, rhs: BKAvailability) -> Bool {
 */
 public enum BKAvailability: Equatable {
 
-    case Available
-    case Unavailable(cause: BKUnavailabilityCause)
+    case available
+    case unavailable(cause: BKUnavailabilityCause)
 
-    internal init(centralManagerState: CBCentralManagerState) {
+    @available(iOS 10.0, *)
+    internal init(centralState: CBManagerState) {
+        switch centralState {
+            case .poweredOn: self = .available
+            default: self = .unavailable(cause: BKUnavailabilityCause(centralState: centralState))
+        }
+    }
+
+    internal init(centralManagerState: CBCentralManagerState){
         switch centralManagerState {
-            case .PoweredOn: self = .Available
-            default: self = .Unavailable(cause: BKUnavailabilityCause(centralManagerState: centralManagerState))
+        case .poweredOn: self = .available
+        default: self = .unavailable(cause: BKUnavailabilityCause(centralManagerState: centralManagerState))
         }
     }
-
-    internal init(peripheralManagerState: CBPeripheralManagerState) {
+    
+    internal init(peripheralManagerState: CBPeripheralManagerState){
         switch peripheralManagerState {
-            case .PoweredOn: self = .Available
-            default: self = .Unavailable(cause: BKUnavailabilityCause(peripheralManagerState: peripheralManagerState))
+        case .poweredOn: self = .available
+        default: self = .unavailable(cause: BKUnavailabilityCause(peripheralManagerState: peripheralManagerState))
         }
     }
-
 }
 
 /**
@@ -73,33 +80,44 @@ public enum BKAvailability: Equatable {
 */
 public enum BKUnavailabilityCause: NilLiteralConvertible {
 
-    case Any
-    case Resetting
-    case Unsupported
-    case Unauthorized
-    case PoweredOff
+    case any
+    case resetting
+    case unsupported
+    case unauthorized
+    case poweredOff
 
     public init(nilLiteral: Void) {
-        self = Any
+        self = .any
     }
 
-    internal init(centralManagerState: CBCentralManagerState) {
-        switch centralManagerState {
-            case .PoweredOff: self = PoweredOff
-            case .Resetting: self = Resetting
-            case .Unauthorized: self = Unauthorized
-            case .Unsupported: self = Unsupported
+    @available(iOS 10.0, *)
+    internal init(centralState: CBManagerState) {
+        switch centralState {
+            case .poweredOff: self = .poweredOff
+            case .resetting: self = .resetting
+            case .unauthorized: self = .unauthorized
+            case .unsupported: self = .unsupported
             default: self = nil
         }
     }
 
+    internal init(centralManagerState: CBCentralManagerState) {
+        switch centralManagerState {
+        case .poweredOff: self = .poweredOff
+        case .resetting: self = .resetting
+        case .unauthorized: self = .unauthorized
+        case .unsupported: self = .unsupported
+        default: self = nil
+        }
+    }
+    
     internal init(peripheralManagerState: CBPeripheralManagerState) {
         switch peripheralManagerState {
-            case .PoweredOff: self = PoweredOff
-            case .Resetting: self = Resetting
-            case .Unauthorized: self = Unauthorized
-            case .Unsupported: self = Unsupported
-            default: self = nil
+        case .poweredOff: self = .poweredOff
+        case .resetting: self = .resetting
+        case .unauthorized: self = .unauthorized
+        case .unsupported: self = .unsupported
+        default: self = nil
         }
     }
 
@@ -110,8 +128,8 @@ public enum BKUnavailabilityCause: NilLiteralConvertible {
 */
 public protocol BKAvailabilityObservable: class {
     var availabilityObservers: [BKWeakAvailabilityObserver] { get set }
-    func addAvailabilityObserver(availabilityObserver: BKAvailabilityObserver)
-    func removeAvailabilityObserver(availabilityObserver: BKAvailabilityObserver)
+    func addAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver)
+    func removeAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver)
 }
 
 /**
@@ -130,8 +148,8 @@ public extension BKAvailabilityObservable {
         Add a new availability observer. The observer will be weakly stored. If the observer is already subscribed the call will be ignored.
         - parameter availabilityObserver: The availability observer to add.
     */
-    func addAvailabilityObserver(availabilityObserver: BKAvailabilityObserver) {
-        if !availabilityObservers.contains({ $0.availabilityObserver === availabilityObserver }) {
+    func addAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver) {
+        if !availabilityObservers.contains(where: { $0.availabilityObserver === availabilityObserver }) {
             availabilityObservers.append(BKWeakAvailabilityObserver(availabilityObserver: availabilityObserver))
         }
     }
@@ -140,9 +158,9 @@ public extension BKAvailabilityObservable {
         Remove an availability observer. If the observer isn't subscribed the call will be ignored.
         - parameter availabilityObserver: The availability observer to remove.
     */
-    func removeAvailabilityObserver(availabilityObserver: BKAvailabilityObserver) {
-        if availabilityObservers.contains({ $0.availabilityObserver === availabilityObserver }) {
-            availabilityObservers.removeAtIndex(availabilityObservers.indexOf({ $0 === availabilityObserver })!)
+    func removeAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver) {
+        if availabilityObservers.contains(where: { $0.availabilityObserver === availabilityObserver }) {
+            availabilityObservers.remove(at: availabilityObservers.index(where: { $0 === availabilityObserver })!)
         }
     }
 
@@ -158,12 +176,12 @@ public protocol BKAvailabilityObserver: class {
         - parameter availabilityObservable: The object that registered the availability change.
         - parameter availability: The new availability value.
     */
-    func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability)
+    func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability)
 
     /**
         Informs the observer that the cause of Bluetooth LE unavailability changed.
         - parameter availabilityObservable: The object that registered the cause change.
         - parameter unavailabilityCause: The new cause of unavailability.
     */
-    func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause)
+    func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause)
 }
