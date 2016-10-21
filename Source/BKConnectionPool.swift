@@ -138,29 +138,20 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
 
     // MARK: CentralManagerConnectionDelegate
 
-<<<<<<< HEAD
-    internal func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        if let attempt = connectionAttemptForPeripheral(peripheral) {
-            succeedConnectionAttempt(attempt)
-        } else {
-//            print("do not found a corresponding attemp, because this method accidently called twice, look into http://stackoverflow.com/questions/11557500/corebluetooth-central-manager-callback-diddiscoverperipheral-twice for detail.")
-        }
-    }
-
-    internal func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        if let attempt = connectionAttemptForPeripheral(peripheral) {
-            failConnectionAttempt(attempt, error: .Internal(underlyingError: error))
-        } else {
-//            print("calling failConnection cause attempt to be removed and then trigger this method.")
-        }
-=======
     internal func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        succeedConnectionAttempt(connectionAttemptForPeripheral(peripheral)!)
+        guard let attempt = connectionAttemptForPeripheral(peripheral) else {
+            // http://stackoverflow.com/questions/11557500/corebluetooth-central-manager-callback-diddiscoverperipheral-twice
+            return
+        }
+        succeedConnectionAttempt(attempt)
     }
 
     internal func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        failConnectionAttempt(connectionAttemptForPeripheral(peripheral)!, error: .internal(underlyingError: error))
->>>>>>> master
+        guard let attempt = connectionAttemptForPeripheral(peripheral) else {
+            // Calling failConnection cause this method to be called without an attempt being present.
+            return
+        }
+        failConnectionAttempt(attempt, error: .internal(underlyingError: error))
     }
     
     internal func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -169,6 +160,5 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
             delegate?.connectionPool(self, remotePeripheralDidDisconnect: remotePeripheral)
         }
     }
-    
 
 }

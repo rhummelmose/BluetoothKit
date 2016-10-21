@@ -227,7 +227,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 if error == nil {
                     _ = try? self.stateMachine.handleEvent(.setAvailable)
                 } else {
-                    returnError = .internalError(underlyingError: error as! Error?)
+                    returnError = .internalError(underlyingError: error)
                 }
                 completionHandler(remotePeripheral, returnError)
             }
@@ -271,8 +271,8 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter remoteUUID: The UUID of the remote peripheral to look for
         - return: optional remote peripheral if found
      */
-    public func retrieveRemotePeripheralWithUUID (remoteUUID: NSUUID) -> BKRemotePeripheral? {
-        guard let peripherals = retrieveRemotePeripheralsWithUUIDs([remoteUUID]) else {
+    public func retrieveRemotePeripheralWithUUID (remoteUUID: UUID) -> BKRemotePeripheral? {
+        guard let peripherals = retrieveRemotePeripheralsWithUUIDs(remoteUUIDs: [remoteUUID]) else {
             return nil
         }
         guard peripherals.count > 0 else {
@@ -286,9 +286,9 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter remoteUUIDs: An array of UUIDs of remote peripherals to look for
         - return: optional array of found remote peripherals
      */
-    public func retrieveRemotePeripheralsWithUUIDs (remoteUUIDs: [NSUUID]) -> [BKRemotePeripheral]? {
+    public func retrieveRemotePeripheralsWithUUIDs (remoteUUIDs: [UUID]) -> [BKRemotePeripheral]? {
         if let centralManager = _centralManager {
-            let peripherals = centralManager.retrievePeripheralsWithIdentifiers(remoteUUIDs)
+            let peripherals = centralManager.retrievePeripherals(withIdentifiers: remoteUUIDs)
             guard peripherals.count > 0 else {
                 return nil
             }

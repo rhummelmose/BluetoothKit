@@ -29,22 +29,20 @@ import CoreBluetooth
     The delegate of a remote peripheral receives callbacks when asynchronous events occur.
 */
 public protocol BKRemotePeripheralDelegate: class {
+    
     /**
         Called when the remote peripheral updated its name.
         - parameter remotePeripheral: The remote peripheral that updated its name.
         - parameter name: The new name.
     */
-<<<<<<< HEAD
-    func remotePeripheral(remotePeripheral: BKRemotePeripheral, didUpdateName name: String)
+    func remotePeripheral(_ remotePeripheral: BKRemotePeripheral, didUpdateName name: String)
 
     /**
      Called when services and charateristic are discovered and the device is ready for send/receive
      - parameter remotePeripheral: The remote peripheral that is ready.
      */
-    func remotePeripheralIsReady(remotePeripheral: BKRemotePeripheral)
-=======
-    func remotePeripheral(_ remotePeripheral: BKRemotePeripheral, didUpdateName name: String)
->>>>>>> master
+    func remotePeripheralIsReady(_ remotePeripheral: BKRemotePeripheral)
+
 }
 
 /**
@@ -173,12 +171,8 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
             return
         }
         characteristicData = dataCharacteristic
-<<<<<<< HEAD
-        peripheral.setNotifyValue(true, forCharacteristic: dataCharacteristic)
-        peripheralDelegate?.remotePeripheralIsReady(self)
-=======
         peripheral.setNotifyValue(true, for: dataCharacteristic)
->>>>>>> master
+        peripheralDelegate?.remotePeripheralIsReady(self)
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {

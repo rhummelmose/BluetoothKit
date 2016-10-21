@@ -96,7 +96,7 @@ internal class BKContinousScanner {
                 }
             }, completionHandler: { result, error in
                 guard result != nil && error == nil else {
-                    self.endScanning(BKError.internalError(underlyingError: error! as! Error))
+                    self.endScanning(BKError.internalError(underlyingError: error! as Error))
                     return
                 }
                 let discoveriesToRemove = self.maintainedDiscoveries.filter({ !result!.contains($0) })
