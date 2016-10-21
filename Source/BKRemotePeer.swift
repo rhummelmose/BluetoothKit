@@ -45,7 +45,7 @@ public class BKRemotePeer: Equatable {
     public weak var delegate: BKRemotePeerDelegate?
 
     internal var configuration: BKConfiguration?
-    private var data: NSMutableData?
+    private var data: Data?
 
     init(identifier: UUID) {
         self.identifier = identifier
@@ -58,16 +58,16 @@ public class BKRemotePeer: Equatable {
     internal func handleReceivedData(_ receivedData: Data) {
         if receivedData == configuration!.endOfDataMark {
             if let finalData = data {
-                delegate?.remotePeer(self, didSendArbitraryData: finalData as Data)
+                delegate?.remotePeer(self, didSendArbitraryData: finalData)
             }
             data = nil
             return
         }
-        if let existingData = data {
-            existingData.append(receivedData)
+        if self.data != nil {
+            self.data?.append(receivedData)
             return
         }
-        data = NSData(data: receivedData) as? NSMutableData
+        self.data = receivedData
     }
 
 }

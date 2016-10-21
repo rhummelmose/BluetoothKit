@@ -24,7 +24,7 @@
 
 import Foundation
 
-public typealias BKSendDataCompletionHandler = ((data: Data, remotePeer: BKRemotePeer, error: BKError?) -> Void)
+public typealias BKSendDataCompletionHandler = ((_ data: Data, _ remotePeer: BKRemotePeer, _ error: BKError?) -> Void)
 
 public class BKPeer {
 
@@ -54,7 +54,7 @@ public class BKPeer {
      */
     public func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
         guard connectedRemotePeers.contains(remotePeer) else {
-            completionHandler?(data: data, remotePeer: remotePeer, error: BKError.remotePeerNotConnected)
+            completionHandler?(data,remotePeer,BKError.remotePeerNotConnected)
             return
         }
         let sendDataTask = BKSendDataTask(data: data, destination: remotePeer, completionHandler: completionHandler)
@@ -70,17 +70,17 @@ public class BKPeer {
         }
         let nextTask = sendDataTasks.first!
         if nextTask.sentAllData {
-            let sentEndOfDataMark = sendData(configuration!.endOfDataMark as Data, toRemotePeer: nextTask.destination)
+            let sentEndOfDataMark = sendData(configuration!.endOfDataMark, toRemotePeer: nextTask.destination)
             if sentEndOfDataMark {
                 sendDataTasks.remove(at: sendDataTasks.index(of: nextTask)!)
-                nextTask.completionHandler?(data: nextTask.data as Data, remotePeer: nextTask.destination, error: nil)
+                nextTask.completionHandler?(nextTask.data, nextTask.destination, nil)
                 processSendDataTasks()
             } else {
                 return
             }
         }
         if let nextPayload = nextTask.nextPayload {
-            let sentNextPayload = sendData(nextPayload as Data, toRemotePeer: nextTask.destination)
+            let sentNextPayload = sendData(nextPayload, toRemotePeer: nextTask.destination)
             if sentNextPayload {
                 nextTask.offset += nextPayload.count
                 processSendDataTasks()
@@ -96,7 +96,7 @@ public class BKPeer {
     internal func failSendDataTasksForRemotePeer(_ remotePeer: BKRemotePeer) {
         for sendDataTask in sendDataTasks.filter({ $0.destination == remotePeer }) {
             sendDataTasks.remove(at: sendDataTasks.index(of: sendDataTask)!)
-            sendDataTask.completionHandler?(data: sendDataTask.data as Data, remotePeer: sendDataTask.destination, error: .remotePeerNotConnected)
+            sendDataTask.completionHandler?(sendDataTask.data, sendDataTask.destination, .remotePeerNotConnected)
         }
     }
 
