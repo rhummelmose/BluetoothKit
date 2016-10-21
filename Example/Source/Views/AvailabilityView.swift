@@ -45,8 +45,8 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
         contentView.addSubview(statusLabel)
         statusLabel.attributedText = attributedStringForAvailability(nil)
         borderView.backgroundColor = Colors.darkGrey
-        contentView.backgroundColor = UIColor.clearColor()
-        statusLabel.textAlignment = NSTextAlignment.Center
+        contentView.backgroundColor = UIColor.clear
+        statusLabel.textAlignment = NSTextAlignment.center
         applyConstraints()
     }
 
@@ -57,45 +57,45 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
     // MARK: Functions
 
     private func applyConstraints() {
-        borderView.snp_makeConstraints { make in
+        borderView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(self)
             make.height.equalTo(borderHeight)
         }
-        contentView.snp_makeConstraints { make in
-            make.top.equalTo(borderView.snp_bottom)
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(borderView.snp.bottom)
             make.leading.trailing.bottom.equalTo(self)
         }
-        statusLabel.snp_makeConstraints { make in
+        statusLabel.snp.makeConstraints { make in
             make.top.leading.equalTo(contentView).offset(offset)
             make.bottom.trailing.equalTo(contentView).offset(-offset)
         }
     }
 
-    private func attributedStringForAvailability(availability: BKAvailability?) -> NSAttributedString {
+    private func attributedStringForAvailability(_ availability: BKAvailability?) -> NSAttributedString {
         let leadingText = "Bluetooth: "
         let trailingText = availabilityLabelTrailingTextForAvailability(availability)
         let string = leadingText + trailingText as NSString
         let attributedString = NSMutableAttributedString(string: string as String)
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(14), range: NSRange(location: 0, length: string.length))
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: string.rangeOfString(leadingText))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(location: 0, length: string.length))
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: string.range(of: leadingText))
         if let availability = availability {
             switch availability {
-            case .Available: attributedString.addAttribute(NSForegroundColorAttributeName, value: Colors.green, range: string.rangeOfString(trailingText))
-            case .Unavailable: attributedString.addAttribute(NSForegroundColorAttributeName, value: Colors.red, range: string.rangeOfString(trailingText))
+            case .available: attributedString.addAttribute(NSForegroundColorAttributeName, value: Colors.green, range: string.range(of: trailingText))
+            case .unavailable: attributedString.addAttribute(NSForegroundColorAttributeName, value: Colors.red, range: string.range(of: trailingText))
             }
         }
         return attributedString
     }
 
-    private func availabilityLabelTrailingTextForAvailability(availability: BKAvailability?) -> String {
+    private func availabilityLabelTrailingTextForAvailability(_ availability: BKAvailability?) -> String {
         if let availability = availability {
             switch availability {
-            case .Available: return "Available"
-            case .Unavailable(cause: .PoweredOff): return "Unavailable (Powered off)"
-            case .Unavailable(cause: .Resetting): return "Unavailable (Resetting)"
-            case .Unavailable(cause: .Unsupported): return "Unavailable (Unsupported)"
-            case .Unavailable(cause: .Unauthorized): return "Unavailable (Unauthorized)"
-            case .Unavailable(cause: .Any): return "Unavailable"
+            case .available: return "Available"
+            case .unavailable(cause: .poweredOff): return "Unavailable (Powered off)"
+            case .unavailable(cause: .resetting): return "Unavailable (Resetting)"
+            case .unavailable(cause: .unsupported): return "Unavailable (Unsupported)"
+            case .unavailable(cause: .unauthorized): return "Unavailable (Unauthorized)"
+            case .unavailable(cause: .any): return "Unavailable"
             }
         } else {
             return "Unknown"
@@ -104,12 +104,12 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
 
     // MARK: BKAvailabilityObserver
 
-    internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
+    internal func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         statusLabel.attributedText = attributedStringForAvailability(availability)
     }
 
-    internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
-        statusLabel.attributedText = attributedStringForAvailability(.Unavailable(cause: unavailabilityCause))
+    internal func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
+        statusLabel.attributedText = attributedStringForAvailability(.unavailable(cause: unavailabilityCause))
     }
 
 }

@@ -8,13 +8,13 @@
 
 import Foundation
 
-func perf(text: String, closure: () -> ()) {
-    let measurementStart = NSDate();
+func perf(_ text: String, closure: () -> ()) {
+    let measurementStart = Date();
     
     closure()
     
-    let measurementStop = NSDate();
-    let executionTime = measurementStop.timeIntervalSinceDate(measurementStart)
+    let measurementStop = Date();
+    let executionTime = measurementStop.timeIntervalSince(measurementStart)
     
     print("\(text) \(executionTime)");
 }

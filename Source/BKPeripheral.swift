@@ -56,8 +56,8 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
 
     public var availability: BKAvailability {
-        if #available(iOS 10.0, *) {
-            return BKAvailability(centralState: peripheralManager.state)
+        if #available(iOS 10.0, *), #available(tvOS 10.0, *) {
+            return BKAvailability(managerState: peripheralManager.state)
         } else {
             return BKAvailability(peripheralManagerState: CBPeripheralManagerState(rawValue:peripheralManager.state.rawValue)!)
         }
@@ -191,8 +191,8 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         case .unsupported, .unauthorized, .poweredOff:
 
             let newCause: BKUnavailabilityCause
-            if #available(iOS 10.0, *) {
-                newCause = BKUnavailabilityCause(centralState: peripheralManager.state)
+            if #available(iOS 10.0, *), #available(tvOS 10.0, *) {
+                newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
             } else {
                 newCause = BKUnavailabilityCause(peripheralManagerState: CBPeripheralManagerState(rawValue: peripheralManager.state.rawValue)!)
             }

@@ -71,16 +71,14 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     // MARK: Properties
 
     /// Bluetooth LE availability, derived from the underlying CBCentralManager.
-
     public var availability: BKAvailability? {
-        if let centralManager = _centralManager {
-            if #available(iOS 10.0, *) {
-                return BKAvailability(centralState: centralManager.state)
-            } else {
-                return BKAvailability(centralManagerState: CBCentralManagerState(rawValue: centralManager.state.rawValue)!)
-            }
-        } else {
+        guard let centralManager = _centralManager else {
             return nil
+        }
+        if #available(iOS 10.0, tvOS 10.0, *) {
+            return BKAvailability(managerState: centralManager.state)
+        } else {
+            return BKAvailability(centralManagerState: CBCentralManagerState(rawValue: centralManager.state.rawValue)!)
         }
     }
 
@@ -340,8 +338,8 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             case .unsupported, .unauthorized, .poweredOff:
                 let newCause: BKUnavailabilityCause
 
-                if #available(iOS 10.0, *) {
-                    newCause = BKUnavailabilityCause(centralState: central.state)
+                if #available(iOS 10.0, *), #available(tvOS 10.0, *) {
+                    newCause = BKUnavailabilityCause(managerState: central.state)
                 } else {
                     newCause = BKUnavailabilityCause(centralManagerState: CBCentralManagerState(rawValue: central.state.rawValue)!)
                 }

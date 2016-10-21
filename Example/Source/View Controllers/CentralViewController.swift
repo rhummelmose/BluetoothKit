@@ -39,7 +39,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         return activityIndicator
     }
 
-    private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White))
+    private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white))
     private let discoveriesTableView = UITableView()
     private var discoveries = [BKDiscovery]()
     private let discoveriesTableViewCellIdentifier = "Discoveries Table View Cell Identifier"
@@ -48,12 +48,12 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
-        view.backgroundColor = UIColor.whiteColor()
-        activityIndicator?.color = UIColor.blackColor()
+        view.backgroundColor = UIColor.white
+        activityIndicator?.color = UIColor.black
         navigationItem.title = "Central"
         navigationItem.rightBarButtonItem = activityIndicatorBarButtonItem
         applyAvailabilityView()
-        discoveriesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: discoveriesTableViewCellIdentifier)
+        discoveriesTableView.register(UITableViewCell.self, forCellReuseIdentifier: discoveriesTableViewCellIdentifier)
         discoveriesTableView.dataSource = self
         discoveriesTableView.delegate = self
         view.addSubview(discoveriesTableView)
@@ -61,11 +61,11 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         startCentral()
     }
 
-    internal override func viewDidAppear(animated: Bool) {
+    internal override func viewDidAppear(_ animated: Bool) {
         scan()
     }
 
-    internal override func viewWillDisappear(animated: Bool) {
+    internal override func viewWillDisappear(_ animated: Bool) {
         central.interruptScan()
     }
 
@@ -76,10 +76,10 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
     // MARK: Functions
 
     private func applyConstraints() {
-        discoveriesTableView.snp_makeConstraints { make in
-            make.top.equalTo(snp_topLayoutGuideBottom)
+        discoveriesTableView.snp.makeConstraints { make in
+            make.top.equalTo(topLayoutGuide.snp.bottom)
             make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(availabilityView.snp_top)
+            make.bottom.equalTo(availabilityView.snp.top)
         }
     }
 
@@ -87,8 +87,8 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         do {
             central.delegate = self
             central.addAvailabilityObserver(self)
-            let dataServiceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23")!
-            let dataServiceCharacteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
+            let dataServiceUUID = UUID(uuidString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23")!
+            let dataServiceCharacteristicUUID = UUID(uuidString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
             let configuration = BKConfiguration(dataServiceUUID: dataServiceUUID, dataServiceCharacteristicUUID: dataServiceCharacteristicUUID)
             try central.startWithConfiguration(configuration)
         } catch let error {
@@ -98,23 +98,23 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     private func scan() {
         central.scanContinuouslyWithChangeHandler({ changes, discoveries in
-            let indexPathsToRemove = changes.filter({ $0 == .Remove(discovery: nil) }).map({ NSIndexPath(forRow: self.discoveries.indexOf($0.discovery)!, inSection: 0) })
+            let indexPathsToRemove = changes.filter({ $0 == .remove(discovery: nil) }).map({ IndexPath(row: self.discoveries.index(of: $0.discovery)!, section: 0) })
             self.discoveries = discoveries
-            let indexPathsToInsert = changes.filter({ $0 == .Insert(discovery: nil) }).map({ NSIndexPath(forRow: self.discoveries.indexOf($0.discovery)!, inSection: 0) })
+            let indexPathsToInsert = changes.filter({ $0 == .insert(discovery: nil) }).map({ IndexPath(row: self.discoveries.index(of: $0.discovery)!, section: 0) })
             if !indexPathsToRemove.isEmpty {
-                self.discoveriesTableView.deleteRowsAtIndexPaths(indexPathsToRemove, withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.discoveriesTableView.deleteRows(at: indexPathsToRemove, with: UITableViewRowAnimation.automatic)
             }
             if !indexPathsToInsert.isEmpty {
-                self.discoveriesTableView.insertRowsAtIndexPaths(indexPathsToInsert, withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.discoveriesTableView.insertRows(at: indexPathsToInsert, with: UITableViewRowAnimation.automatic)
             }
-            for insertedDiscovery in changes.filter({ $0 == .Insert(discovery: nil) }) {
+            for insertedDiscovery in changes.filter({ $0 == .insert(discovery: nil) }) {
                 Logger.log("Discovery: \(insertedDiscovery)")
             }
         }, stateHandler: { newState in
-            if newState == .Scanning {
+            if newState == .scanning {
                 self.activityIndicator?.startAnimating()
                 return
-            } else if newState == .Stopped {
+            } else if newState == .stopped {
                 self.discoveries.removeAll()
                 self.discoveriesTableView.reloadData()
             }
@@ -126,12 +126,12 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: UITableViewDataSource
 
-    internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return discoveries.count
     }
 
-    internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(discoveriesTableViewCellIdentifier, forIndexPath: indexPath)
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: discoveriesTableViewCellIdentifier, for: indexPath)
         let discovery = discoveries[indexPath.row]
         cell.textLabel?.text = discovery.localName != nil ? discovery.localName : discovery.remotePeripheral.name
         return cell
@@ -139,13 +139,13 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: UITableViewDelegate
 
-    internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.userInteractionEnabled = false
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.isUserInteractionEnabled = false
         central.connect(remotePeripheral: discoveries[indexPath.row].remotePeripheral) { remotePeripheral, error in
-            tableView.userInteractionEnabled = true
+            tableView.isUserInteractionEnabled = true
             guard error == nil else {
                 print("Error connecting peripheral: \(error)")
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
             let remotePeripheralViewController = RemotePeripheralViewController(central: self.central, remotePeripheral: remotePeripheral)
@@ -156,9 +156,9 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: BKAvailabilityObserver
 
-    internal func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
+    internal func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         availabilityView.availabilityObserver(availabilityObservable, availabilityDidChange: availability)
-        if availability == .Available {
+        if availability == .available {
             scan()
         } else {
             central.interruptScan()
@@ -167,14 +167,14 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: BKCentralDelegate
 
-    internal func central(central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
+    internal func central(_ central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
         Logger.log("Remote peripheral did disconnect: \(remotePeripheral)")
-        self.navigationController?.popToViewController(self, animated: true)
+        _ = self.navigationController?.popToViewController(self, animated: true)
     }
 
     // MARK: RemotePeripheralViewControllerDelegate
 
-    internal func remotePeripheralViewControllerWillDismiss(remotePeripheralViewController: RemotePeripheralViewController) {
+    internal func remotePeripheralViewControllerWillDismiss(_ remotePeripheralViewController: RemotePeripheralViewController) {
         do {
             try central.disconnectRemotePeripheral(remotePeripheralViewController.remotePeripheral)
         } catch let error {

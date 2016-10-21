@@ -11,11 +11,11 @@ public struct NoPadding: Padding {
     
     }
     
-    public func add(data: [UInt8], blockSize:Int) -> [UInt8] {
+    public func add(to data: Array<UInt8>, blockSize:Int) -> Array<UInt8> {
         return data;
     }
 
-    public func remove(data: [UInt8], blockSize:Int?) -> [UInt8] {
+    public func remove(from data: Array<UInt8>, blockSize:Int?) -> Array<UInt8> {
         return data;
     }
 }

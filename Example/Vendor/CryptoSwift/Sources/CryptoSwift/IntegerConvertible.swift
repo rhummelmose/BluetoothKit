@@ -7,10 +7,10 @@
 //
 
 protocol BitshiftOperationsType {
-    func <<(lhs: Self, rhs: Self) -> Self
-    func >>(lhs: Self, rhs: Self) -> Self
-    func <<=(inout lhs: Self, rhs: Self)
-    func >>=(inout lhs: Self, rhs: Self)
+    static func <<(lhs: Self, rhs: Self) -> Self
+    static func >>(lhs: Self, rhs: Self) -> Self
+    static func <<=(lhs: inout Self, rhs: Self)
+    static func >>=(lhs: inout Self, rhs: Self)
 }
 
 protocol ByteConvertible {

@@ -30,8 +30,8 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
 
     internal var window: UIWindow?
 
-    internal func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
         if let keyWindow = window {
             let navigationController = UINavigationController(rootViewController: RoleSelectionViewController())
             keyWindow.rootViewController = navigationController

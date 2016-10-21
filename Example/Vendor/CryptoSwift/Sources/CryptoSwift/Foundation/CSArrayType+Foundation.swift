@@ -8,22 +8,22 @@
 
 import Foundation
 
-public extension CSArrayType where Generator.Element == UInt8 {
+public extension CSArrayType where Iterator.Element == UInt8 {
     public func toBase64() -> String? {
-        guard let bytesArray = self as? [UInt8] else {
+        guard let bytesArray = self as? Array<UInt8> else {
             return nil
         }
 
-        return NSData(bytes: bytesArray).base64EncodedStringWithOptions([])
+        return Data(bytes: bytesArray).base64EncodedString()
     }
 
     public init(base64: String) {
         self.init()
 
-        guard let decodedData = NSData(base64EncodedString: base64, options: []) else {
+        guard let decodedData = Data(base64Encoded: base64) else {
             return
         }
 
-        self.appendContentsOf(decodedData.arrayOfBytes())
+        self.append(contentsOf: decodedData.bytes)
     }
 }

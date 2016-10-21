@@ -8,71 +8,38 @@
 //  Counter (CTR)
 //
 
-struct CTRModeEncryptGenerator: BlockModeGenerator {
+struct CTRModeWorker: RandomAccessBlockModeWorker {
     typealias Element = Array<UInt8>
 
+    let cipherOperation: CipherOperationOnBlock
     private let iv: Element
-    private let inputGenerator: AnyGenerator<Element>
+    var counter: UInt = 0
 
-    private let cipherOperation: CipherOperationOnBlock
-    private var counter: UInt = 0
-
-    init(iv: Array<UInt8>, cipherOperation: CipherOperationOnBlock, inputGenerator: AnyGenerator<Array<UInt8>>) {
+    init(iv: Array<UInt8>, cipherOperation: @escaping CipherOperationOnBlock) {
         self.iv = iv
         self.cipherOperation = cipherOperation
-        self.inputGenerator = inputGenerator
     }
 
-    mutating func next() -> Element? {
-        guard let plaintext = inputGenerator.next() else {
-            return nil
-        }
-
-        let nonce = buildNonce(iv, counter: UInt64(counter))
-        counter = counter + 1
-        if let encrypted = cipherOperation(block: nonce) {
-            return xor(plaintext, encrypted)
-        }
-
-        return nil
-    }
-}
-
-struct CTRModeDecryptGenerator: BlockModeGenerator {
-    typealias Element = Array<UInt8>
-
-    private let iv: Element
-    private let inputGenerator: AnyGenerator<Element>
-
-    private let cipherOperation: CipherOperationOnBlock
-    private var counter: UInt = 0
-
-    init(iv: Array<UInt8>, cipherOperation: CipherOperationOnBlock, inputGenerator: AnyGenerator<Element>) {
-        self.iv = iv
-        self.cipherOperation = cipherOperation
-        self.inputGenerator = inputGenerator
-    }
-
-    mutating func next() -> Element? {
-        guard let ciphertext = inputGenerator.next() else {
-            return nil
-        }
-
+    mutating func encrypt(_ plaintext: Array<UInt8>) -> Array<UInt8> {
         let nonce = buildNonce(iv, counter: UInt64(counter))
         counter = counter + 1
 
-        if let decrypted = cipherOperation(block: nonce) {
-            return xor(decrypted, ciphertext)
+        guard let ciphertext = cipherOperation(nonce) else {
+            return plaintext
         }
 
-        return nil
+        return xor(plaintext, ciphertext)
+    }
+
+    mutating func decrypt(_ ciphertext: Array<UInt8>) -> Array<UInt8> {
+        return encrypt(ciphertext)
     }
 }
 
-private func buildNonce(iv: [UInt8], counter: UInt64) -> [UInt8] {
+private func buildNonce(_ iv: Array<UInt8>, counter: UInt64) -> Array<UInt8> {
     let noncePartLen = AES.blockSize / 2
     let noncePrefix = Array(iv[0..<noncePartLen])
     let nonceSuffix = Array(iv[noncePartLen..<iv.count])
-    let c = UInt64.withBytes(nonceSuffix) + counter
-    return noncePrefix + arrayOfBytes(c)
+    let c = UInt64(bytes: nonceSuffix) + counter
+    return noncePrefix + c.bytes()
 }

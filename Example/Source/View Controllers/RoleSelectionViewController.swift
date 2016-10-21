@@ -31,16 +31,16 @@ internal class RoleSelectionViewController: UIViewController {
 
     private let offset = CGFloat(20)
     private let buttonColor = Colors.darkBlue
-    private let centralButton = UIButton(type: UIButtonType.Custom)
-    private let peripheralButton = UIButton(type: UIButtonType.Custom)
+    private let centralButton = UIButton(type: UIButtonType.custom)
+    private let peripheralButton = UIButton(type: UIButtonType.custom)
 
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
         navigationItem.title = "Select Role"
-        view.backgroundColor = UIColor.whiteColor()
-        centralButton.setTitle("Central", forState: UIControlState.Normal)
-        peripheralButton.setTitle("Peripheral", forState: UIControlState.Normal)
+        view.backgroundColor = UIColor.white
+        centralButton.setTitle("Central", for: UIControlState())
+        peripheralButton.setTitle("Peripheral", for: UIControlState())
         preparedButtons([ centralButton, peripheralButton ], andAddThemToView: view)
         applyConstraints()
         #if os(tvOS)
@@ -50,12 +50,12 @@ internal class RoleSelectionViewController: UIViewController {
 
     // MARK: Functions
 
-    private func preparedButtons(buttons: [UIButton], andAddThemToView view: UIView) {
+    private func preparedButtons(_ buttons: [UIButton], andAddThemToView view: UIView) {
         for button in buttons {
-            button.setBackgroundImage(UIImage.imageWithColor(buttonColor), forState: UIControlState.Normal)
-            button.titleLabel?.font = UIFont.boldSystemFontOfSize(30)
+            button.setBackgroundImage(UIImage.imageWithColor(buttonColor), for: UIControlState())
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
             #if os(iOS)
-                button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
             #elseif os(tvOS)
                 button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.PrimaryActionTriggered)
             #endif
@@ -65,14 +65,14 @@ internal class RoleSelectionViewController: UIViewController {
     }
 
     private func applyConstraints() {
-        centralButton.snp_makeConstraints { make in
-            make.top.equalTo(snp_topLayoutGuideBottom).offset(offset)
+        centralButton.snp.makeConstraints { make in
+            make.top.equalTo(topLayoutGuide.snp.bottom).offset(offset)
             make.leading.equalTo(view).offset(offset)
             make.trailing.equalTo(view).offset(-offset)
             make.height.equalTo(peripheralButton)
         }
-        peripheralButton.snp_makeConstraints { make in
-            make.top.equalTo(centralButton.snp_bottom).offset(offset)
+        peripheralButton.snp.makeConstraints { make in
+            make.top.equalTo(centralButton.snp.bottom).offset(offset)
             make.leading.trailing.equalTo(centralButton)
             make.bottom.equalTo(view).offset(-offset)
         }
@@ -80,7 +80,7 @@ internal class RoleSelectionViewController: UIViewController {
 
     // MARK: Target Actions
 
-    @objc private func buttonTapped(button: UIButton) {
+    @objc private func buttonTapped(_ button: UIButton) {
         if button == centralButton {
             navigationController?.pushViewController(CentralViewController(), animated: true)
         } else if button == peripheralButton {

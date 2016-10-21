@@ -35,21 +35,21 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
 
     private let peripheral = BKPeripheral()
     private let logTextView = UITextView()
-    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PeripheralViewController.sendData)) }()
+    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.plain, target: self, action: #selector(PeripheralViewController.sendData)) }()
 
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
         navigationItem.title = "Peripheral"
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         Logger.delegate = self
         applyAvailabilityView()
-        logTextView.editable = false
+        logTextView.isEditable = false
         logTextView.alwaysBounceVertical = true
         view.addSubview(logTextView)
         applyConstraints()
         startPeripheral()
-        sendDataBarButtonItem.enabled = false
+        sendDataBarButtonItem.isEnabled = false
         navigationItem.rightBarButtonItem = sendDataBarButtonItem
     }
 
@@ -60,10 +60,10 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     // MARK: Functions
 
     private func applyConstraints() {
-        logTextView.snp_makeConstraints { make in
-            make.top.equalTo(snp_topLayoutGuideBottom)
+        logTextView.snp.makeConstraints { make in
+            make.top.equalTo(topLayoutGuide.snp.bottom)
             make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(availabilityView.snp_top)
+            make.bottom.equalTo(availabilityView.snp.top)
         }
     }
 
@@ -71,9 +71,9 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
         do {
             peripheral.delegate = self
             peripheral.addAvailabilityObserver(self)
-            let dataServiceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23")!
-            let dataServiceCharacteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
-            let localName = NSBundle.mainBundle().infoDictionary!["CFBundleName"] as? String
+            let dataServiceUUID = UUID(uuidString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23")!
+            let dataServiceCharacteristicUUID = UUID(uuidString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D")!
+            let localName = Bundle.main.infoDictionary!["CFBundleName"] as? String
             let configuration = BKPeripheralConfiguration(dataServiceUUID: dataServiceUUID, dataServiceCharacteristicUUID: dataServiceCharacteristicUUID, localName: localName)
             try peripheral.startWithConfiguration(configuration)
             Logger.log("Awaiting connections from remote centrals")
@@ -83,14 +83,14 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     }
 
     private func refreshControls() {
-        sendDataBarButtonItem.enabled = peripheral.connectedRemoteCentrals.count > 0
+        sendDataBarButtonItem.isEnabled = peripheral.connectedRemoteCentrals.count > 0
     }
 
     // MARK: Target Actions
 
     @objc private func sendData() {
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
-        let data = NSData.dataWithNumberOfBytes(numberOfBytesToSend)
+        let data = Data.dataWithNumberOfBytes(numberOfBytesToSend)
         Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5().toHexString())")
         for remoteCentral in peripheral.connectedRemoteCentrals {
             Logger.log("Sending to \(remoteCentral)")
@@ -106,28 +106,28 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
 
     // MARK: BKPeripheralDelegate
 
-    internal func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral) {
+    internal func peripheral(_ peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral) {
         Logger.log("Remote central did connect: \(remoteCentral)")
         remoteCentral.delegate = self
         refreshControls()
     }
 
-    internal func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral) {
+    internal func peripheral(_ peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral) {
         Logger.log("Remote central did disconnect: \(remoteCentral)")
         refreshControls()
     }
 
     // MARK: BKRemotePeerDelegate
 
-    func remotePeer(remotePeer: BKRemotePeer, didSendArbitraryData data: NSData) {
-        Logger.log("Received data of length: \(data.length) with hash: \(data.md5().toHexString())")
+    func remotePeer(_ remotePeer: BKRemotePeer, didSendArbitraryData data: Data) {
+        Logger.log("Received data of length: \(data.count) with hash: \(data.md5().toHexString())")
     }
 
     // MARK: LoggerDelegate
 
-    internal func loggerDidLogString(string: String) {
+    internal func loggerDidLogString(_ string: String) {
         if logTextView.text.characters.count > 0 {
-            logTextView.text = logTextView.text.stringByAppendingString("\n" + string)
+            logTextView.text = logTextView.text + ("\n" + string)
         } else {
             logTextView.text = string
         }
