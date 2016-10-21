@@ -48,21 +48,26 @@ public enum BKAvailability: Equatable {
     case unavailable(cause: BKUnavailabilityCause)
 
     @available(iOS 10.0, *)
-    internal init(centralManagerState: CBManagerState) {
+    internal init(centralState: CBManagerState) {
+        switch centralState {
+            case .poweredOn: self = .available
+            default: self = .unavailable(cause: BKUnavailabilityCause(centralState: centralState))
+        }
+    }
+
+    internal init(centralManagerState: CBCentralManagerState){
         switch centralManagerState {
-            case .poweredOn: self = .available
-            default: self = .unavailable(cause: BKUnavailabilityCause(centralManagerState: centralManagerState))
+        case .poweredOn: self = .available
+        default: self = .unavailable(cause: BKUnavailabilityCause(centralManagerState: centralManagerState))
         }
     }
-
-    @available(iOS 10.0, *)
-    internal init(peripheralManagerState: CBManagerState) {
+    
+    internal init(peripheralManagerState: CBPeripheralManagerState){
         switch peripheralManagerState {
-            case .poweredOn: self = .available
-            default: self = .unavailable(cause: BKUnavailabilityCause(peripheralManagerState: peripheralManagerState))
+        case .poweredOn: self = .available
+        default: self = .unavailable(cause: BKUnavailabilityCause(peripheralManagerState: peripheralManagerState))
         }
     }
-
 }
 
 /**
@@ -86,8 +91,8 @@ public enum BKUnavailabilityCause: NilLiteralConvertible {
     }
 
     @available(iOS 10.0, *)
-    internal init(centralManagerState: CBManagerState) {
-        switch centralManagerState {
+    internal init(centralState: CBManagerState) {
+        switch centralState {
             case .poweredOff: self = .poweredOff
             case .resetting: self = .resetting
             case .unauthorized: self = .unauthorized
@@ -96,14 +101,23 @@ public enum BKUnavailabilityCause: NilLiteralConvertible {
         }
     }
 
-    @available(iOS 10.0, *)
-    internal init(peripheralManagerState: CBManagerState) {
+    internal init(centralManagerState: CBCentralManagerState) {
+        switch centralManagerState {
+        case .poweredOff: self = .poweredOff
+        case .resetting: self = .resetting
+        case .unauthorized: self = .unauthorized
+        case .unsupported: self = .unsupported
+        default: self = nil
+        }
+    }
+    
+    internal init(peripheralManagerState: CBPeripheralManagerState) {
         switch peripheralManagerState {
-            case .poweredOff: self = .poweredOff
-            case .resetting: self = .resetting
-            case .unauthorized: self = .unauthorized
-            case .unsupported: self = .unsupported
-            default: self = nil
+        case .poweredOff: self = .poweredOff
+        case .resetting: self = .resetting
+        case .unauthorized: self = .unauthorized
+        case .unsupported: self = .unsupported
+        default: self = nil
         }
     }
 

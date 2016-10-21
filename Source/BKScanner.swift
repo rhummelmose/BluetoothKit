@@ -104,7 +104,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
 
     // MARK: BKCBCentralManagerDiscoveryDelegate
 
-    internal func centralManager(_ central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String: AnyObject], RSSI: NSNumber) {
+    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard busy else {
             return
         }
