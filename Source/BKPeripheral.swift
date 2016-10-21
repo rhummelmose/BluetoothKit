@@ -54,17 +54,16 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     // MARK: Properies
 
     /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
-    
+
     public var availability: BKAvailability {
         if #available(iOS 10.0, *) {
             return BKAvailability(centralState: peripheralManager.state)
-        }
-        else {
+        } else {
             return BKAvailability(peripheralManagerState: CBPeripheralManagerState(rawValue:peripheralManager.state.rawValue)!)
         }
     }
-    
-    
+
+
 
     /// The configuration that the BKPeripheral object was started with.
     override public var configuration: BKPeripheralConfiguration? {
@@ -190,16 +189,15 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         case .unknown, .resetting:
             break
         case .unsupported, .unauthorized, .poweredOff:
-            
+
             let newCause: BKUnavailabilityCause
             if #available(iOS 10.0, *) {
                 newCause = BKUnavailabilityCause(centralState: peripheralManager.state)
-            }
-            else {
+            } else {
                 newCause = BKUnavailabilityCause(peripheralManagerState: CBPeripheralManagerState(rawValue: peripheralManager.state.rawValue)!)
             }
-            
-            
+
+
             switch stateMachine.state {
                 case let .unavailable(cause):
                     let oldCause = cause
@@ -223,7 +221,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
 
     internal func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
-        
+
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {

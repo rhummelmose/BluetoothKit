@@ -29,7 +29,7 @@ import CoreBluetooth
     The delegate of a remote peripheral receives callbacks when asynchronous events occur.
 */
 public protocol BKRemotePeripheralDelegate: class {
-    
+
     /**
         Called when the remote peripheral updated its name.
         - parameter remotePeripheral: The remote peripheral that updated its name.

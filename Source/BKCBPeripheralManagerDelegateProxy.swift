@@ -53,12 +53,12 @@ internal class BKCBPeripheralManagerDelegateProxy: NSObject, CBPeripheralManager
 //         print("peripheralManagerDidUpdateState: \(peripheral)")
         delegate?.peripheralManagerDidUpdateState(peripheral)
     }
-    
+
     internal func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
 //         print("peripheralManagerDidStartAdvertising: \(peripheral) error: \(error)")
         delegate?.peripheralManagerDidStartAdvertising(peripheral, error: error)
     }
-    
+
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
 //         print("peripheralManager: \(peripheral) didAddService: \(service) error: \(error)")
         delegate?.peripheralManager(peripheral, didAdd: service, error: error)

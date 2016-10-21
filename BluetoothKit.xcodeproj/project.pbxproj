@@ -372,7 +372,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\nswiftlint autocorrect --path Source\nelse\necho \"Download SwiftLint: https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint > /dev/null; then\nswiftlint autocorrect\nelse\necho \"Download SwiftLint: https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

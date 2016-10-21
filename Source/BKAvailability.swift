@@ -55,14 +55,14 @@ public enum BKAvailability: Equatable {
         }
     }
 
-    internal init(centralManagerState: CBCentralManagerState){
+    internal init(centralManagerState: CBCentralManagerState) {
         switch centralManagerState {
         case .poweredOn: self = .available
         default: self = .unavailable(cause: BKUnavailabilityCause(centralManagerState: centralManagerState))
         }
     }
-    
-    internal init(peripheralManagerState: CBPeripheralManagerState){
+
+    internal init(peripheralManagerState: CBPeripheralManagerState) {
         switch peripheralManagerState {
         case .poweredOn: self = .available
         default: self = .unavailable(cause: BKUnavailabilityCause(peripheralManagerState: peripheralManagerState))
@@ -110,7 +110,7 @@ public enum BKUnavailabilityCause: ExpressibleByNilLiteral {
         default: self = nil
         }
     }
-    
+
     internal init(peripheralManagerState: CBPeripheralManagerState) {
         switch peripheralManagerState {
         case .poweredOff: self = .poweredOff

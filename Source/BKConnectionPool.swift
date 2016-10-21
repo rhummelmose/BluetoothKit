@@ -153,7 +153,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
         }
         failConnectionAttempt(attempt, error: .internal(underlyingError: error))
     }
-    
+
     internal func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if let remotePeripheral = connectedRemotePeripherals.filter({ $0.peripheral == peripheral }).last {
             connectedRemotePeripherals.remove(at: connectedRemotePeripherals.index(of: remotePeripheral)!)

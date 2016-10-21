@@ -34,7 +34,7 @@ public protocol BKCentralDelegate: class {
         - parameter central: The central from which it disconnected.
         - parameter remotePeripheral: The remote peripheral that disconnected.
     */
-    
+
     func central(_ central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
 }
 
@@ -71,13 +71,12 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     // MARK: Properties
 
     /// Bluetooth LE availability, derived from the underlying CBCentralManager.
-    
+
     public var availability: BKAvailability? {
         if let centralManager = _centralManager {
             if #available(iOS 10.0, *) {
                 return BKAvailability(centralState: centralManager.state)
-            }
-            else {
+            } else {
                 return BKAvailability(centralManagerState: CBCentralManagerState(rawValue: centralManager.state.rawValue)!)
             }
         } else {
@@ -188,7 +187,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter inBetweenDelay: The number of seconds to wait for, in-between scans (defaults to 3).
         - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
     */
-    
+
     public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
@@ -265,7 +264,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             throw BKError.internalError(underlyingError: error)
         }
     }
-    
+
     /**
         Retrieves a previously-scanned peripheral for direct connection.
         - parameter remoteUUID: The UUID of the remote peripheral to look for
@@ -280,7 +279,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         }
         return peripherals[0]
     }
-    
+
     /**
         Retrieves an array of previously-scanned peripherals for direct connection.
         - parameter remoteUUIDs: An array of UUIDs of remote peripherals to look for
@@ -292,9 +291,9 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             guard peripherals.count > 0 else {
                 return nil
             }
-            
+
             var remotePeripherals: [BKRemotePeripheral] = []
-            
+
             for peripheral in peripherals {
                 let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
                 remotePeripheral.configuration = configuration
@@ -333,21 +332,20 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     // MARK: BKCBCentralManagerStateDelegate
 
-    
+
     internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
             case .unknown, .resetting:
                 break
             case .unsupported, .unauthorized, .poweredOff:
                 let newCause: BKUnavailabilityCause
-                
+
                 if #available(iOS 10.0, *) {
                     newCause = BKUnavailabilityCause(centralState: central.state)
-                }
-                else {
+                } else {
                     newCause = BKUnavailabilityCause(centralManagerState: CBCentralManagerState(rawValue: central.state.rawValue)!)
                 }
-                
+
                 switch stateMachine.state {
                     case let .unavailable(cause):
                         let oldCause = cause

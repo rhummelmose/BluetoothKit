@@ -54,7 +54,7 @@ public class BKPeer {
      */
     public func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
         guard connectedRemotePeers.contains(remotePeer) else {
-            completionHandler?(data,remotePeer,BKError.remotePeerNotConnected)
+            completionHandler?(data, remotePeer, BKError.remotePeerNotConnected)
             return
         }
         let sendDataTask = BKSendDataTask(data: data, destination: remotePeer, completionHandler: completionHandler)
@@ -90,7 +90,7 @@ public class BKPeer {
         } else {
             return
         }
-        
+
     }
 
     internal func failSendDataTasksForRemotePeer(_ remotePeer: BKRemotePeer) {
