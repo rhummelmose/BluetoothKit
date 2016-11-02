@@ -108,11 +108,18 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         guard busy else {
             return
         }
+        
         let RSSI = Int(RSSI)
         let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
         remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
-        if !discoveries.contains(discovery) {
+        
+        //find matching discovery, ignore or update if name changed
+        if let index = discoveries.index(where: {$0 == discovery && $0.localName != discovery.localName}) {
+            discoveries[index] = discovery
+            scanHandlers?.progressHandler?([ discovery ])
+        }
+        else if !discoveries.contains(discovery) {
             discoveries.append(discovery)
             scanHandlers?.progressHandler?([ discovery ])
         }
