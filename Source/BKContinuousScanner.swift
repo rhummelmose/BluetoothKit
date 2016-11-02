@@ -88,12 +88,29 @@ internal class BKContinousScanner {
             state = .Scanning
             stateHandler?(newState: state)
             try scanner.scanWithDuration(duration, progressHandler: { newDiscoveries in
-                let actualDiscoveries = newDiscoveries.filter({ !self.maintainedDiscoveries.contains($0) })
-                if !actualDiscoveries.isEmpty {
-                    self.maintainedDiscoveries += actualDiscoveries
-                    let changes = actualDiscoveries.map({ BKDiscoveriesChange.Insert(discovery: $0) })
-                    self.changeHandler?(changes: changes, discoveries: self.maintainedDiscoveries)
+                var changes: [BKDiscoveriesChange] = []
+                
+                //find discoveries that have been updated and add a change for each
+                for newDiscovery in newDiscoveries {
+                    if let index = self.maintainedDiscoveries.index(where: {$0 == newDiscovery && $0.localName != newDiscovery.localName}) {
+                        let outdatedDiscovery = self.maintainedDiscoveries[index]
+                        self.maintainedDiscoveries[index] = newDiscovery
+                        
+                        //TODO: probably need an update change
+                        changes.append(.remove(discovery: outdatedDiscovery))
+                        changes.append(.insert(discovery: newDiscovery))
+                    }
+                    else if !self.maintainedDiscoveries.contains(newDiscovery) {
+                        
+                        self.maintainedDiscoveries.append(newDiscovery)
+                        changes.append(.insert(discovery: newDiscovery))
+                    }
                 }
+
+                if !changes.isEmpty {
+                    self.changeHandler?(changes, self.maintainedDiscoveries)
+                }
+                
             }, completionHandler: { result, error in
                 guard result != nil && error == nil else {
                     self.endScanning(Error.InternalError(underlyingError: error!))
