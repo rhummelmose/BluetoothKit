@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9147DDAF1DDB0F4A003145B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
+		9147DDB01DDB0F5A003145B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
+		91679C691DDB10BD0089F35F /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; };
+		91679C6A1DDB10BD0089F35F /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91679C6E1DDB10BD0089F35F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; };
+		91679C6F1DDB10BD0089F35F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91679C731DDB10BD0089F35F /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E04DCF1BBDA5B50050C09A /* BluetoothKit.framework */; };
+		91679C741DDB10BD0089F35F /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6E04DCF1BBDA5B50050C09A /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		918E89671DBA036200174266 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; };
 		918E89681DBA036200174266 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		918E896B1DBA036800174266 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; };
@@ -42,6 +50,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		91679C6B1DDB10BD0089F35F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 918E895E1DBA007300174266 /* SnapKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
+			remoteInfo = SnapKit;
+		};
+		91679C701DDB10BD0089F35F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		91679C751DDB10BD0089F35F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C6ED86C01BA955A600C9B70B;
+			remoteInfo = "BluetoothKit OSX";
+		};
 		918E895A1DBA006700174266 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
@@ -133,6 +162,19 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91679C771DDB10BD0089F35F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				91679C6A1DDB10BD0089F35F /* SnapKit.framework in Embed Frameworks */,
+				91679C741DDB10BD0089F35F /* BluetoothKit.framework in Embed Frameworks */,
+				91679C6F1DDB10BD0089F35F /* CryptoSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C67653F91B8E2D3C00D43F8E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,6 +191,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9147DD9C1DDB0CEA003145B2 /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9147DDAC1DDB0F05003145B2 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
 		918E89551DBA006700174266 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = Vendor/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		918E895E1DBA007300174266 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = Vendor/SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+NumberOfBytes.swift"; sourceTree = "<group>"; };
@@ -167,10 +211,20 @@
 		C67A22401B8C7D1B00CB74CE /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67A22561B8C7D5B00CB74CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C67A22581B8C7D5B00CB74CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C67A225B1B8C7D5B00CB74CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C67A225B1B8C7D5B00CB74CE /* Info-iOS-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS-tvOS.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9147DD991DDB0CEA003145B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91679C691DDB10BD0089F35F /* SnapKit.framework in Frameworks */,
+				91679C731DDB10BD0089F35F /* BluetoothKit.framework in Frameworks */,
+				91679C6E1DDB10BD0089F35F /* CryptoSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C66982781CEB9FA100E23B57 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +347,7 @@
 			children = (
 				C67A22401B8C7D1B00CB74CE /* BKExample.app */,
 				C669827B1CEB9FA100E23B57 /* BKExample.app */,
+				9147DD9C1DDB0CEA003145B2 /* BKExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -300,9 +355,10 @@
 		C67A22551B8C7D5B00CB74CE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C67A225B1B8C7D5B00CB74CE /* Info-iOS-tvOS.plist */,
+				9147DDAC1DDB0F05003145B2 /* Info-macOS.plist */,
 				C67A22561B8C7D5B00CB74CE /* Assets.xcassets */,
 				C67A22571B8C7D5B00CB74CE /* LaunchScreen.storyboard */,
-				C67A225B1B8C7D5B00CB74CE /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -320,6 +376,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9147DD9B1DDB0CEA003145B2 /* BKExample (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9147DDAB1DDB0CEA003145B2 /* Build configuration list for PBXNativeTarget "BKExample (macOS)" */;
+			buildPhases = (
+				9147DD981DDB0CEA003145B2 /* Sources */,
+				9147DD991DDB0CEA003145B2 /* Frameworks */,
+				9147DD9A1DDB0CEA003145B2 /* Resources */,
+				91679C771DDB10BD0089F35F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91679C6C1DDB10BD0089F35F /* PBXTargetDependency */,
+				91679C711DDB10BD0089F35F /* PBXTargetDependency */,
+				91679C761DDB10BD0089F35F /* PBXTargetDependency */,
+			);
+			name = "BKExample (macOS)";
+			productName = "BKExample (macOS)";
+			productReference = 9147DD9C1DDB0CEA003145B2 /* BKExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		C669827A1CEB9FA100E23B57 /* BKExample (tvOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample (tvOS)" */;
@@ -369,10 +446,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0710;
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
+				ORGANIZATIONNAME = "Rasmus Høhndorf Hummelmose";
 				TargetAttributes = {
+					9147DD9B1DDB0CEA003145B2 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					C669827A1CEB9FA100E23B57 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = AP8VQJ559X;
@@ -413,6 +494,7 @@
 			targets = (
 				C67A223F1B8C7D1B00CB74CE /* BKExample (iOS) */,
 				C669827A1CEB9FA100E23B57 /* BKExample (tvOS) */,
+				9147DD9B1DDB0CEA003145B2 /* BKExample (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -470,6 +552,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9147DD9A1DDB0CEA003145B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9147DDAF1DDB0F4A003145B2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C66982791CEB9FA100E23B57 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -521,6 +611,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9147DD981DDB0CEA003145B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9147DDB01DDB0F5A003145B2 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C66982771CEB9FA100E23B57 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -559,6 +657,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		91679C6C1DDB10BD0089F35F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SnapKit;
+			targetProxy = 91679C6B1DDB10BD0089F35F /* PBXContainerItemProxy */;
+		};
+		91679C711DDB10BD0089F35F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = 91679C701DDB10BD0089F35F /* PBXContainerItemProxy */;
+		};
+		91679C761DDB10BD0089F35F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "BluetoothKit OSX";
+			targetProxy = 91679C751DDB10BD0089F35F /* PBXContainerItemProxy */;
+		};
 		918E896A1DBA036200174266 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SnapKit;
@@ -593,6 +706,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9147DDA61DDB0CEA003145B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon macOS";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Resources/Info-macOS.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		9147DDA71DDB0CEA003145B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon macOS";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Resources/Info-macOS.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		C66982871CEB9FA100E23B57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -601,9 +751,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -618,9 +767,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -668,6 +816,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhummelmose.BluetoothKitExample;
 				PRODUCT_NAME = BKExample;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -710,6 +859,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhummelmose.BluetoothKitExample;
 				PRODUCT_NAME = BKExample;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -723,10 +873,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon iOS";
+				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -735,10 +884,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon iOS";
+				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -746,6 +894,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9147DDAB1DDB0CEA003145B2 /* Build configuration list for PBXNativeTarget "BKExample (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9147DDA61DDB0CEA003145B2 /* Debug */,
+				9147DDA71DDB0CEA003145B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample (tvOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

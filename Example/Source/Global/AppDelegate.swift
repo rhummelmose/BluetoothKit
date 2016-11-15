@@ -22,9 +22,17 @@
 //  THE SOFTWARE.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
+#endif
+
+#if os(macOS)
+import Cocoa
+#endif
+
 import BluetoothKit
 
+#if os(iOS) || os(tvOS)
 @UIApplicationMain
 internal class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -41,3 +49,21 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+#endif
+
+#if os(macOS)
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    internal var window: NSWindow!
+    
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+    }
+    
+    func applicationWillTerminate(_ aNotification: Notification) {
+        
+    }
+    
+}
+#endif
