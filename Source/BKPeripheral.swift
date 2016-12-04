@@ -57,7 +57,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     public var availability: BKAvailability {
         if #available(iOS 10.0, *) {
-            return BKAvailability(centralState: peripheralManager.state)
+            return BKAvailability(centralState: CBCentralManagerState.init(rawValue: peripheralManager.state.rawValue)!)
         } else {
             return BKAvailability(peripheralManagerState: CBPeripheralManagerState(rawValue:peripheralManager.state.rawValue)!)
         }
@@ -192,7 +192,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
             let newCause: BKUnavailabilityCause
             if #available(iOS 10.0, *) {
-                newCause = BKUnavailabilityCause(centralState: peripheralManager.state)
+                newCause = BKUnavailabilityCause(centralState: CBCentralManagerState.init(rawValue: peripheralManager.state.rawValue)!)
             } else {
                 newCause = BKUnavailabilityCause(peripheralManagerState: CBPeripheralManagerState(rawValue: peripheralManager.state.rawValue)!)
             }

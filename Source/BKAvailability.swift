@@ -48,7 +48,7 @@ public enum BKAvailability: Equatable {
     case unavailable(cause: BKUnavailabilityCause)
 
     @available(iOS 10.0, *)
-    internal init(centralState: CBManagerState) {
+    internal init(centralState: CBCentralManagerState) {
         switch centralState {
             case .poweredOn: self = .available
             default: self = .unavailable(cause: BKUnavailabilityCause(centralState: centralState))
@@ -91,7 +91,7 @@ public enum BKUnavailabilityCause: ExpressibleByNilLiteral {
     }
 
     @available(iOS 10.0, *)
-    internal init(centralState: CBManagerState) {
+    internal init(centralState: CBCentralManagerState) {
         switch centralState {
             case .poweredOff: self = .poweredOff
             case .resetting: self = .resetting
