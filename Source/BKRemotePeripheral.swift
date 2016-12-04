@@ -80,9 +80,9 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         }
         #else
         switch peripheral!.state {
-            case .Disconnected: return .Disconnected
-            case .Connecting: return .Connecting
-            case .Connected: return .Connected
+            case .disconnected: return .disconnected
+            case .connecting: return .connecting
+            case .connected: return .connected
         }
         #endif
     }
