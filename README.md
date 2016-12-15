@@ -48,7 +48,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'BluetoothKit', '~> 0.2.0'
+pod 'BluetoothKit', '~> 0.4.0'
 ```
 
 Then, run the following command:
