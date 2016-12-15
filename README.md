@@ -1,7 +1,7 @@
 # BluetoothKit
 Easily communicate between iOS devices using BLE.
 
-[![Build Status](https://travis-ci.org/rhummelmose/BluetoothKit.svg?branch=master)](https://travis-ci.org/rasmusth/BluetoothKit)
+[![Build Status](https://travis-ci.org/rhummelmose/BluetoothKit.svg?branch=master)](https://travis-ci.org/rhummelmose/BluetoothKit)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/BluetoothKit.svg)](https://img.shields.io/cocoapods/v/BluetoothKit.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
@@ -70,7 +70,7 @@ $ brew install carthage
 To integrate BluetoothKit into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "rasmusth/BluetoothKit" ~> 0.2.0
+github "rasmusth/BluetoothKit" ~> 0.4.0
 ```
 
 ####Manual
