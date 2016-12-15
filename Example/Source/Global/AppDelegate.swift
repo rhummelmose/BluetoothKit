@@ -31,13 +31,14 @@ import Cocoa
 #endif
 
 import BluetoothKit
+import SnapKit
 
 #if os(iOS) || os(tvOS)
 @UIApplicationMain
 internal class AppDelegate: UIResponder, UIApplicationDelegate {
 
     internal var window: UIWindow?
-
+    
     internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         if let keyWindow = window {
@@ -54,16 +55,25 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
 #if os(macOS)
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    internal var window: NSWindow!
+
+    internal var window: NSWindow?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
+        let styleMask: NSWindowStyleMask = [.titled, .fullSizeContentView, .resizable]
+        window = NSWindow(contentRect: NSRect(origin: CGPoint.zero, size: NSSize(width: 400, height: 400)), styleMask: styleMask, backing: .buffered, defer: false)
+        if let keyWindow = window, let screenSize = keyWindow.screen?.frame.size {
+            let contentOrigin = NSPoint(x: (screenSize.width-keyWindow.frame.size.width)/2, y: (screenSize.height-keyWindow.frame.size.height)/2)
+            keyWindow.setFrameOrigin(contentOrigin)
+            keyWindow.title = "BluetoothKit"
+            keyWindow.makeKeyAndOrderFront(self)
+            let mainMenu = NSApp!.mainMenu!
+            print("Yo! \(mainMenu)")
+        }
     }
-    
+
     func applicationWillTerminate(_ aNotification: Notification) {
-        
+
     }
-    
+
 }
 #endif

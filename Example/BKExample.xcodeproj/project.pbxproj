@@ -9,17 +9,20 @@
 /* Begin PBXBuildFile section */
 		2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9147DDAF1DDB0F4A003145B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
-		9147DDB01DDB0F5A003145B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
 		91679C691DDB10BD0089F35F /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; };
 		91679C6A1DDB10BD0089F35F /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91679C6E1DDB10BD0089F35F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; };
 		91679C6F1DDB10BD0089F35F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91679C731DDB10BD0089F35F /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E04DCF1BBDA5B50050C09A /* BluetoothKit.framework */; };
 		91679C741DDB10BD0089F35F /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6E04DCF1BBDA5B50050C09A /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91679C781DDB19A00089F35F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
+		91679CC41DDBA5D60089F35F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91679CC31DDBA5D60089F35F /* MainMenu.xib */; };
+		91679CCC1DDC72AD0089F35F /* RHMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91679CCB1DDC72AD0089F35F /* RHMainMenu.swift */; };
 		918E89671DBA036200174266 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; };
 		918E89681DBA036200174266 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		918E896B1DBA036800174266 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; };
 		918E896C1DBA036800174266 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		919EB3FD1DE84A5100D6D2B4 /* RHApplicationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */; };
 		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
 		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
 		C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
@@ -193,8 +196,11 @@
 /* Begin PBXFileReference section */
 		9147DD9C1DDB0CEA003145B2 /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9147DDAC1DDB0F05003145B2 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
+		91679CC31DDBA5D60089F35F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		91679CCB1DDC72AD0089F35F /* RHMainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHMainMenu.swift; sourceTree = "<group>"; };
 		918E89551DBA006700174266 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = Vendor/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		918E895E1DBA007300174266 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = Vendor/SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
+		919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHApplicationMenu.swift; sourceTree = "<group>"; };
 		C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+NumberOfBytes.swift"; sourceTree = "<group>"; };
 		C668888E1B970123003C8DBB /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		C66888901B970123003C8DBB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +252,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91679CC81DDC71EC0089F35F /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				91679CCB1DDC72AD0089F35F /* RHMainMenu.swift */,
+				919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */,
+			);
+			path = MainMenu;
+			sourceTree = "<group>";
+		};
 		918E89561DBA006700174266 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +282,7 @@
 		C668888B1B970123003C8DBB /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				91679CC81DDC71EC0089F35F /* MainMenu */,
 				C668888F1B970123003C8DBB /* Global */,
 				C66888951B970123003C8DBB /* View Controllers */,
 				C668889A1B970123003C8DBB /* Views */,
@@ -359,6 +375,7 @@
 				9147DDAC1DDB0F05003145B2 /* Info-macOS.plist */,
 				C67A22561B8C7D5B00CB74CE /* Assets.xcassets */,
 				C67A22571B8C7D5B00CB74CE /* LaunchScreen.storyboard */,
+				91679CC31DDBA5D60089F35F /* MainMenu.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -452,6 +469,7 @@
 				TargetAttributes = {
 					9147DD9B1DDB0CEA003145B2 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = AP8VQJ559X;
 						ProvisioningStyle = Automatic;
 					};
 					C669827A1CEB9FA100E23B57 = {
@@ -557,6 +575,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9147DDAF1DDB0F4A003145B2 /* Assets.xcassets in Resources */,
+				91679CC41DDBA5D60089F35F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,7 +634,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9147DDB01DDB0F5A003145B2 /* AppDelegate.swift in Sources */,
+				919EB3FD1DE84A5100D6D2B4 /* RHApplicationMenu.swift in Sources */,
+				91679CCC1DDC72AD0089F35F /* RHMainMenu.swift in Sources */,
+				91679C781DDB19A00089F35F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,8 +735,9 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AP8VQJ559X;
 				INFOPLIST_FILE = "Resources/Info-macOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -733,8 +755,9 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AP8VQJ559X;
 				INFOPLIST_FILE = "Resources/Info-macOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
