@@ -160,14 +160,15 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     /**
         Scan for peripherals for a limited duration of time.
-        - parameter duration: The number of seconds to scan for (defaults to 3).
+        - parameter duration: The number of seconds to scan for (defaults to 3). A duration of 0 means endless
+        - parameter updateDuplicates: normally, discoveries for the same peripheral are coalesced by IOS. Setting this to true advises the OS to generate new discoveries anyway. This allows you to react to RSSI changes (defaults to false).
         - parameter progressHandler: A progress handler allowing you to react immediately when a peripheral is discovered during a scan.
         - parameter completionHandler: A completion handler allowing you to react on the full result of discovered peripherals or an error if one occured.
     */
-    public func scanWithDuration(_ duration: TimeInterval = 3, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
+    public func scanWithDuration(_ duration: TimeInterval = 3, updateDuplicates: Bool = false, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
-            try scanner.scanWithDuration(duration, progressHandler: progressHandler) { result, error in
+            try scanner.scanWithDuration(duration, updateDuplicates: updateDuplicates, progressHandler: progressHandler) { result, error in
                 var returnError: BKError?
                 if error == nil {
                     _ = try? self.stateMachine.handleEvent(.setAvailable)
@@ -186,12 +187,13 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         Scan for peripherals for a limited duration of time continuously with an in-between delay.
         - parameter changeHandler: A change handler allowing you to react to changes in "maintained" discovered peripherals.
         - parameter stateHandler: A state handler allowing you to react when the scanner is started, waiting and stopped.
-        - parameter duration: The number of seconds to scan for (defaults to 3).
+        - parameter duration: The number of seconds to scan for (defaults to 3). A duration of 0 means endless and inBetweenDelay is pointless
         - parameter inBetweenDelay: The number of seconds to wait for, in-between scans (defaults to 3).
+        - parameter updateDuplicates: normally, discoveries for the same peripheral are coalesced by IOS. Setting this to true advises the OS to generate new discoveries anyway. This allows you to react to RSSI changes (defaults to false).
         - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
     */
 
-    public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
+    public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, updateDuplicates: Bool = false, errorHandler: ContinuousScanErrorHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
             continuousScanner.scanContinuouslyWithChangeHandler(changeHandler, stateHandler: { newState in
@@ -199,7 +201,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                     _ = try? self.stateMachine.handleEvent(.setAvailable)
                 }
                 stateHandler?(newState)
-            }, duration: duration, inBetweenDelay: inBetweenDelay, errorHandler: { error in
+            }, duration: duration, inBetweenDelay: inBetweenDelay, updateDuplicates: updateDuplicates, errorHandler: { error in
                 errorHandler?(.internalError(underlyingError: error))
             })
         } catch let error {
