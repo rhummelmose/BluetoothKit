@@ -5,24 +5,24 @@ Easily communicate between iOS devices using BLE.
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/BluetoothKit.svg)](https://img.shields.io/cocoapods/v/BluetoothKit.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-##Background
+## Background
 Apple mostly did a great job with the CoreBluetooth API, but because it encapsulated the entire Bluetooth 4.0 LE specification, it can be a lot of work to achieve simple tasks like sending data back and forth between iOS devices, without having to worry about the specification and the inner workings of the CoreBluetooth stack.
 
 BluetoothKit tries to address the challenges this may cause by providing a much simpler, modern, closure-based API all implemented in Swift.
 
-##Features
+## Features
 
-####Common
+#### Common
 - More concise Bluetooth LE availability definition with enums.
 - Bluetooth LE availability observation allowing multiple observers at once.
 
-####Central
+#### Central
 - Scan for remote peripherals for a given time interval.
 - Continuously scan for remote peripherals for a give time interval, with an in-between delay until interrupted.
 - Connect to remote peripherals with a given time interval as time out.
 - Receive any size of data without having to worry about chunking.
 
-####Peripheral
+#### Peripheral
 - Start broadcasting with only a single function call.
 - Send any size of data to connected remote centrals without having to worry about chunking.
 
@@ -32,7 +32,7 @@ BluetoothKit tries to address the challenges this may cause by providing a much 
 
 ## Installation
 
-####CocoaPods
+#### CocoaPods
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
 CocoaPods 0.38.2 is required to build BluetoothKit. It adds support for Xcode 7, Swift 2.0 and embedded frameworks. You can install it with the following command:
@@ -57,7 +57,7 @@ Then, run the following command:
 $ pod install
 ```
 
-####Carthage
+#### Carthage
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that automates the process of adding frameworks to your Cocoa application.
 
 You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
@@ -73,20 +73,20 @@ To integrate BluetoothKit into your Xcode project using Carthage, specify it in 
 github "rasmusth/BluetoothKit" ~> 0.4.0
 ```
 
-####Manual
+#### Manual
 Add the BluetoothKit project to your existing project and add BluetoothKit as an embedded binary of your target(s).
 
-##Usage
+## Usage
 
 Below you find some examples of how the framework can be used. Accompanied in the repository you find an example project that demonstrates a usage of the framework in practice. The example project uses [SnapKit](https://github.com/SnapKit/SnapKit) and [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift) both of which are great projects. They're bundled in the project and it should all build without further ado.
 
-####Common
+#### Common
 Make sure to import the BluetoothKit framework in files that use it.
 ```swift
 import BluetoothKit
 ```
 
-####Peripheral
+#### Peripheral
 
 Prepare and start a BKPeripheral object with a configuration holding UUIDs uniqueue to your app(s) and an optional local name that will be broadcasted. You can generate UUIDs in the OSX terminal using the command "uuidgen".
 ```swift
@@ -114,7 +114,7 @@ peripheral.sendData(data, toRemoteCentral: remoteCentral) { data, remoteCentral,
 }
 ```
 
-####Central
+#### Central
 Prepare and start a BKCentral object with a configuration holding the UUIDs you used to configure your BKPeripheral object.
 ```swift
 let central = BKCentral()
@@ -163,5 +163,5 @@ central.connect(remotePeripheral: peripherals[indexPath.row]) { remotePeripheral
 }
 ```
 
-##License
+## License
 BluetoothKit is released under the MIT License.
