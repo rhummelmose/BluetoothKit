@@ -37,6 +37,8 @@ internal class RoleSelectionViewController: UIViewController {
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
+        super.viewDidLoad()
+        
         navigationItem.title = "Select Role"
         view.backgroundColor = UIColor.white
         centralButton.setTitle("Central", for: UIControlState())
@@ -52,7 +54,7 @@ internal class RoleSelectionViewController: UIViewController {
 
     private func preparedButtons(_ buttons: [UIButton], andAddThemToView view: UIView) {
         for button in buttons {
-            button.setBackgroundImage(UIImage.imageWithColor(buttonColor), for: UIControlState())
+            button.setBackgroundImage(UIImage.image(withColor: buttonColor), for: UIControlState())
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
             #if os(iOS)
                 button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), for: UIControlEvents.touchUpInside)

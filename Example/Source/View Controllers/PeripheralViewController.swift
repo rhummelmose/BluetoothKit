@@ -40,6 +40,8 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
+        super.viewDidLoad()
+        
         navigationItem.title = "Peripheral"
         view.backgroundColor = UIColor.white
         Logger.delegate = self
@@ -90,7 +92,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
 
     @objc private func sendData() {
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
-        let data = Data.dataWithNumberOfBytes(numberOfBytesToSend)
+        let data = Data.data(withNumberOfBytes: numberOfBytesToSend)
         Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5().toHexString())")
         for remoteCentral in peripheral.connectedRemoteCentrals {
             Logger.log("Sending to \(remoteCentral)")

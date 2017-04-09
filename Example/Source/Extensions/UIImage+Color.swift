@@ -26,7 +26,7 @@ import UIKit
 
 internal extension UIImage {
 
-    internal class func imageWithColor(_ color: UIColor) -> UIImage {
+    internal class func image(withColor color: UIColor) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
