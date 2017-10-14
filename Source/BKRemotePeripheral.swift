@@ -166,6 +166,19 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         }
     }
 
+    internal func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
+      guard let services = peripheral.services else {
+        return
+      }
+      for service in services {
+        if service.characteristics != nil {
+          self.peripheral(peripheral, didDiscoverCharacteristicsFor: service, error: nil)
+        } else {
+          peripheral.discoverCharacteristics(configuration!.characteristicUUIDsForServiceUUID(service.uuid), for: service)
+        }
+      }
+    }
+
     internal func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard service.uuid == configuration!.dataServiceUUID, let dataCharacteristic = service.characteristics?.filter({ $0.uuid == configuration!.dataServiceCharacteristicUUID }).last else {
             return
