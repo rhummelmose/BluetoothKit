@@ -59,7 +59,7 @@ public class BKPeer {
         }
         let sendDataTask = BKSendDataTask(data: data, destination: remotePeer, completionHandler: completionHandler)
         sendDataTasks.append(sendDataTask)
-        if sendDataTasks.count == 1 {
+        if sendDataTasks.count >= 1 {
             processSendDataTasks()
         }
     }
