@@ -305,6 +305,7 @@
 					};
 					C6ED86C01BA955A600C9B70B = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0910;
 					};
 				};
 			};
@@ -676,6 +677,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhummelmose.BluetoothKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -696,6 +699,8 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -83,7 +83,9 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
             case .disconnected: return .disconnected
             case .connecting: return .connecting
             case .connected: return .connected
-        }
+        case .disconnecting:
+            return .disconnecting
+}
         #endif
     }
 
