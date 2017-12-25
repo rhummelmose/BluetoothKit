@@ -1,0 +1,6 @@
+framework module Pods_BKExample__iOS_ {
+  umbrella header "Pods-BKExample (iOS)-umbrella.h"
+
+  export *
+  module * { export * }
+}

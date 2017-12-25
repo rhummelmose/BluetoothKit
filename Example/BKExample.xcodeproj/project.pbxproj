@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CFB38BEBF888B71945EB3BC /* Pods_BKExample__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D262B283E5F2072A3CCD31 /* Pods_BKExample__iOS_.framework */; };
 		2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5665FD0C09524A05E948792D /* Pods_BKExample_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B62C603CE9CD4CEB7060DA3 /* Pods_BKExample_iOS.framework */; };
 		9147DDAF1DDB0F4A003145B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
@@ -127,6 +128,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4967F6DE0F09212DE5EE7E0E /* Pods-BKExample (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample (iOS).debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS).debug.xcconfig"; sourceTree = "<group>"; };
+		52D262B283E5F2072A3CCD31 /* Pods_BKExample__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B62C603CE9CD4CEB7060DA3 /* Pods_BKExample_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		701259CACC3DF0434DF2C980 /* Pods_BKExample_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF1FBA8AEDA77565F48D236 /* Pods-BKExample-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample-iOS/Pods-BKExample-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 		91679CC31DDBA5D60089F35F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		91679CCB1DDC72AD0089F35F /* RHMainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHMainMenu.swift; sourceTree = "<group>"; };
 		919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHApplicationMenu.swift; sourceTree = "<group>"; };
+		B0037F888B949D9BDBED149A /* Pods-BKExample (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample (iOS).release.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		C1C81D10D5BE8B0776124449 /* Pods_BKExample_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+NumberOfBytes.swift"; sourceTree = "<group>"; };
 		C668888E1B970123003C8DBB /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 			files = (
 				C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */,
 				5665FD0C09524A05E948792D /* Pods_BKExample_iOS.framework in Frameworks */,
+				2CFB38BEBF888B71945EB3BC /* Pods_BKExample__iOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +195,8 @@
 			children = (
 				7AF1FBA8AEDA77565F48D236 /* Pods-BKExample-iOS.debug.xcconfig */,
 				DFE599148B1C901F6020E25C /* Pods-BKExample-iOS.release.xcconfig */,
+				4967F6DE0F09212DE5EE7E0E /* Pods-BKExample (iOS).debug.xcconfig */,
+				B0037F888B949D9BDBED149A /* Pods-BKExample (iOS).release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -312,6 +319,7 @@
 				701259CACC3DF0434DF2C980 /* Pods_BKExample_tvOS.framework */,
 				C1C81D10D5BE8B0776124449 /* Pods_BKExample_macOS.framework */,
 				5B62C603CE9CD4CEB7060DA3 /* Pods_BKExample_iOS.framework */,
+				52D262B283E5F2072A3CCD31 /* Pods_BKExample__iOS_.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -319,9 +327,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9147DD9B1DDB0CEA003145B2 /* BKExample-macOS */ = {
+		9147DD9B1DDB0CEA003145B2 /* BKExample (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9147DDAB1DDB0CEA003145B2 /* Build configuration list for PBXNativeTarget "BKExample-macOS" */;
+			buildConfigurationList = 9147DDAB1DDB0CEA003145B2 /* Build configuration list for PBXNativeTarget "BKExample (macOS)" */;
 			buildPhases = (
 				9147DD981DDB0CEA003145B2 /* Sources */,
 				9147DD991DDB0CEA003145B2 /* Frameworks */,
@@ -333,14 +341,14 @@
 			dependencies = (
 				91679C761DDB10BD0089F35F /* PBXTargetDependency */,
 			);
-			name = "BKExample-macOS";
+			name = "BKExample (macOS)";
 			productName = "BKExample (macOS)";
 			productReference = 9147DD9C1DDB0CEA003145B2 /* BKExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C669827A1CEB9FA100E23B57 /* BKExample-tvOS */ = {
+		C669827A1CEB9FA100E23B57 /* BKExample (tvOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample-tvOS" */;
+			buildConfigurationList = C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample (tvOS)" */;
 			buildPhases = (
 				C66982771CEB9FA100E23B57 /* Sources */,
 				C66982781CEB9FA100E23B57 /* Frameworks */,
@@ -352,14 +360,14 @@
 			dependencies = (
 				C66982A91CEBA0A900E23B57 /* PBXTargetDependency */,
 			);
-			name = "BKExample-tvOS";
+			name = "BKExample (tvOS)";
 			productName = "BKExample (tvOS)";
 			productReference = C669827B1CEB9FA100E23B57 /* BKExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C67A223F1B8C7D1B00CB74CE /* BKExample-iOS */ = {
+		C67A223F1B8C7D1B00CB74CE /* BKExample (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample-iOS" */;
+			buildConfigurationList = C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample (iOS)" */;
 			buildPhases = (
 				5E5D6E483F3697DE3F85E767 /* [CP] Check Pods Manifest.lock */,
 				C69063961CECA4FA00EF67A3 /* SwiftLint Autocorrect */,
@@ -376,7 +384,7 @@
 			dependencies = (
 				C67653F81B8E2D3C00D43F8E /* PBXTargetDependency */,
 			);
-			name = "BKExample-iOS";
+			name = "BKExample (iOS)";
 			productName = BluetoothKitExample;
 			productReference = C67A22401B8C7D1B00CB74CE /* BKExample.app */;
 			productType = "com.apple.product-type.application";
@@ -427,9 +435,9 @@
 			);
 			projectRoot = "";
 			targets = (
-				C67A223F1B8C7D1B00CB74CE /* BKExample-iOS */,
-				C669827A1CEB9FA100E23B57 /* BKExample-tvOS */,
-				9147DD9B1DDB0CEA003145B2 /* BKExample-macOS */,
+				C67A223F1B8C7D1B00CB74CE /* BKExample (iOS) */,
+				C669827A1CEB9FA100E23B57 /* BKExample (tvOS) */,
+				9147DD9B1DDB0CEA003145B2 /* BKExample (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -494,7 +502,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BKExample-iOS/Pods-BKExample-iOS-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS)-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
@@ -505,7 +513,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKExample-iOS/Pods-BKExample-iOS-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS)-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5E5D6E483F3697DE3F85E767 /* [CP] Check Pods Manifest.lock */ = {
@@ -519,7 +527,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BKExample-iOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BKExample (iOS)-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -538,7 +546,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKExample-iOS/Pods-BKExample-iOS-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS)-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C690638C1CECA1FD00EF67A3 /* SwiftLint */ = {
@@ -832,7 +840,7 @@
 		};
 		C67A22531B8C7D1B00CB74CE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AF1FBA8AEDA77565F48D236 /* Pods-BKExample-iOS.debug.xcconfig */;
+			baseConfigurationReference = 4967F6DE0F09212DE5EE7E0E /* Pods-BKExample (iOS).debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon iOS";
@@ -845,7 +853,7 @@
 		};
 		C67A22541B8C7D1B00CB74CE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFE599148B1C901F6020E25C /* Pods-BKExample-iOS.release.xcconfig */;
+			baseConfigurationReference = B0037F888B949D9BDBED149A /* Pods-BKExample (iOS).release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon iOS";
@@ -859,7 +867,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9147DDAB1DDB0CEA003145B2 /* Build configuration list for PBXNativeTarget "BKExample-macOS" */ = {
+		9147DDAB1DDB0CEA003145B2 /* Build configuration list for PBXNativeTarget "BKExample (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9147DDA61DDB0CEA003145B2 /* Debug */,
@@ -868,7 +876,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample-tvOS" */ = {
+		C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample (tvOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C66982871CEB9FA100E23B57 /* Debug */,
@@ -886,7 +894,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample-iOS" */ = {
+		C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C67A22531B8C7D1B00CB74CE /* Debug */,
