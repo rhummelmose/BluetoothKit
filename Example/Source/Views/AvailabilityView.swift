@@ -76,12 +76,12 @@ internal class AvailabilityView: UIView, BKAvailabilityObserver {
         let trailingText = availabilityLabelTrailingTextForAvailability(availability)
         let string = leadingText + trailingText as NSString
         let attributedString = NSMutableAttributedString(string: string as String)
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(location: 0, length: string.length))
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: string.range(of: leadingText))
+        attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(location: 0, length: string.length))
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: string.range(of: leadingText))
         if let availability = availability {
             switch availability {
-            case .available: attributedString.addAttribute(NSForegroundColorAttributeName, value: Colors.green, range: string.range(of: trailingText))
-            case .unavailable: attributedString.addAttribute(NSForegroundColorAttributeName, value: Colors.red, range: string.range(of: trailingText))
+            case .available: attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Colors.green, range: string.range(of: trailingText))
+            case .unavailable: attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Colors.red, range: string.range(of: trailingText))
             }
         }
         return attributedString

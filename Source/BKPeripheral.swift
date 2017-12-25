@@ -56,18 +56,12 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
 
     public var availability: BKAvailability {
-        #if os(iOS) || os(tvOS)
-            if #available(iOS 10.0, tvOS 10.0, *) {
-                return BKAvailability(managerState: peripheralManager.state)
-            } else {
-                return BKAvailability(peripheralManagerState: peripheralManager.peripheralManagerState)
-            }
-        #else
-            return BKAvailability(peripheralManagerState: peripheralManager.state)
-        #endif
+        if #available(iOS 10.0, tvOS 10.0, OSX 10.13, *) {
+            return BKAvailability(managerState: peripheralManager.state)
+        } else {
+            return BKAvailability(peripheralManagerState: peripheralManager.peripheralManagerState)
+        }
     }
-
-
 
     /// The configuration that the BKPeripheral object was started with.
     override public var configuration: BKPeripheralConfiguration? {
@@ -193,16 +187,14 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         case .unknown, .resetting:
             break
         case .unsupported, .unauthorized, .poweredOff:
+            
             let newCause: BKUnavailabilityCause
-            #if os(iOS) || os(tvOS)
-                if #available(iOS 10.0, tvOS 10.0, *) {
-                    newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
-                } else {
-                    newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.peripheralManagerState)
-                }
-            #else
-                newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.state)
-            #endif
+            if #available(iOS 10.0, tvOS 10.0, OSX 10.13, *) {
+                newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
+            } else {
+                newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.peripheralManagerState)
+            }
+            
             switch stateMachine.state {
                 case let .unavailable(cause):
                     let oldCause = cause
@@ -247,9 +239,20 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
-        if let remoteCentral = connectedRemotePeers.filter({ ($0.identifier == central.identifier) }).last as? BKRemoteCentral {
-            handleDisconnectForRemoteCentral(remoteCentral)
-        }
+        
+        #if os(OSX)
+            if #available(OSX 10.13, *) {
+                if let remoteCentral = connectedRemotePeers.filter({ ($0.identifier == central.identifier) }).last as? BKRemoteCentral {
+                    handleDisconnectForRemoteCentral(remoteCentral)
+                }
+            } else {
+                fatalError("CBPeripheral.identifier is not supported before OSX 10.13")
+            }
+        #else
+            if let remoteCentral = connectedRemotePeers.filter({ ($0.identifier == central.identifier) }).last as? BKRemoteCentral {
+                handleDisconnectForRemoteCentral(remoteCentral)
+            }
+        #endif
     }
 
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
@@ -257,12 +260,26 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             guard writeRequest.characteristic.uuid == characteristicData.uuid else {
                 continue
             }
-            guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last),
-                  let remoteCentral = remotePeer as? BKRemoteCentral,
-                  let data = writeRequest.value else {
-                continue
-            }
-            remoteCentral.handleReceivedData(data)
+            
+            #if os(OSX)
+                if #available(OSX 10.13, *) {
+                    guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last),
+                        let remoteCentral = remotePeer as? BKRemoteCentral,
+                        let data = writeRequest.value else {
+                            continue
+                    }
+                    remoteCentral.handleReceivedData(data)
+                } else {
+                    fatalError("CBPeripheral.identifier is not supported before OSX 10.13")
+                }
+            #else
+                guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last),
+                    let remoteCentral = remotePeer as? BKRemoteCentral,
+                    let data = writeRequest.value else {
+                        continue
+                }
+                remoteCentral.handleReceivedData(data)
+            #endif
         }
     }
 

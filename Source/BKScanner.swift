@@ -108,8 +108,20 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         guard busy else {
             return
         }
-        let RSSI = Int(RSSI)
-        let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+    
+        let RSSI = Int(RSSI.intValue)
+        var remotePeripheral: BKRemotePeripheral
+        
+        #if os(OSX)
+            if #available(OSX 10.13, *) {
+                remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+            } else {
+                fatalError("CBPeripheral.identifier is not supported before OSX 10.13")
+            }
+        #else
+            remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+        #endif
+        
         remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
         if !discoveries.contains(discovery) {

@@ -144,7 +144,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         central.connect(remotePeripheral: discoveries[indexPath.row].remotePeripheral) { remotePeripheral, error in
             tableView.isUserInteractionEnabled = true
             guard error == nil else {
-                print("Error connecting peripheral: \(error)")
+                print("Error connecting peripheral: \(String(describing: error))")
                 tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
