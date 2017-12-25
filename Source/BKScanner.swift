@@ -44,17 +44,17 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
     internal var configuration: BKConfiguration!
     internal var centralManager: CBCentralManager!
     private var busy = false
-    private var scanHandlers: (progressHandler: BKCentral.ScanProgressHandler?, completionHandler: ScanCompletionHandler )?
+    private var scanHandlers: (filterHandler: BKCentral.ScanFilterHandler?, progressHandler: BKCentral.ScanProgressHandler?, completionHandler: ScanCompletionHandler )?
     private var discoveries = [BKDiscovery]()
     private var durationTimer: Timer?
 
     // MARK: Internal Functions
 
-    internal func scanWithDuration(_ duration: TimeInterval, progressHandler: BKCentral.ScanProgressHandler? = nil, completionHandler: @escaping ScanCompletionHandler) throws {
+    internal func scanWithDuration(_ duration: TimeInterval, filterHandler: BKCentral.ScanFilterHandler? = nil, progressHandler: BKCentral.ScanProgressHandler? = nil, completionHandler: @escaping ScanCompletionHandler) throws {
         do {
             try validateForActivity()
             busy = true
-            scanHandlers = ( progressHandler: progressHandler, completionHandler: completionHandler)
+            scanHandlers = (filterHandler: filterHandler, progressHandler: progressHandler, completionHandler: completionHandler)
             centralManager.scanForPeripherals(withServices: configuration.serviceUUIDs, options: nil)
             durationTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(BKScanner.durationTimerElapsed), userInfo: nil, repeats: false)
         } catch let error {
@@ -125,6 +125,12 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
         if !discoveries.contains(discovery) {
+            
+            if let filterHandler = scanHandlers?.filterHandler {
+                // This discovery is not we want, just ignore it.
+                if !filterHandler(discovery) { return }
+            }
+            
             discoveries.append(discovery)
             scanHandlers?.progressHandler?([ discovery ])
         }

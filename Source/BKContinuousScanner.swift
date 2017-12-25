@@ -50,6 +50,7 @@ internal class BKContinousScanner {
     private var errorHandler: ErrorHandler?
     private var stateHandler: StateHandler?
     private var changeHandler: ChangeHandler?
+    private var filterHandler: BKCentral.ScanFilterHandler?
     private var duration: TimeInterval!
     private var inBetweenDelay: TimeInterval!
 
@@ -62,7 +63,7 @@ internal class BKContinousScanner {
 
     // MARK Internal Functions
 
-    internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ErrorHandler?) {
+    internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, filterHandler: BKCentral.ScanFilterHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ErrorHandler?) {
         guard !busy else {
             errorHandler?(.busy)
             return
@@ -73,6 +74,7 @@ internal class BKContinousScanner {
         self.errorHandler = errorHandler
         self.stateHandler = stateHandler
         self.changeHandler = changeHandler
+        self.filterHandler = filterHandler
         scan()
     }
 
@@ -87,7 +89,7 @@ internal class BKContinousScanner {
         do {
             state = .scanning
             stateHandler?(state)
-            try scanner.scanWithDuration(duration, progressHandler: { newDiscoveries in
+            try scanner.scanWithDuration(duration, filterHandler: filterHandler, progressHandler: { newDiscoveries in
                 let actualDiscoveries = newDiscoveries.filter({ !self.maintainedDiscoveries.contains($0) })
                 if !actualDiscoveries.isEmpty {
                     self.maintainedDiscoveries += actualDiscoveries
@@ -120,6 +122,7 @@ internal class BKContinousScanner {
         errorHandler = nil
         stateHandler = nil
         changeHandler = nil
+        filterHandler = nil
     }
 
     private func endScanning(_ error: BKError?) {

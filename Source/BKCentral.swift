@@ -49,6 +49,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     public typealias ScanProgressHandler = ((_ newDiscoveries: [BKDiscovery]) -> Void)
     public typealias ScanCompletionHandler = ((_ result: [BKDiscovery]?, _ error: BKError?) -> Void)
+    public typealias ScanFilterHandler = ((_ discovery: BKDiscovery) -> Bool)
     public typealias ContinuousScanChangeHandler = ((_ changes: [BKDiscoveriesChange], _ discoveries: [BKDiscovery]) -> Void)
     public typealias ContinuousScanStateHandler = ((_ newState: ContinuousScanState) -> Void)
     public typealias ContinuousScanErrorHandler = ((_ error: BKError) -> Void)
@@ -160,10 +161,10 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter progressHandler: A progress handler allowing you to react immediately when a peripheral is discovered during a scan.
         - parameter completionHandler: A completion handler allowing you to react on the full result of discovered peripherals or an error if one occured.
     */
-    public func scanWithDuration(_ duration: TimeInterval = 3, progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
+    public func scanWithDuration(_ duration: TimeInterval = 3, filterHandler: ScanFilterHandler? = nil,  progressHandler: ScanProgressHandler?, completionHandler: ScanCompletionHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
-            try scanner.scanWithDuration(duration, progressHandler: progressHandler) { result, error in
+            try scanner.scanWithDuration(duration, filterHandler: filterHandler, progressHandler: progressHandler) { result, error in
                 var returnError: BKError?
                 if error == nil {
                     _ = try? self.stateMachine.handleEvent(.setAvailable)
@@ -187,7 +188,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         - parameter errorHandler: An error handler allowing you to react when an error occurs. For now this is also called when the scan is manually interrupted.
     */
 
-    public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
+    public func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ContinuousScanChangeHandler, stateHandler: ContinuousScanStateHandler?, filterHandler: ScanFilterHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ContinuousScanErrorHandler?) {
         do {
             try stateMachine.handleEvent(.scan)
             continuousScanner.scanContinuouslyWithChangeHandler(changeHandler, stateHandler: { newState in
