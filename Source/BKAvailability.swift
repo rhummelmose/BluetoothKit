@@ -47,16 +47,14 @@ public enum BKAvailability: Equatable {
     case available
     case unavailable(cause: BKUnavailabilityCause)
 
-    #if os(iOS) || os(tvOS)
     @available(iOS 10.0, tvOS 10.0, *)
-    @available(OSX, unavailable)
+    @available(OSX 10.13, *)
     internal init(managerState: CBManagerState) {
         switch managerState {
         case .poweredOn: self = .available
         default: self = .unavailable(cause: BKUnavailabilityCause(managerState: managerState))
         }
     }
-    #endif
 
     internal init(centralManagerState: CBCentralManagerState) {
         switch centralManagerState {
@@ -93,9 +91,9 @@ public enum BKUnavailabilityCause: ExpressibleByNilLiteral {
         self = .any
     }
 
-    #if os(iOS) || os(tvOS)
+//    #if os(iOS) || os(tvOS)
     @available(iOS 10.0, tvOS 10.0, *)
-    @available(OSX, unavailable)
+    @available(OSX 10.13, *)
     internal init(managerState: CBManagerState) {
         switch managerState {
         case .poweredOff: self = .poweredOff
@@ -105,7 +103,7 @@ public enum BKUnavailabilityCause: ExpressibleByNilLiteral {
         default: self = nil
         }
     }
-    #endif
+//    #endif
 
     internal init(centralManagerState: CBCentralManagerState) {
         switch centralManagerState {
