@@ -1,0 +1,28 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.0'
+
+# Opt into framework support (required for Swift support in CocoaPods RC1)
+use_frameworks!
+
+workspace 'BKExample.xcworkspace'
+
+target 'BKExample (iOS)' do
+    xcodeproj 'BKExample.xcodeproj'
+    pod 'SnapKit', '~> 4.0.0'
+    pod 'CryptoSwift'
+end
+
+#target 'BKExample (tvOS)' do
+#    xcodeproj 'BKExample.xcodeproj'
+#    pod 'SnapKit', '~> 4.0.0'
+#    pod 'CryptoSwift'
+#end
+
+#target 'BKExample (macOS)' do
+#    xcodeproj 'BKExample.xcodeproj'
+#    pod 'SnapKit', '~> 4.0.0'
+#    pod 'CryptoSwift'
+#end
+

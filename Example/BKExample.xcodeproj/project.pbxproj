@@ -7,21 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CFB38BEBF888B71945EB3BC /* Pods_BKExample__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D262B283E5F2072A3CCD31 /* Pods_BKExample__iOS_.framework */; };
 		2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5665FD0C09524A05E948792D /* Pods_BKExample_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B62C603CE9CD4CEB7060DA3 /* Pods_BKExample_iOS.framework */; };
 		9147DDAF1DDB0F4A003145B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
-		91679C691DDB10BD0089F35F /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; };
-		91679C6A1DDB10BD0089F35F /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		91679C6E1DDB10BD0089F35F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; };
-		91679C6F1DDB10BD0089F35F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91679C731DDB10BD0089F35F /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E04DCF1BBDA5B50050C09A /* BluetoothKit.framework */; };
 		91679C741DDB10BD0089F35F /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6E04DCF1BBDA5B50050C09A /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91679C781DDB19A00089F35F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
 		91679CC41DDBA5D60089F35F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91679CC31DDBA5D60089F35F /* MainMenu.xib */; };
 		91679CCC1DDC72AD0089F35F /* RHMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91679CCB1DDC72AD0089F35F /* RHMainMenu.swift */; };
-		918E89671DBA036200174266 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; };
-		918E89681DBA036200174266 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E89641DBA007300174266 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		918E896B1DBA036800174266 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; };
-		918E896C1DBA036800174266 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 918E895B1DBA006700174266 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		919EB3FD1DE84A5100D6D2B4 /* RHApplicationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */; };
 		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
 		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
@@ -53,68 +47,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		91679C6B1DDB10BD0089F35F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E895E1DBA007300174266 /* SnapKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
-			remoteInfo = SnapKit;
-		};
-		91679C701DDB10BD0089F35F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 754BE45419693E190098E6F3;
-			remoteInfo = CryptoSwift;
-		};
 		91679C751DDB10BD0089F35F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = C6ED86C01BA955A600C9B70B;
 			remoteInfo = "BluetoothKit OSX";
-		};
-		918E895A1DBA006700174266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE45519693E190098E6F3;
-			remoteInfo = CryptoSwift;
-		};
-		918E895C1DBA006700174266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE46019693E190098E6F3;
-			remoteInfo = Tests;
-		};
-		918E89631DBA007300174266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E895E1DBA007300174266 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EEBCC9D819CC627D0083B827;
-			remoteInfo = SnapKit;
-		};
-		918E89651DBA007300174266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E895E1DBA007300174266 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EEBCC9E219CC627E0083B827;
-			remoteInfo = "SnapKit Tests";
-		};
-		918E89691DBA036200174266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E895E1DBA007300174266 /* SnapKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
-			remoteInfo = SnapKit;
-		};
-		918E896D1DBA036800174266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 754BE45419693E190098E6F3;
-			remoteInfo = CryptoSwift;
 		};
 		C669828B1CEB9FA100E23B57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -171,9 +109,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				91679C6A1DDB10BD0089F35F /* SnapKit.framework in Embed Frameworks */,
 				91679C741DDB10BD0089F35F /* BluetoothKit.framework in Embed Frameworks */,
-				91679C6F1DDB10BD0089F35F /* CryptoSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,9 +120,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				918E896C1DBA036800174266 /* CryptoSwift.framework in Embed Frameworks */,
 				C67653F61B8E2D3C00D43F8E /* BluetoothKit.framework in Embed Frameworks */,
-				918E89681DBA036200174266 /* SnapKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,13 +128,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4967F6DE0F09212DE5EE7E0E /* Pods-BKExample (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample (iOS).debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS).debug.xcconfig"; sourceTree = "<group>"; };
+		52D262B283E5F2072A3CCD31 /* Pods_BKExample__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B62C603CE9CD4CEB7060DA3 /* Pods_BKExample_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		701259CACC3DF0434DF2C980 /* Pods_BKExample_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AF1FBA8AEDA77565F48D236 /* Pods-BKExample-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample-iOS/Pods-BKExample-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9147DD9C1DDB0CEA003145B2 /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9147DDAC1DDB0F05003145B2 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
 		91679CC31DDBA5D60089F35F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		91679CCB1DDC72AD0089F35F /* RHMainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHMainMenu.swift; sourceTree = "<group>"; };
-		918E89551DBA006700174266 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = Vendor/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
-		918E895E1DBA007300174266 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = Vendor/SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHApplicationMenu.swift; sourceTree = "<group>"; };
+		B0037F888B949D9BDBED149A /* Pods-BKExample (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample (iOS).release.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS).release.xcconfig"; sourceTree = "<group>"; };
+		C1C81D10D5BE8B0776124449 /* Pods_BKExample_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKExample_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+NumberOfBytes.swift"; sourceTree = "<group>"; };
 		C668888E1B970123003C8DBB /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		C66888901B970123003C8DBB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +157,7 @@
 		C67A22561B8C7D5B00CB74CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C67A22581B8C7D5B00CB74CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C67A225B1B8C7D5B00CB74CE /* Info-iOS-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS-tvOS.plist"; sourceTree = "<group>"; };
+		DFE599148B1C901F6020E25C /* Pods-BKExample-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKExample-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-BKExample-iOS/Pods-BKExample-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,9 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91679C691DDB10BD0089F35F /* SnapKit.framework in Frameworks */,
 				91679C731DDB10BD0089F35F /* BluetoothKit.framework in Frameworks */,
-				91679C6E1DDB10BD0089F35F /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,15 +181,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				918E896B1DBA036800174266 /* CryptoSwift.framework in Frameworks */,
 				C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */,
-				918E89671DBA036200174266 /* SnapKit.framework in Frameworks */,
+				5665FD0C09524A05E948792D /* Pods_BKExample_iOS.framework in Frameworks */,
+				2CFB38BEBF888B71945EB3BC /* Pods_BKExample__iOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FAE5BEE6C710AE85A946130 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7AF1FBA8AEDA77565F48D236 /* Pods-BKExample-iOS.debug.xcconfig */,
+				DFE599148B1C901F6020E25C /* Pods-BKExample-iOS.release.xcconfig */,
+				4967F6DE0F09212DE5EE7E0E /* Pods-BKExample (iOS).debug.xcconfig */,
+				B0037F888B949D9BDBED149A /* Pods-BKExample (iOS).release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		91679CC81DDC71EC0089F35F /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,24 +208,6 @@
 				919EB3FC1DE84A5100D6D2B4 /* RHApplicationMenu.swift */,
 			);
 			path = MainMenu;
-			sourceTree = "<group>";
-		};
-		918E89561DBA006700174266 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				918E895B1DBA006700174266 /* CryptoSwift.framework */,
-				918E895D1DBA006700174266 /* Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		918E895F1DBA007300174266 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				918E89641DBA007300174266 /* SnapKit.framework */,
-				918E89661DBA007300174266 /* SnapKit Tests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C668888B1B970123003C8DBB /* Source */ = {
@@ -355,6 +286,7 @@
 				C67A22551B8C7D5B00CB74CE /* Resources */,
 				C67A22411B8C7D1B00CB74CE /* Products */,
 				C67A226F1B8C7DE300CB74CE /* Frameworks */,
+				5FAE5BEE6C710AE85A946130 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -383,9 +315,11 @@
 		C67A226F1B8C7DE300CB74CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				918E895E1DBA007300174266 /* SnapKit.xcodeproj */,
-				918E89551DBA006700174266 /* CryptoSwift.xcodeproj */,
 				C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */,
+				701259CACC3DF0434DF2C980 /* Pods_BKExample_tvOS.framework */,
+				C1C81D10D5BE8B0776124449 /* Pods_BKExample_macOS.framework */,
+				5B62C603CE9CD4CEB7060DA3 /* Pods_BKExample_iOS.framework */,
+				52D262B283E5F2072A3CCD31 /* Pods_BKExample__iOS_.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -405,8 +339,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				91679C6C1DDB10BD0089F35F /* PBXTargetDependency */,
-				91679C711DDB10BD0089F35F /* PBXTargetDependency */,
 				91679C761DDB10BD0089F35F /* PBXTargetDependency */,
 			);
 			name = "BKExample (macOS)";
@@ -437,19 +369,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample (iOS)" */;
 			buildPhases = (
+				5E5D6E483F3697DE3F85E767 /* [CP] Check Pods Manifest.lock */,
 				C69063961CECA4FA00EF67A3 /* SwiftLint Autocorrect */,
 				C67A223C1B8C7D1B00CB74CE /* Sources */,
 				C67A223D1B8C7D1B00CB74CE /* Frameworks */,
 				C67A223E1B8C7D1B00CB74CE /* Resources */,
 				C67653F91B8E2D3C00D43F8E /* Embed Frameworks */,
 				C690638C1CECA1FD00EF67A3 /* SwiftLint */,
+				135874183E873FEC01CD53C7 /* [CP] Embed Pods Frameworks */,
+				8234EFB0B6EDF427A2A853AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C67653F81B8E2D3C00D43F8E /* PBXTargetDependency */,
-				918E896A1DBA036200174266 /* PBXTargetDependency */,
-				918E896E1DBA036800174266 /* PBXTargetDependency */,
 			);
 			name = "BKExample (iOS)";
 			productName = BluetoothKitExample;
@@ -464,21 +397,21 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Rasmus Høhndorf Hummelmose";
 				TargetAttributes = {
 					9147DD9B1DDB0CEA003145B2 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = AP8VQJ559X;
+						DevelopmentTeam = 77879KDM34;
 						ProvisioningStyle = Automatic;
 					};
 					C669827A1CEB9FA100E23B57 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = AP8VQJ559X;
+						DevelopmentTeam = 77879KDM34;
 					};
 					C67A223F1B8C7D1B00CB74CE = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = AP8VQJ559X;
+						DevelopmentTeam = 77879KDM34;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -499,14 +432,6 @@
 					ProductGroup = C67653F01B8E2D2B00D43F8E /* Products */;
 					ProjectRef = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
 				},
-				{
-					ProductGroup = 918E89561DBA006700174266 /* Products */;
-					ProjectRef = 918E89551DBA006700174266 /* CryptoSwift.xcodeproj */;
-				},
-				{
-					ProductGroup = 918E895F1DBA007300174266 /* Products */;
-					ProjectRef = 918E895E1DBA007300174266 /* SnapKit.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -518,34 +443,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		918E895B1DBA006700174266 /* CryptoSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CryptoSwift.framework;
-			remoteRef = 918E895A1DBA006700174266 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		918E895D1DBA006700174266 /* Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = Tests.xctest;
-			remoteRef = 918E895C1DBA006700174266 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		918E89641DBA007300174266 /* SnapKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SnapKit.framework;
-			remoteRef = 918E89631DBA007300174266 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		918E89661DBA007300174266 /* SnapKit Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SnapKit Tests.xctest";
-			remoteRef = 918E89651DBA007300174266 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -599,6 +496,59 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		135874183E873FEC01CD53C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS)-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E5D6E483F3697DE3F85E767 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BKExample (iOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8234EFB0B6EDF427A2A853AE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKExample (iOS)/Pods-BKExample (iOS)-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C690638C1CECA1FD00EF67A3 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -678,30 +628,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		91679C6C1DDB10BD0089F35F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SnapKit;
-			targetProxy = 91679C6B1DDB10BD0089F35F /* PBXContainerItemProxy */;
-		};
-		91679C711DDB10BD0089F35F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CryptoSwift;
-			targetProxy = 91679C701DDB10BD0089F35F /* PBXContainerItemProxy */;
-		};
 		91679C761DDB10BD0089F35F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "BluetoothKit OSX";
 			targetProxy = 91679C751DDB10BD0089F35F /* PBXContainerItemProxy */;
-		};
-		918E896A1DBA036200174266 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SnapKit;
-			targetProxy = 918E89691DBA036200174266 /* PBXContainerItemProxy */;
-		};
-		918E896E1DBA036800174266 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CryptoSwift;
-			targetProxy = 918E896D1DBA036800174266 /* PBXContainerItemProxy */;
 		};
 		C66982A91CEBA0A900E23B57 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -737,13 +667,13 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = AP8VQJ559X;
+				DEVELOPMENT_TEAM = 77879KDM34;
 				INFOPLIST_FILE = "Resources/Info-macOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -757,12 +687,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = AP8VQJ559X;
+				DEVELOPMENT_TEAM = 77879KDM34;
 				INFOPLIST_FILE = "Resources/Info-macOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -774,9 +704,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 77879KDM34;
 				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -790,9 +722,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 77879KDM34;
 				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -806,14 +740,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -856,14 +796,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -894,23 +840,27 @@
 		};
 		C67A22531B8C7D1B00CB74CE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4967F6DE0F09212DE5EE7E0E /* Pods-BKExample (iOS).debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon iOS";
+				DEVELOPMENT_TEAM = 77879KDM34;
 				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		C67A22541B8C7D1B00CB74CE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0037F888B949D9BDBED149A /* Pods-BKExample (iOS).release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon iOS";
+				DEVELOPMENT_TEAM = 77879KDM34;
 				INFOPLIST_FILE = "Resources/Info-iOS-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

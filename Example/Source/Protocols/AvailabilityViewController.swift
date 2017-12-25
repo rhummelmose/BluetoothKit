@@ -25,7 +25,7 @@
 import UIKit
 import BluetoothKit
 
-internal protocol AvailabilityViewController: class, BKAvailabilityObserver {
+internal protocol AvailabilityViewController: BKAvailabilityObserver {
     var availabilityView: AvailabilityView { get set }
     var heightForAvailabilityView: CGFloat { get }
     func applyAvailabilityView()
