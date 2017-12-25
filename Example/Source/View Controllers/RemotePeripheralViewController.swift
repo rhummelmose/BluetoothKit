@@ -117,11 +117,11 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     // MARK: LoggerDelegate
 
     internal func loggerDidLogString(_ string: String) {
-        if logTextView.text.characters.count > 0 {
+        if logTextView.text.count > 0 {
             logTextView.text = logTextView.text + ("\n" + string)
         } else {
             logTextView.text = string
         }
-        logTextView.scrollRangeToVisible(NSRange(location: logTextView.text.characters.count - 1, length: 1))
+        logTextView.scrollRangeToVisible(NSRange(location: logTextView.text.count - 1, length: 1))
     }
 }

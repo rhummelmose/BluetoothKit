@@ -42,7 +42,14 @@ public class BKRemoteCentral: BKRemotePeer {
 
     internal init(central: CBCentral) {
         self.central = central
-        super.init(identifier: central.identifier)
+        #if os(OSX)
+            if #available(OSX 10.13, *) {
+                super.init(identifier: central.identifier)
+            } else {
+                fatalError("CBPeripheral.identifier is not supported before OSX 10.13")
+            }
+        #else
+            super.init(identifier: central.identifier)
+        #endif
     }
-
 }
