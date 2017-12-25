@@ -30,6 +30,7 @@ internal protocol BKCBPeripheralDelegate: class {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?)
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?)
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService])
 }
 
 internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
@@ -91,6 +92,10 @@ internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
 
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
 
+    }
+
+    internal func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
+      delegate?.peripheral(peripheral, didModifyServices: invalidatedServices)
     }
 
 }
