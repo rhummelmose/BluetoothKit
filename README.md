@@ -104,6 +104,24 @@ do {
 }
 ```
 
+Pause advertising without disconnecting from connected centrals.
+```swift
+do {
+	try peripheral.pause()
+} catch let error {
+	// Handle error.
+}
+```
+
+Resume advertising using the same data given at startup time (only valid if the peripheral was previously paused and not completely stopped).
+```swift
+do {
+	try peripheral.resume()
+} catch let error {
+	// Handle error.
+}
+```
+
 Send data to a connected remote central.
 ```swift
 let data = "Hello beloved central!".dataUsingEncoding(NSUTF8StringEncoding)
