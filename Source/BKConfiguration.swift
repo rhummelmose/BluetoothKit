@@ -26,45 +26,44 @@ import Foundation
 import CoreBluetooth
 
 /**
-    Class that represents a configuration used when starting a BKCentral object.
-*/
+ Class that represents a configuration used when starting a BKCentral object.
+ */
 public class BKConfiguration {
-
+    
     // MARK: Properties
-
+    
     /// The UUID for the service used to send data. This should be unique to your applications.
     public let dataServiceUUID: CBUUID
-
-    /// The UUID for the characteristic used to send data. This should be unique to your application.
-    public var dataServiceCharacteristicUUID: CBUUID
-
+    
+    /// The UUIDs for the characteristics used to send data. This should be unique to your application.
+    public var dataServiceCharacteristicUUIDs: [CBUUID]
+    
     /// Data used to indicate that no more data is coming when communicating.
     public var endOfDataMark: Data
-
+    
     /// Data used to indicate that a transfer was cancellen when communicating.
     public var dataCancelledMark: Data
-
+    
     internal var serviceUUIDs: [CBUUID] {
         let serviceUUIDs = [ dataServiceUUID ]
         return serviceUUIDs
     }
-
+    
     // MARK: Initialization
-
-    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID) {
+    
+    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUIDs: [UUID]) {
         self.dataServiceUUID = CBUUID(nsuuid: dataServiceUUID)
-        self.dataServiceCharacteristicUUID = CBUUID(nsuuid: dataServiceCharacteristicUUID)
+        self.dataServiceCharacteristicUUIDs = dataServiceCharacteristicUUIDs.map { CBUUID(nsuuid: $0) }
         endOfDataMark = "EOD".data(using: String.Encoding.utf8)!
         dataCancelledMark = "COD".data(using: String.Encoding.utf8)!
     }
-
+    
     // MARK Functions
-
+    
     internal func characteristicUUIDsForServiceUUID(_ serviceUUID: CBUUID) -> [CBUUID] {
         if serviceUUID == dataServiceUUID {
-            return [ dataServiceCharacteristicUUID ]
+            return self.dataServiceCharacteristicUUIDs
         }
         return []
     }
-
 }

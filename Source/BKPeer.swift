@@ -27,12 +27,12 @@ import Foundation
 public typealias BKSendDataCompletionHandler = ((_ data: Data, _ remotePeer: BKRemotePeer, _ error: BKError?) -> Void)
 
 public class BKPeer {
-
+    
     /// The configuration the BKCentral object was started with.
     public var configuration: BKConfiguration? {
         return nil
     }
-
+    
     internal var connectedRemotePeers: [BKRemotePeer] {
         get {
             return _connectedRemotePeers
@@ -41,36 +41,37 @@ public class BKPeer {
             _connectedRemotePeers = newValue
         }
     }
-
+    
     internal var sendDataTasks: [BKSendDataTask] = []
-
+    
     private var _connectedRemotePeers: [BKRemotePeer] = []
-
+    
     /**
      Sends data to a connected remote central.
      - parameter data: The data to send.
      - parameter remotePeer: The destination of the data payload.
+     - parameter forUUID: The UUID of the characteristic whose value needs to be written
      - parameter completionHandler: A completion handler allowing you to react in case the data failed to send or once it was sent succesfully.
      */
-    public func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
+    public func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, forUUID uuid: UUID, completionHandler: BKSendDataCompletionHandler?) {
         guard connectedRemotePeers.contains(remotePeer) else {
             completionHandler?(data, remotePeer, BKError.remotePeerNotConnected)
             return
         }
-        let sendDataTask = BKSendDataTask(data: data, destination: remotePeer, completionHandler: completionHandler)
+        let sendDataTask = BKSendDataTask(data: data, destination: remotePeer, uuid: uuid, completionHandler: completionHandler)
         sendDataTasks.append(sendDataTask)
         if sendDataTasks.count >= 1 {
             processSendDataTasks()
         }
     }
-
+    
     internal func processSendDataTasks() {
         guard sendDataTasks.count > 0 else {
             return
         }
         let nextTask = sendDataTasks.first!
         if nextTask.sentAllData {
-            let sentEndOfDataMark = sendData(configuration!.endOfDataMark, toRemotePeer: nextTask.destination)
+            let sentEndOfDataMark = sendData(configuration!.endOfDataMark, toRemotePeer: nextTask.destination, forUUID: nextTask.uuid)
             if sentEndOfDataMark {
                 sendDataTasks.remove(at: sendDataTasks.index(of: nextTask)!)
                 nextTask.completionHandler?(nextTask.data, nextTask.destination, nil)
@@ -80,7 +81,7 @@ public class BKPeer {
             }
         }
         if let nextPayload = nextTask.nextPayload {
-            let sentNextPayload = sendData(nextPayload, toRemotePeer: nextTask.destination)
+            let sentNextPayload = sendData(nextPayload, toRemotePeer: nextTask.destination, forUUID: nextTask.uuid)
             if sentNextPayload {
                 nextTask.offset += nextPayload.count
                 processSendDataTasks()
@@ -90,18 +91,18 @@ public class BKPeer {
         } else {
             return
         }
-
+        
     }
-
+    
     internal func failSendDataTasksForRemotePeer(_ remotePeer: BKRemotePeer) {
         for sendDataTask in sendDataTasks.filter({ $0.destination == remotePeer }) {
             sendDataTasks.remove(at: sendDataTasks.index(of: sendDataTask)!)
             sendDataTask.completionHandler?(sendDataTask.data, sendDataTask.destination, .remotePeerNotConnected)
         }
     }
-
-    internal func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
+    
+    internal func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, forUUID uuid: UUID) -> Bool {
         fatalError("Function must be overridden by subclass")
     }
-
+    
 }
