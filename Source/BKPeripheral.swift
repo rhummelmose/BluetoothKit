@@ -304,7 +304,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
         for writeRequest in requests {
-            guard self.characteristicsData.contains(where: { $0 == writeRequest.characteristic.uuid }) else {
+            guard self.characteristicsData.contains(where: { $0.uuid == writeRequest.characteristic.uuid }) else {
                 continue
             }
             guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last),
