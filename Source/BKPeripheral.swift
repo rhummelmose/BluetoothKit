@@ -155,7 +155,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
      Stops the BKPeripheral object.
      - throws: An internal error if the peripheral object wasn't started.
      */
-    public func stop() throws {
+    public override func stop() throws {
         do {
             try stateMachine.handleEvent(event: .stop)
             _configuration = nil
@@ -165,6 +165,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             peripheralManager.removeAllServices()
             peripheralManager = nil
             self.advertisementData = nil
+            try super.stop()
         } catch let error {
             throw BKError.internalError(underlyingError: error)
         }

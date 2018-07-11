@@ -267,13 +267,14 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
      Stops the BKCentral object.
      - throws: Throws an InternalError if the BKCentral object isn't already started.
      */
-    public func stop() throws {
+    public override func stop() throws {
         do {
             try stateMachine.handleEvent(.stop)
             interruptScan()
             connectionPool.reset()
             _configuration = nil
             _centralManager = nil
+            try super.stop()
         } catch let error {
             throw BKError.internalError(underlyingError: error)
         }

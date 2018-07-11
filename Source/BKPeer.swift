@@ -101,6 +101,10 @@ public class BKPeer {
         }
     }
     
+    internal func stop() throws {
+        self.sendDataTasks = []
+    }
+    
     internal func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, forUUID uuid: UUID) -> Bool {
         fatalError("Function must be overridden by subclass")
     }
