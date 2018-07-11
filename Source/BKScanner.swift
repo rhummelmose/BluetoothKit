@@ -26,30 +26,30 @@ import Foundation
 import CoreBluetooth
 
 internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
-
+    
     // MARK: Type Aliases
-
+    
     internal typealias ScanCompletionHandler = ((_ result: [BKDiscovery]?, _ error: BKError?) -> Void)
-
+    
     // MARK: Enums
-
+    
     internal enum BKError: Error {
         case noCentralManagerSet
         case busy
         case interrupted
     }
-
+    
     // MARK: Properties
-
+    
     internal var configuration: BKConfiguration!
     internal var centralManager: CBCentralManager!
     private var busy = false
     private var scanHandlers: (progressHandler: BKCentral.ScanProgressHandler?, completionHandler: ScanCompletionHandler )?
     private var discoveries = [BKDiscovery]()
     private var durationTimer: Timer?
-
+    
     // MARK: Internal Functions
-
+    
     internal func scanWithDuration(_ duration: TimeInterval, updateDuplicates: Bool, progressHandler: BKCentral.ScanProgressHandler? = nil, completionHandler: @escaping ScanCompletionHandler) throws {
         do {
             try validateForActivity()
@@ -64,16 +64,16 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
             throw error
         }
     }
-
+    
     internal func interruptScan() {
         guard busy else {
             return
         }
         endScan(.interrupted)
     }
-
+    
     // MARK: Private Functions
-
+    
     private func validateForActivity() throws {
         guard !busy else {
             throw BKError.busy
@@ -82,11 +82,11 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
             throw BKError.noCentralManagerSet
         }
     }
-
+    
     @objc private func durationTimerElapsed() {
         endScan(nil)
     }
-
+    
     private func endScan(_ error: BKError?) {
         invalidateTimer()
         centralManager.stopScan()
@@ -97,21 +97,21 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         busy = false
         completionHandler?(discoveries, error)
     }
-
+    
     private func invalidateTimer() {
         if let durationTimer = self.durationTimer {
             durationTimer.invalidate()
             self.durationTimer = nil
         }
     }
-
+    
     // MARK: BKCBCentralManagerDiscoveryDelegate
-
+    
     internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard busy else {
             return
         }
-        let RSSI = Int(RSSI)
+        let RSSI = Int(truncating: RSSI)
         let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
         remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
@@ -123,5 +123,5 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         }
         scanHandlers?.progressHandler?([ discovery ])
     }
-
+    
 }

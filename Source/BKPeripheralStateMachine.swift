@@ -25,46 +25,50 @@
 import Foundation
 
 internal class BKPeripheralStateMachine {
-
+    
     // MARK: Enums
-
+    
     internal enum BKError: Error {
         case transitioning(currentState: State, validStates: [State])
     }
-
+    
     internal enum State {
-        case initialized, starting, unavailable(cause: BKUnavailabilityCause), available
+        case initialized, starting, unavailable(cause: BKUnavailabilityCause), available, paused
     }
-
+    
     internal enum Event {
-        case start, setUnavailable(cause: BKUnavailabilityCause), setAvailable, stop
+        case start, setUnavailable(cause: BKUnavailabilityCause), setAvailable, stop, pause, resume
     }
-
+    
     // MARK: Properties
-
+    
     internal var state: State
-
+    
     // MARK: Initialization
-
+    
     internal init() {
         self.state = .initialized
     }
-
+    
     // MARK: Functions
-
+    
     internal func handleEvent(event: Event) throws {
         switch event {
         case .start:
             try handleStartEvent(event: event)
+        case .resume:
+            try handleResumeEvent(event: event)
         case .setAvailable:
             try handleSetAvailableEvent(event: event)
         case let .setUnavailable(cause):
             try handleSetUnavailableEvent(event: event, withCause: cause)
+        case .pause:
+            try handlePauseEvent(event: event)
         case .stop:
             try handleStopEvent(event: event)
         }
     }
-
+    
     private func handleStartEvent(event: Event) throws {
         switch state {
         case .initialized:
@@ -73,32 +77,49 @@ internal class BKPeripheralStateMachine {
             throw BKError.transitioning(currentState: state, validStates: [ .initialized ])
         }
     }
-
+    private func handleResumeEvent(event: Event) throws {
+        switch state {
+        case .paused:
+            state = .available
+        default:
+            throw BKError.transitioning(currentState: state, validStates: [.paused])
+        }
+    }
+    
     private func handleSetAvailableEvent(event: Event) throws {
         switch state {
         case .initialized:
-            throw BKError.transitioning(currentState: state, validStates: [ .starting, .available, .unavailable(cause: nil) ])
+            throw BKError.transitioning(currentState: state, validStates: [ .starting, .available, .paused, .unavailable(cause: nil) ])
         default:
             state = .available
         }
     }
-
+    
     private func handleSetUnavailableEvent(event: Event, withCause cause: BKUnavailabilityCause) throws {
         switch state {
         case .initialized:
-            throw BKError.transitioning(currentState: state, validStates: [ .starting, .available, .unavailable(cause: nil) ])
+            throw BKError.transitioning(currentState: state, validStates: [ .starting, .available, .paused, .unavailable(cause: nil) ])
         default:
             state = .unavailable(cause: cause)
         }
     }
-
+    
+    private func handlePauseEvent(event: Event) throws {
+        switch state {
+        case .available:
+            state = .paused
+        default:
+            throw BKError.transitioning(currentState: state, validStates: [.available])
+        }
+    }
+    
     private func handleStopEvent(event: Event) throws {
         switch state {
         case .initialized:
-            throw BKError.transitioning(currentState: state, validStates: [ .starting, .available, .unavailable(cause: nil) ])
+            throw BKError.transitioning(currentState: state, validStates: [ .starting, .available, .paused, .unavailable(cause: nil) ])
         default:
             state = .initialized
         }
     }
-
+    
 }

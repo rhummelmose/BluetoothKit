@@ -29,46 +29,48 @@ internal func == (lhs: BKSendDataTask, rhs: BKSendDataTask) -> Bool {
 }
 
 internal class BKSendDataTask: Equatable {
-
+    
     // MARK: Properties
-
+    
     internal let data: Data
     internal let destination: BKRemotePeer
+    internal let uuid: UUID
     internal let completionHandler: BKSendDataCompletionHandler?
     internal var offset = 0
-
+    
     internal var maximumPayloadLength: Int {
         return destination.maximumUpdateValueLength
     }
-
+    
     internal var lengthOfRemainingData: Int {
         return data.count - offset
     }
-
+    
     internal var sentAllData: Bool {
         return lengthOfRemainingData == 0
     }
-
+    
     internal var rangeForNextPayload: Range<Int>? {
         let lenghtOfNextPayload = maximumPayloadLength <= lengthOfRemainingData ? maximumPayloadLength : lengthOfRemainingData
         let payLoadRange = NSRange(location: offset, length: lenghtOfNextPayload)
-        return payLoadRange.toRange()
+        return Range(payLoadRange)
     }
-
+    
     internal var nextPayload: Data? {
         if let range = rangeForNextPayload {
-             return data.subdata(in: range)
+            return data.subdata(in: range)
         } else {
             return nil
         }
     }
-
+    
     // MARK: Initialization
-
-    internal init(data: Data, destination: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
+    
+    internal init(data: Data, destination: BKRemotePeer, uuid: UUID, completionHandler: BKSendDataCompletionHandler?) {
         self.data = data
         self.destination = destination
+        self.uuid = uuid
         self.completionHandler = completionHandler
     }
-
+    
 }
