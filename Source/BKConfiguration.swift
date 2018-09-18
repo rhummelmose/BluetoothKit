@@ -41,8 +41,9 @@ public class BKConfiguration {
     /// Data used to indicate that no more data is coming when communicating.
     public var endOfDataMark: Data
 
-    /// Data used to indicate that a transfer was cancellen when communicating.
-    public var dataCancelledMark: Data
+    /// Enabled by default. This config will automatically chunk data sent and received.
+    /// Disable this if you want to talk to devices that are not using bluetoothKit and then add your own logic for large payloads.
+    public var chunkingEnabled: Bool
 
     internal var serviceUUIDs: [CBUUID] {
         let serviceUUIDs = [ dataServiceUUID ]
@@ -51,14 +52,14 @@ public class BKConfiguration {
 
     // MARK: Initialization
 
-    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID) {
+    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID, chunkingEnabled: Bool) {
         self.dataServiceUUID = CBUUID(nsuuid: dataServiceUUID)
         self.dataServiceCharacteristicUUID = CBUUID(nsuuid: dataServiceCharacteristicUUID)
-        endOfDataMark = "EOD".data(using: String.Encoding.utf8)!
-        dataCancelledMark = "COD".data(using: String.Encoding.utf8)!
+        self.endOfDataMark = "EOD".data(using: String.Encoding.utf8)!
+        self.chunkingEnabled = chunkingEnabled
     }
 
-    // MARK Functions
+    // MARK: Functions
 
     internal func characteristicUUIDsForServiceUUID(_ serviceUUID: CBUUID) -> [CBUUID] {
         if serviceUUID == dataServiceUUID {

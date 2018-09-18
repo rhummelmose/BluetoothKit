@@ -30,10 +30,12 @@ import Foundation
     - FailedToConnectDueToTimeout: The time out elapsed while attempting to connect to a peripheral.
     - RemotePeerNotConnected: The action failed because the remote peer attempted to interact with, was not connected.
     - InternalError(underlyingError): Will be returned if any of the internal or private classes returns an unhandled error.
+    - SendFailure(reason): Will be returned if wasn't able to send data. This could be cause the payload was too big etc.
  */
 public enum BKError: Error {
     case interruptedByUnavailability(cause: BKUnavailabilityCause)
     case failedToConnectDueToTimeout
     case remotePeerNotConnected
     case internalError(underlyingError: Error?)
+    case sendFailure(reason: String)
 }

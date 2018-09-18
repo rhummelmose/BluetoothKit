@@ -56,6 +56,10 @@ public class BKRemotePeer: Equatable {
     }
 
     internal func handleReceivedData(_ receivedData: Data) {
+        if configuration?.chunkingEnabled == false {
+            delegate?.remotePeer(self, didSendArbitraryData: receivedData)
+            return
+        }
         if receivedData == configuration!.endOfDataMark {
             if let finalData = data {
                 delegate?.remotePeer(self, didSendArbitraryData: finalData)
