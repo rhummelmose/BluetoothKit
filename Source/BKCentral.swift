@@ -75,7 +75,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         guard let centralManager = _centralManager else {
             return nil
         }
-        
+
         if #available(tvOS 10.0, iOS 10.0, OSX 10.13, *) {
             return BKAvailability(managerState: centralManager.state)
         } else {
@@ -292,7 +292,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             }
 
             var remotePeripherals: [BKRemotePeripheral] = []
-            
+
             #if os(OSX)
                 if #available(OSX 10.13, *) {
                     for peripheral in peripherals {
@@ -310,12 +310,12 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                     remotePeripherals.append(remotePeripheral)
                 }
             #endif
-            
+
             return remotePeripherals
         }
         return nil
     }
-    
+
     // MARK: Internal Functions
 
     internal func setUnavailable(_ cause: BKUnavailabilityCause, oldCause: BKUnavailabilityCause?) {
@@ -344,20 +344,19 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     // MARK: BKCBCentralManagerStateDelegate
 
-
     internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
             case .unknown, .resetting:
                 break
             case .unsupported, .unauthorized, .poweredOff:
-                
+
                 let newCause: BKUnavailabilityCause
                 if #available(iOS 10.0, tvOS 10.0, OSX 10.13, *) {
                     newCause = BKUnavailabilityCause(managerState: central.state)
                 } else {
                     newCause = BKUnavailabilityCause(centralManagerState: central.centralManagerState)
                 }
-                
+
                 switch stateMachine.state {
                     case let .unavailable(cause):
                         let oldCause = cause

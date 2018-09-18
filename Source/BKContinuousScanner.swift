@@ -60,7 +60,7 @@ internal class BKContinousScanner {
         state = .stopped
     }
 
-    // MARK Internal Functions
+    // MARK: Internal Functions
 
     internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, errorHandler: ErrorHandler?) {
         guard !busy else {

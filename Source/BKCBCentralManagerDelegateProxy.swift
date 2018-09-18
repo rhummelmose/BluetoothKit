@@ -30,7 +30,7 @@ internal protocol BKCBCentralManagerStateDelegate: class {
 }
 
 internal protocol BKCBCentralManagerDiscoveryDelegate: class {
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber)
 }
 
 internal protocol BKCBCentralManagerConnectionDelegate: class {
@@ -62,7 +62,7 @@ internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelega
         stateDelegate?.centralManagerDidUpdateState(central)
     }
 
-    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         discoveryDelegate?.centralManager(central, didDiscover: peripheral, advertisementData: advertisementData, rssi: RSSI)
     }
 
@@ -77,9 +77,5 @@ internal class BKCBCentralManagerDelegateProxy: NSObject, CBCentralManagerDelega
     internal func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         connectionDelegate?.centralManager(central, didDisconnectPeripheral: peripheral, error: error)
     }
-
-
-
-
 
 }
