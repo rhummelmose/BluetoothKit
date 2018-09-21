@@ -53,6 +53,23 @@ public class BKPeer {
      - parameter completionHandler: A completion handler allowing you to react in case the data failed to send or once it was sent succesfully.
      */
     public func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
+        if configuration?.chunkingEnabled == false {
+            if data.count > remotePeer.maximumUpdateValueLength {
+                if let handler = completionHandler {
+                    handler(data, remotePeer, BKError.sendFailure(reason: "data.count(\(data.count) is exceeding maximum payload length of \(remotePeer.maximumUpdateValueLength)"))
+                }
+                return
+            }
+            let result = sendData(data, toRemotePeer: remotePeer)
+            if let handler = completionHandler {
+                handler(data, remotePeer, result ? nil : .remotePeerNotConnected)
+            }
+            return
+        }
+        sendDataInTasks(data, toRemotePeer: remotePeer, completionHandler: completionHandler)
+    }
+
+    private func sendDataInTasks(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, completionHandler: BKSendDataCompletionHandler?) {
         guard connectedRemotePeers.contains(remotePeer) else {
             completionHandler?(data, remotePeer, BKError.remotePeerNotConnected)
             return

@@ -184,5 +184,4 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         handleReceivedData(characteristic.value!)
     }
 
-
 }

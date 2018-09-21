@@ -187,14 +187,14 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         case .unknown, .resetting:
             break
         case .unsupported, .unauthorized, .poweredOff:
-            
+
             let newCause: BKUnavailabilityCause
             if #available(iOS 10.0, tvOS 10.0, OSX 10.13, *) {
                 newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
             } else {
                 newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.peripheralManagerState)
             }
-            
+
             switch stateMachine.state {
                 case let .unavailable(cause):
                     let oldCause = cause
@@ -215,7 +215,6 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             }
         }
     }
-
 
     internal func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
 
@@ -239,7 +238,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
-        
+
         #if os(OSX)
             if #available(OSX 10.13, *) {
                 if let remoteCentral = connectedRemotePeers.filter({ ($0.identifier == central.identifier) }).last as? BKRemoteCentral {
@@ -260,7 +259,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             guard writeRequest.characteristic.uuid == characteristicData.uuid else {
                 continue
             }
-            
+
             #if os(OSX)
                 if #available(OSX 10.13, *) {
                     guard let remotePeer = (connectedRemotePeers.filter { $0.identifier == writeRequest.central.identifier } .last),

@@ -104,14 +104,14 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
 
     // MARK: BKCBCentralManagerDiscoveryDelegate
 
-    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         guard busy else {
             return
         }
-    
+
         let RSSI = Int(RSSI.intValue)
         var remotePeripheral: BKRemotePeripheral
-        
+
         #if os(OSX)
             if #available(OSX 10.13, *) {
                 remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
@@ -121,7 +121,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         #else
             remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
         #endif
-        
+
         remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
         if !discoveries.contains(discovery) {
