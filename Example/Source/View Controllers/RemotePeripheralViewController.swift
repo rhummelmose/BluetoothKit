@@ -58,6 +58,8 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
+        super.viewDidLoad()
+        
         navigationItem.title = remotePeripheral.name
         navigationItem.rightBarButtonItem = sendDataBarButtonItem
         Logger.delegate = self
@@ -72,6 +74,7 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
     }
 
     internal override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         delegate?.remotePeripheralViewControllerWillDismiss(self)
     }
 
@@ -102,7 +105,7 @@ internal class RemotePeripheralViewController: UIViewController, BKRemotePeriphe
 
     @objc private func sendData() {
         let numberOfBytesToSend: Int = Int(arc4random_uniform(950) + 50)
-        let data = Data.dataWithNumberOfBytes(numberOfBytesToSend)
+        let data = Data.data(withNumberOfBytes: numberOfBytesToSend)
         Logger.log("Prepared \(numberOfBytesToSend) bytes with MD5 hash: \(data.md5().toHexString())")
         Logger.log("Sending to \(remotePeripheral)")
         central.sendData(data, toRemotePeer: remotePeripheral) { data, remotePeripheral, error in

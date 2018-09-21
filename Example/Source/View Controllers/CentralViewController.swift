@@ -48,6 +48,8 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view.backgroundColor = UIColor.white
         activityIndicator?.color = UIColor.black
         navigationItem.title = "Central"
@@ -62,10 +64,12 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
     }
 
     internal override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         scan()
     }
 
     internal override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         central.interruptScan()
     }
 
