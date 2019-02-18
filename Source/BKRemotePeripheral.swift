@@ -167,20 +167,46 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        guard service.uuid == configuration!.dataServiceUUID, let dataCharacteristic = service.characteristics?.filter({ $0.uuid == configuration!.dataServiceCharacteristicUUID }).last else {
+      /*
+        guard let configuration = configuration,
+          let bkService = configuration.services.first(where: { $0.serviceCBUUID == service.uuid }),
+          service.uuid == bkService.serviceCBUUID,
+          let dataCharacteristic = service.characteristics?.filter({ $0.uuid == configuration.dataServiceCharacteristicUUID }).last else {
             return
         }
         characteristicData = dataCharacteristic
         peripheral.setNotifyValue(true, for: dataCharacteristic)
         peripheralDelegate?.remotePeripheralIsReady(self)
+ */
+
+        guard let configuration = configuration,
+          let bkService = configuration.services.first(where: { $0.serviceCBUUID == service.uuid }) else { return }
+
+        //TODO: Save writable characteristics
+
+        //TODO: Save readable characteristics and setNotifyValue for them
+
+        peripheralDelegate?.remotePeripheralIsReady(self) //TODO:
+    }
+
+    internal func setReadableCharacteristics(_ characteristics: [CBUUID], from service: CBService) -> CBCharacteristic? {//TODO: update this
+        for characteristic in characteristics {
+            let characteristicData = service.characteristics?.first(where: { $0.uuid == characteristic })
+        }
+        return nil
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard characteristic.uuid == configuration!.dataServiceCharacteristicUUID else {
+        guard error == nil, let value = characteristic.value else {
+          if let error = error as NSError?,
+              error.code == CBATTError.insufficientAuthorization.rawValue {
+              //TODO: Send InsufficientAuthorization error
+              //peripheralDelegate?.remotePeripheralInsufficientAuthorization(self, characteristic: characteristic)
+            }
             return
         }
-        handleReceivedData(characteristic.value!)
+
+        //TODO: Send information of which characteristic has been updated
+        handleReceivedData(value)
     }
-
-
 }

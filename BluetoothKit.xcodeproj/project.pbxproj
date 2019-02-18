@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86079994221B500F00A1EE33 /* BKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86079993221B500F00A1EE33 /* BKService.swift */; };
 		91575CE01DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
 		91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
 		91575CE21DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		86079993221B500F00A1EE33 /* BKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKService.swift; sourceTree = "<group>"; };
 		91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBLegacyManagerState.swift; sourceTree = "<group>"; };
 		C64CDDF31BE4C46A00F72549 /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66888AC1B978181003C8DBB /* BKDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscovery.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */,
 				C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */,
 				C6B2E3701CE52C7700D25393 /* BKErrorDomain.swift */,
+				86079993221B500F00A1EE33 /* BKService.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -363,7 +366,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\nswiftlint\nelse\necho \"Download SwiftLint: https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint > /dev/null; then\nswiftlint\nelse\necho \"Download SwiftLint: https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		C69063981CECA84C00EF67A3 /* SwiftLint Autocorrect */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -419,6 +422,7 @@
 				C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */,
 				C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */,
 				C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */,
+				86079994221B500F00A1EE33 /* BKService.swift in Sources */,
 				C66888AD1B978181003C8DBB /* BKDiscovery.swift in Sources */,
 				C687E3B21B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
 				C66888B11B984AB7003C8DBB /* BKPeripheralConfiguration.swift in Sources */,

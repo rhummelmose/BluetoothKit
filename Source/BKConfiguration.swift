@@ -32,11 +32,10 @@ public class BKConfiguration {
 
     // MARK: Properties
 
-    /// The UUID for the service used to send data. This should be unique to your applications.
-    public let dataServiceUUID: CBUUID
+    public var services: [BKService] = []
 
-    /// The UUID for the characteristic used to send data. This should be unique to your application.
-    public var dataServiceCharacteristicUUID: CBUUID
+    /// CBUUID of the advertised services used to scan for peripherals
+    public var advertisedCBUUID: [CBUUID]
 
     /// Data used to indicate that no more data is coming when communicating.
     public var endOfDataMark: Data
@@ -45,26 +44,25 @@ public class BKConfiguration {
     public var dataCancelledMark: Data
 
     internal var serviceUUIDs: [CBUUID] {
-        let serviceUUIDs = [ dataServiceUUID ]
-        return serviceUUIDs
+        return services.map { $0.serviceCBUUID }
     }
 
     // MARK: Initialization
 
-    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID) {
-        self.dataServiceUUID = CBUUID(nsuuid: dataServiceUUID)
-        self.dataServiceCharacteristicUUID = CBUUID(nsuuid: dataServiceCharacteristicUUID)
+    public init(services: [BKService], advertisedCBUUID: [CBUUID]) {
+        self.advertisedCBUUID = advertisedCBUUID
+        self.services = services
         endOfDataMark = "EOD".data(using: String.Encoding.utf8)!
         dataCancelledMark = "COD".data(using: String.Encoding.utf8)!
     }
 
-    // MARK Functions
+    // MARK: Functions
 
     internal func characteristicUUIDsForServiceUUID(_ serviceUUID: CBUUID) -> [CBUUID] {
-        if serviceUUID == dataServiceUUID {
-            return [ dataServiceCharacteristicUUID ]
-        }
+      guard let service = services.first(where: { $0.serviceCBUUID == serviceUUID }) else {
         return []
-    }
+      }
 
+      return service.allCharacteristics
+    }
 }

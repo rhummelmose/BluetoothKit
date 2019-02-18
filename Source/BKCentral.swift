@@ -337,7 +337,6 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     // MARK: BKCBCentralManagerStateDelegate
 
-
     internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
             case .unknown, .resetting:

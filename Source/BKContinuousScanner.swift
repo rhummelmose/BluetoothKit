@@ -63,7 +63,7 @@ internal class BKContinousScanner {
 
     // MARK Internal Functions
 
-    internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3,updateDuplicates: Bool, errorHandler: ErrorHandler?) {
+    internal func scanContinuouslyWithChangeHandler(_ changeHandler: @escaping ChangeHandler, stateHandler: StateHandler? = nil, duration: TimeInterval = 3, inBetweenDelay: TimeInterval = 3, updateDuplicates: Bool, errorHandler: ErrorHandler?) {
         guard !busy else {
             errorHandler?(.busy)
             return
@@ -91,24 +91,23 @@ internal class BKContinousScanner {
             stateHandler?(state)
             try scanner.scanWithDuration(duration, updateDuplicates: self.updateDuplicates, progressHandler: { newDiscoveries in
                 var changes: [BKDiscoveriesChange] = []
-                
+
                 //find discoveries that have been updated and add a change for each
                 for newDiscovery in newDiscoveries {
                     if let index = self.maintainedDiscoveries.index(of: newDiscovery) {
                         let outdatedDiscovery = self.maintainedDiscoveries[index]
                         self.maintainedDiscoveries[index] = newDiscovery
-                        
+
                         //TODO: probably need an update change
                         changes.append(.remove(discovery: outdatedDiscovery))
                         changes.append(.insert(discovery: newDiscovery))
-                    }
-                    else if !self.maintainedDiscoveries.contains(newDiscovery) {
-                        
+                    } else if !self.maintainedDiscoveries.contains(newDiscovery) {
+
                         self.maintainedDiscoveries.append(newDiscovery)
                         changes.append(.insert(discovery: newDiscovery))
                     }
                 }
-                
+
                 if !changes.isEmpty {
                     self.changeHandler?(changes, self.maintainedDiscoveries)
                 }

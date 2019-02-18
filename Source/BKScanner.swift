@@ -107,7 +107,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
 
     // MARK: BKCBCentralManagerDiscoveryDelegate
 
-    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    internal func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         guard busy else {
             return
         }
@@ -117,8 +117,7 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
         if let index = discoveries.index(of: discovery) {
             discoveries[index] = discovery
-        }
-        else {
+        } else {
             discoveries.append(discovery)
         }
         scanHandlers?.progressHandler?([ discovery ])
