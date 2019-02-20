@@ -169,7 +169,6 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
                 let properties: CBCharacteristicProperties = [.read, .notify, .writeWithoutResponse, .write]
                 let permissions: CBAttributePermissions = [.readable, .writeable]
 
-                //TODO: Add characteristics to service
                 for characteristic in service.allCharacteristics {
                     characteristicsData.append(CBMutableCharacteristic(type: characteristic,
                                                                        properties: properties,
@@ -240,7 +239,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
         if !peripheralManager.isAdvertising {
-            var advertisementData: [String: Any] = [ CBAdvertisementDataServiceUUIDsKey: _configuration.serviceUUIDs ]
+            var advertisementData: [String: Any] = [CBAdvertisementDataServiceUUIDsKey: _configuration.advertisedCBUUID]
             if let localName = _configuration.localName {
                 advertisementData[CBAdvertisementDataLocalNameKey] = localName
             }

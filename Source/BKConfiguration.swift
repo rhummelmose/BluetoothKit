@@ -59,10 +59,10 @@ public class BKConfiguration {
     // MARK: Functions
 
     internal func characteristicUUIDsForServiceUUID(_ serviceUUID: CBUUID) -> [CBUUID] {
-      guard let service = services.first(where: { $0.serviceCBUUID == serviceUUID }) else {
-        return []
-      }
+        guard let service = services.first(where: { $0.serviceCBUUID == serviceUUID }) else {
+            return []
+        }
 
-      return service.allCharacteristics
+        return service.allCharacteristics
     }
 }

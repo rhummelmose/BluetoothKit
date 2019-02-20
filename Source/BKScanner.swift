@@ -56,8 +56,9 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
             busy = true
             scanHandlers = ( progressHandler: progressHandler, completionHandler: completionHandler)
             let options = [CBCentralManagerScanOptionAllowDuplicatesKey: updateDuplicates]
-            centralManager.scanForPeripherals(withServices: configuration.serviceUUIDs, options: options)
-            if(duration > 0) {
+            centralManager.scanForPeripherals(withServices: configuration.advertisedCBUUID,
+                                              options: options)
+            if duration > 0 {
                 durationTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(BKScanner.durationTimerElapsed), userInfo: nil, repeats: false)
             }
         } catch let error {

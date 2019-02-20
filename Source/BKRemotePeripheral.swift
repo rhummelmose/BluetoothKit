@@ -167,18 +167,6 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-      /*
-        guard let configuration = configuration,
-          let bkService = configuration.services.first(where: { $0.serviceCBUUID == service.uuid }),
-          service.uuid == bkService.serviceCBUUID,
-          let dataCharacteristic = service.characteristics?.filter({ $0.uuid == configuration.dataServiceCharacteristicUUID }).last else {
-            return
-        }
-        characteristicData = dataCharacteristic
-        peripheral.setNotifyValue(true, for: dataCharacteristic)
-        peripheralDelegate?.remotePeripheralIsReady(self)
- */
-
         guard let configuration = configuration,
           let bkService = configuration.services.first(where: { $0.serviceCBUUID == service.uuid }) else { return }
 
@@ -186,14 +174,7 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
 
         //TODO: Save readable characteristics and setNotifyValue for them
 
-        peripheralDelegate?.remotePeripheralIsReady(self) //TODO:
-    }
-
-    internal func setReadableCharacteristics(_ characteristics: [CBUUID], from service: CBService) -> CBCharacteristic? {//TODO: update this
-        for characteristic in characteristics {
-            let characteristicData = service.characteristics?.first(where: { $0.uuid == characteristic })
-        }
-        return nil
+        peripheralDelegate?.remotePeripheralIsReady(self)
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -201,7 +182,6 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
           if let error = error as NSError?,
               error.code == CBATTError.insufficientAuthorization.rawValue {
               //TODO: Send InsufficientAuthorization error
-              //peripheralDelegate?.remotePeripheralInsufficientAuthorization(self, characteristic: characteristic)
             }
             return
         }

@@ -39,7 +39,7 @@ public class BKPeripheralConfiguration: BKConfiguration {
 
     public init(services: [BKService], advertisedCBUUID: [CBUUID], localName: String? = nil) {
         self.localName = localName
-      super.init(services: services, advertisedCBUUID: advertisedCBUUID)
+        super.init(services: services, advertisedCBUUID: advertisedCBUUID)
     }
 
 }
