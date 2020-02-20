@@ -52,7 +52,7 @@ internal class BKSendDataTask: Equatable {
     internal var rangeForNextPayload: Range<Int>? {
         let lenghtOfNextPayload = maximumPayloadLength <= lengthOfRemainingData ? maximumPayloadLength : lengthOfRemainingData
         let payLoadRange = NSRange(location: offset, length: lenghtOfNextPayload)
-        return payLoadRange.toRange()
+        return Range(payLoadRange)
     }
 
     internal var nextPayload: Data? {

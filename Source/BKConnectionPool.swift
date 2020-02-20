@@ -120,7 +120,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
     }
 
     private func failConnectionAttempt(_ connectionAttempt: BKConnectionAttempt, error: BKError) {
-        connectionAttempts.remove(at: connectionAttempts.index(of: connectionAttempt)!)
+        connectionAttempts.remove(at: connectionAttempts.firstIndex(of: connectionAttempt)!)
         connectionAttempt.timer.invalidate()
         if let peripheral = connectionAttempt.remotePeripheral.peripheral {
             centralManager.cancelPeripheralConnection(peripheral)
@@ -130,7 +130,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
 
     private func succeedConnectionAttempt(_ connectionAttempt: BKConnectionAttempt) {
         connectionAttempt.timer.invalidate()
-        connectionAttempts.remove(at: connectionAttempts.index(of: connectionAttempt)!)
+        connectionAttempts.remove(at: connectionAttempts.firstIndex(of: connectionAttempt)!)
         connectedRemotePeripherals.append(connectionAttempt.remotePeripheral)
         connectionAttempt.remotePeripheral.discoverServices()
         connectionAttempt.completionHandler(connectionAttempt.remotePeripheral, nil)
@@ -156,7 +156,7 @@ internal class BKConnectionPool: BKCBCentralManagerConnectionDelegate {
 
     internal func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if let remotePeripheral = connectedRemotePeripherals.filter({ $0.peripheral == peripheral }).last {
-            connectedRemotePeripherals.remove(at: connectedRemotePeripherals.index(of: remotePeripheral)!)
+            connectedRemotePeripherals.remove(at: connectedRemotePeripherals.firstIndex(of: remotePeripheral)!)
             delegate?.connectionPool(self, remotePeripheralDidDisconnect: remotePeripheral)
         }
     }

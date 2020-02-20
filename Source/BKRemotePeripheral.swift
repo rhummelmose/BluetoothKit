@@ -71,20 +71,14 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         if peripheral == nil {
             return .shallow
         }
-        #if os(iOS) || os(tvOS)
         switch peripheral!.state {
             case .disconnected: return .disconnected
             case .connecting: return .connecting
             case .connected: return .connected
             case .disconnecting: return .disconnecting
+            @unknown default: return .shallow
+                
         }
-        #else
-        switch peripheral!.state {
-            case .disconnected: return .disconnected
-            case .connecting: return .connecting
-            case .connected: return .connected
-        }
-        #endif
     }
 
     /// The name of the remote peripheral, derived from an underlying CBPeripheral object.

@@ -25,7 +25,7 @@
 import UIKit
 import BluetoothKit
 
-internal protocol AvailabilityViewController: class, BKAvailabilityObserver {
+internal protocol AvailabilityViewController: BKAvailabilityObserver {
     var availabilityView: AvailabilityView { get set }
     var heightForAvailabilityView: CGFloat { get }
     func applyAvailabilityView()
@@ -35,13 +35,13 @@ internal extension AvailabilityViewController where Self: UIViewController {
 
     // MARK: Properties
 
-    internal var heightForAvailabilityView: CGFloat {
+    var heightForAvailabilityView: CGFloat {
         return CGFloat(45)
     }
 
     // MARK: Functions
 
-    internal func applyAvailabilityView() {
+    func applyAvailabilityView() {
         view.addSubview(availabilityView)
         availabilityView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalTo(view)
@@ -51,11 +51,11 @@ internal extension AvailabilityViewController where Self: UIViewController {
 
     // MARK: BKAvailabilityObserver
 
-    internal func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
+    func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         availabilityView.availabilityObserver(availabilityObservable, availabilityDidChange: availability)
     }
 
-    internal func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
+    func availabilityObserver(_ availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
         availabilityView.availabilityObserver(availabilityObservable, unavailabilityCauseDidChange: unavailabilityCause)
     }
 }
