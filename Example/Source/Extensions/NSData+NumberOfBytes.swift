@@ -26,7 +26,7 @@ import Foundation
 
 internal extension Data {
 
-    internal static func dataWithNumberOfBytes(_ numberOfBytes: Int) -> Data {
+    static func dataWithNumberOfBytes(_ numberOfBytes: Int) -> Data {
         let bytes = malloc(numberOfBytes)
         let data = Data(bytes: bytes!, count: numberOfBytes)
         free(bytes)

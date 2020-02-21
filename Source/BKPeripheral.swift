@@ -56,15 +56,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     /// Bluetooth LE availability derived from the underlying CBPeripheralManager object.
 
     public var availability: BKAvailability {
-        #if os(iOS) || os(tvOS)
-            if #available(iOS 10.0, tvOS 10.0, *) {
-                return BKAvailability(managerState: peripheralManager.state)
-            } else {
-                return BKAvailability(peripheralManagerState: peripheralManager.peripheralManagerState)
-            }
-        #else
-            return BKAvailability(peripheralManagerState: peripheralManager.state)
-        #endif
+        return BKAvailability(managerState: peripheralManager.state)
     }
 
 
@@ -82,11 +74,8 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     /// Currently connected remote centrals
     public var connectedRemoteCentrals: [BKRemoteCentral] {
-        return connectedRemotePeers.flatMap({
-            guard let remoteCentral = $0 as? BKRemoteCentral else {
-                return nil
-            }
-            return remoteCentral
+        return connectedRemotePeers.compactMap({
+            $0 as? BKRemoteCentral
         })
     }
 
@@ -182,7 +171,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     private func handleDisconnectForRemoteCentral(_ remoteCentral: BKRemoteCentral) {
         failSendDataTasksForRemotePeer(remoteCentral)
-        connectedRemotePeers.remove(at: connectedRemotePeers.index(of: remoteCentral)!)
+        connectedRemotePeers.remove(at: connectedRemotePeers.firstIndex(of: remoteCentral)!)
         delegate?.peripheral(self, remoteCentralDidDisconnect: remoteCentral)
     }
 
@@ -193,34 +182,28 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         case .unknown, .resetting:
             break
         case .unsupported, .unauthorized, .poweredOff:
-            let newCause: BKUnavailabilityCause
-            #if os(iOS) || os(tvOS)
-                if #available(iOS 10.0, tvOS 10.0, *) {
-                    newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
-                } else {
-                    newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.peripheralManagerState)
-                }
-            #else
-                newCause = BKUnavailabilityCause(peripheralManagerState: peripheralManager.state)
-            #endif
+            let newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
+            
             switch stateMachine.state {
-                case let .unavailable(cause):
-                    let oldCause = cause
-                    _ = try? stateMachine.handleEvent(event: .setUnavailable(cause: newCause))
-                    setUnavailable(oldCause, oldCause: newCause)
-                default:
-                    _ = try? stateMachine.handleEvent(event: .setUnavailable(cause: newCause))
-                    setUnavailable(newCause, oldCause: nil)
-                }
-            case .poweredOn:
-                let state = stateMachine.state
-                _ = try? stateMachine.handleEvent(event: .setAvailable)
-                switch state {
-                case .starting, .unavailable:
-                    setAvailable()
-                default:
-                    break
+            case let .unavailable(cause):
+                let oldCause = cause
+                _ = try? stateMachine.handleEvent(event: .setUnavailable(cause: newCause))
+                setUnavailable(oldCause, oldCause: newCause)
+            default:
+                _ = try? stateMachine.handleEvent(event: .setUnavailable(cause: newCause))
+                setUnavailable(newCause, oldCause: nil)
             }
+        case .poweredOn:
+            let state = stateMachine.state
+            _ = try? stateMachine.handleEvent(event: .setAvailable)
+            switch state {
+            case .starting, .unavailable:
+                setAvailable()
+            default:
+                break
+            }
+        @unknown default:
+            break
         }
     }
 

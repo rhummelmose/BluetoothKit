@@ -35,7 +35,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
 
     private let peripheral = BKPeripheral()
     private let logTextView = UITextView()
-    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItemStyle.plain, target: self, action: #selector(PeripheralViewController.sendData)) }()
+    private lazy var sendDataBarButtonItem: UIBarButtonItem! = { UIBarButtonItem(title: "Send Data", style: UIBarButtonItem.Style.plain, target: self, action: #selector(PeripheralViewController.sendData)) }()
 
     // MARK: UIViewController Life Cycle
 
@@ -126,12 +126,12 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
     // MARK: LoggerDelegate
 
     internal func loggerDidLogString(_ string: String) {
-        if logTextView.text.characters.count > 0 {
+        if logTextView.text.count > 0 {
             logTextView.text = logTextView.text + ("\n" + string)
         } else {
             logTextView.text = string
         }
-        logTextView.scrollRangeToVisible(NSRange(location: logTextView.text.characters.count - 1, length: 1))
+        logTextView.scrollRangeToVisible(NSRange(location: logTextView.text.count - 1, length: 1))
     }
 
 }

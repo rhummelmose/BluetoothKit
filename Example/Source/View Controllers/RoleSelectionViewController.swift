@@ -31,20 +31,20 @@ internal class RoleSelectionViewController: UIViewController {
 
     private let offset = CGFloat(20)
     private let buttonColor = Colors.darkBlue
-    private let centralButton = UIButton(type: UIButtonType.custom)
-    private let peripheralButton = UIButton(type: UIButtonType.custom)
+    private let centralButton = UIButton(type: UIButton.ButtonType.custom)
+    private let peripheralButton = UIButton(type: UIButton.ButtonType.custom)
 
     // MARK: UIViewController Life Cycle
 
     internal override func viewDidLoad() {
         navigationItem.title = "Select Role"
         view.backgroundColor = UIColor.white
-        centralButton.setTitle("Central", for: UIControlState())
-        peripheralButton.setTitle("Peripheral", for: UIControlState())
+        centralButton.setTitle("Central", for: UIControl.State())
+        peripheralButton.setTitle("Peripheral", for: UIControl.State())
         preparedButtons([ centralButton, peripheralButton ], andAddThemToView: view)
         applyConstraints()
         #if os(tvOS)
-            peripheralButton.enabled = false
+        peripheralButton.isEnabled = false
         #endif
     }
 
@@ -52,12 +52,12 @@ internal class RoleSelectionViewController: UIViewController {
 
     private func preparedButtons(_ buttons: [UIButton], andAddThemToView view: UIView) {
         for button in buttons {
-            button.setBackgroundImage(UIImage.imageWithColor(buttonColor), for: UIControlState())
+            button.setBackgroundImage(UIImage.imageWithColor(buttonColor), for: UIControl.State())
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
             #if os(iOS)
-                button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+            button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
             #elseif os(tvOS)
-                button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), forControlEvents: UIControlEvents.PrimaryActionTriggered)
+            button.addTarget(self, action: #selector(RoleSelectionViewController.buttonTapped(_:)), for: UIControl.Event.primaryActionTriggered)
             #endif
 
             view.addSubview(button)

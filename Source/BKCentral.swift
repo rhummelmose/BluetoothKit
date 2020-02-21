@@ -75,16 +75,8 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         guard let centralManager = _centralManager else {
             return nil
         }
-            #if os(iOS) || os(tvOS)
-                if #available(tvOS 10.0, iOS 10.0, *) {
-                    return BKAvailability(managerState: centralManager.state)
-                } else {
-                    return BKAvailability(centralManagerState: centralManager.centralManagerState)
-                }
-            #else
-                return BKAvailability(centralManagerState: centralManager.state)
-            #endif
-
+        
+        return BKAvailability(managerState: centralManager.state)
     }
 
     /// All currently connected remote peripherals.
@@ -107,11 +99,8 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             return connectedRemotePeripherals
         }
         set {
-            connectionPool.connectedRemotePeripherals = newValue.flatMap({
-                guard let remotePeripheral = $0 as? BKRemotePeripheral else {
-                    return nil
-                }
-                return remotePeripheral
+            connectionPool.connectedRemotePeripherals = newValue.compactMap({
+                return $0 as? BKRemotePeripheral
             })
         }
     }
@@ -340,40 +329,34 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-            case .unknown, .resetting:
-                break
-            case .unsupported, .unauthorized, .poweredOff:
-                let newCause: BKUnavailabilityCause
-                #if os(iOS) || os(tvOS)
-                    if #available(iOS 10.0, tvOS 10.0, *) {
-                        newCause = BKUnavailabilityCause(managerState: central.state)
-                    } else {
-                        newCause = BKUnavailabilityCause(centralManagerState: central.centralManagerState)
-                    }
-                #else
-                    newCause = BKUnavailabilityCause(centralManagerState: central.state)
-                #endif
-                switch stateMachine.state {
-                    case let .unavailable(cause):
-                        let oldCause = cause
-                        _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
-                        setUnavailable(oldCause, oldCause: newCause)
-                    default:
-                        _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
-                        setUnavailable(newCause, oldCause: nil)
-                }
+        case .unknown, .resetting:
+            break
+        case .unsupported, .unauthorized, .poweredOff:
+            let newCause = BKUnavailabilityCause(managerState: central.state)
 
-            case .poweredOn:
-                let state = stateMachine.state
-                _ = try? stateMachine.handleEvent(.setAvailable)
-                switch state {
-                    case .starting, .unavailable:
-                        for availabilityObserver in availabilityObservers {
-                            availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .available)
-                        }
-                    default:
-                        break
+            switch stateMachine.state {
+            case let .unavailable(cause):
+                let oldCause = cause
+                _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
+                setUnavailable(oldCause, oldCause: newCause)
+            default:
+                _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
+                setUnavailable(newCause, oldCause: nil)
+            }
+            
+        case .poweredOn:
+            let state = stateMachine.state
+            _ = try? stateMachine.handleEvent(.setAvailable)
+            switch state {
+            case .starting, .unavailable:
+                for availabilityObserver in availabilityObservers {
+                    availabilityObserver.availabilityObserver?.availabilityObserver(self, availabilityDidChange: .available)
                 }
+            default:
+                break
+            }
+        @unknown default:
+            break
         }
     }
 

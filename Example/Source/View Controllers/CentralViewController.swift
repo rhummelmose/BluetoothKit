@@ -39,7 +39,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         return activityIndicator
     }
 
-    private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white))
+    private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white))
     private let discoveriesTableView = UITableView()
     private var discoveries = [BKDiscovery]()
     private let discoveriesTableViewCellIdentifier = "Discoveries Table View Cell Identifier"
@@ -98,14 +98,14 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     private func scan() {
         central.scanContinuouslyWithChangeHandler({ changes, discoveries in
-            let indexPathsToRemove = changes.filter({ $0 == .remove(discovery: nil) }).map({ IndexPath(row: self.discoveries.index(of: $0.discovery)!, section: 0) })
+            let indexPathsToRemove = changes.filter({ $0 == .remove(discovery: nil) }).map({ IndexPath(row: self.discoveries.firstIndex(of: $0.discovery)!, section: 0) })
             self.discoveries = discoveries
-            let indexPathsToInsert = changes.filter({ $0 == .insert(discovery: nil) }).map({ IndexPath(row: self.discoveries.index(of: $0.discovery)!, section: 0) })
+            let indexPathsToInsert = changes.filter({ $0 == .insert(discovery: nil) }).map({ IndexPath(row: self.discoveries.firstIndex(of: $0.discovery)!, section: 0) })
             if !indexPathsToRemove.isEmpty {
-                self.discoveriesTableView.deleteRows(at: indexPathsToRemove, with: UITableViewRowAnimation.automatic)
+                self.discoveriesTableView.deleteRows(at: indexPathsToRemove, with: UITableView.RowAnimation.automatic)
             }
             if !indexPathsToInsert.isEmpty {
-                self.discoveriesTableView.insertRows(at: indexPathsToInsert, with: UITableViewRowAnimation.automatic)
+                self.discoveriesTableView.insertRows(at: indexPathsToInsert, with: UITableView.RowAnimation.automatic)
             }
             for insertedDiscovery in changes.filter({ $0 == .insert(discovery: nil) }) {
                 Logger.log("Discovery: \(insertedDiscovery)")
@@ -144,7 +144,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         central.connect(remotePeripheral: discoveries[indexPath.row].remotePeripheral) { remotePeripheral, error in
             tableView.isUserInteractionEnabled = true
             guard error == nil else {
-                print("Error connecting peripheral: \(error)")
+                print("Error connecting peripheral: \(String(describing: error))")
                 tableView.deselectRow(at: indexPath, animated: true)
                 return
             }

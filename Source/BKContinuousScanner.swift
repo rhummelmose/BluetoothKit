@@ -94,7 +94,7 @@ internal class BKContinousScanner {
                 
                 //find discoveries that have been updated and add a change for each
                 for newDiscovery in newDiscoveries {
-                    if let index = self.maintainedDiscoveries.index(of: newDiscovery) {
+                    if let index = self.maintainedDiscoveries.firstIndex(of: newDiscovery) {
                         let outdatedDiscovery = self.maintainedDiscoveries[index]
                         self.maintainedDiscoveries[index] = newDiscovery
                         
@@ -120,7 +120,7 @@ internal class BKContinousScanner {
                 let discoveriesToRemove = self.maintainedDiscoveries.filter({ !result!.contains($0) })
                 let changes = discoveriesToRemove.map({ BKDiscoveriesChange.remove(discovery: $0) })
                 for discoveryToRemove in discoveriesToRemove {
-                    self.maintainedDiscoveries.remove(at: self.maintainedDiscoveries.index(of: discoveryToRemove)!)
+                    self.maintainedDiscoveries.remove(at: self.maintainedDiscoveries.firstIndex(of: discoveryToRemove)!)
                 }
                 self.changeHandler?(changes, self.maintainedDiscoveries)
                 self.state = .waiting

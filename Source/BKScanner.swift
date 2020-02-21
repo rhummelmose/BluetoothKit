@@ -111,11 +111,11 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
         guard busy else {
             return
         }
-        let RSSI = Int(RSSI)
+        let RSSI = Int(truncating: RSSI)
         let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
         remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
-        if let index = discoveries.index(of: discovery) {
+        if let index = discoveries.firstIndex(of: discovery) {
             discoveries[index] = discovery
         }
         else {

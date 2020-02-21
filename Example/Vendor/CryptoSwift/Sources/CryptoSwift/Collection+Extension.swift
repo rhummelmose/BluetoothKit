@@ -1,70 +1,58 @@
 //
-//  Collection+Extension.swift
 //  CryptoSwift
 //
-//  Created by Marcin Krzyzanowski on 02/08/16.
-//  Copyright © 2016 Marcin Krzyzanowski. All rights reserved.
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  This software is provided 'as-is', without any express or implied warranty.
 //
-
-extension Collection where Self.Iterator.Element == UInt8, Self.Index == Int {
-    func toUInt32Array() -> Array<UInt32> {
-        var result = Array<UInt32>()
-        result.reserveCapacity(16)
-        for idx in stride(from: self.startIndex, to: self.endIndex, by: MemoryLayout<UInt32>.size) {
-            var val: UInt32 = 0
-            val |= self.count > 3 ? UInt32(self[idx.advanced(by: 3)]) << 24 : 0
-            val |= self.count > 2 ? UInt32(self[idx.advanced(by: 2)]) << 16 : 0
-            val |= self.count > 1 ? UInt32(self[idx.advanced(by: 1)]) << 8  : 0
-            val |= self.count > 0 ? UInt32(self[idx]) : 0
-            result.append(val)
-        }
-
-        return result
+//  In no event will the authors be held liable for any damages arising from the use of this software.
+//
+//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+//
+//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
+//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+//  - This notice may not be removed or altered from any source or binary distribution.
+//
+extension Collection where Self.Element == UInt8, Self.Index == Int {
+  // Big endian order
+  func toUInt32Array() -> Array<UInt32> {
+    guard !isEmpty else {
+      return []
     }
 
-    func toUInt64Array() -> Array<UInt64> {
-        var result = Array<UInt64>()
-        result.reserveCapacity(32)
-        for idx in stride(from: self.startIndex, to: self.endIndex, by: MemoryLayout<UInt64>.size) {
-            var val:UInt64 = 0
-            val |= self.count > 7 ? UInt64(self[idx.advanced(by: 7)]) << 56 : 0
-            val |= self.count > 6 ? UInt64(self[idx.advanced(by: 6)]) << 48 : 0
-            val |= self.count > 5 ? UInt64(self[idx.advanced(by: 5)]) << 40 : 0
-            val |= self.count > 4 ? UInt64(self[idx.advanced(by: 4)]) << 32 : 0
-            val |= self.count > 3 ? UInt64(self[idx.advanced(by: 3)]) << 24 : 0
-            val |= self.count > 2 ? UInt64(self[idx.advanced(by: 2)]) << 16 : 0
-            val |= self.count > 1 ? UInt64(self[idx.advanced(by: 1)]) << 8 : 0
-            val |= self.count > 0 ? UInt64(self[idx.advanced(by: 0)]) << 0 : 0
-            result.append(val)
-        }
+    let c = strideCount(from: startIndex, to: endIndex, by: 4)
+    return Array<UInt32>(unsafeUninitializedCapacity: c) { buf, count in
+      var counter = 0
+      for idx in stride(from: startIndex, to: endIndex, by: 4) {
+        let val = UInt32(bytes: self, fromIndex: idx).bigEndian
+        buf[counter] = val
+        counter += 1
+      }
+      count = counter
+      assert(counter == c)
+    }
+  }
 
-        return result
+  // Big endian order
+  func toUInt64Array() -> Array<UInt64> {
+    guard !isEmpty else {
+      return []
     }
 
-    /// Initialize integer from array of bytes. Caution: may be slow!
-    @available(*, deprecated: 0.6.0, message: "Dont use it. Too generic to be fast")
-    func toInteger<T:Integer>() -> T where T: ByteConvertible, T: BitshiftOperationsType {
-        if self.count == 0 {
-            return 0;
-        }
-
-        let size = MemoryLayout<T>.size
-        var bytes = self.reversed() //FIXME: check it this is equivalent of Array(...)
-        if bytes.count < size {
-            let paddingCount = size - bytes.count
-            if (paddingCount > 0) {
-                bytes += Array<UInt8>(repeating: 0, count: paddingCount)
-            }
-        }
-
-        if size == 1 {
-            return T(truncatingBitPattern: UInt64(bytes[0]))
-        }
-
-        var result: T = 0
-        for byte in bytes.reversed() {
-            result = result << 8 | T(byte)
-        }
-        return result
+    let c = strideCount(from: startIndex, to: endIndex, by: 8)
+    return Array<UInt64>(unsafeUninitializedCapacity: c) { buf, count in
+      var counter = 0
+      for idx in stride(from: startIndex, to: endIndex, by: 8) {
+        let val = UInt64(bytes: self, fromIndex: idx).bigEndian
+        buf[counter] = val
+        counter += 1
+      }
+      count = counter
+      assert(counter == c)
     }
+  }
+}
+
+private func strideCount(from: Int, to: Int, by: Int) -> Int {
+    let count = to - from
+    return count / by + (count % by > 0 ? 1 : 0)
 }

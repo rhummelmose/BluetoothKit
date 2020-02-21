@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		91575CE01DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
-		91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
-		91575CE21DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
 		C64CDDFB1BE4C56C00F72549 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
 		C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
 		C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
@@ -77,7 +74,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBLegacyManagerState.swift; sourceTree = "<group>"; };
 		C64CDDF31BE4C46A00F72549 /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66888AC1B978181003C8DBB /* BKDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscovery.swift; sourceTree = "<group>"; };
 		C66888AE1B984792003C8DBB /* BKConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConfiguration.swift; sourceTree = "<group>"; };
@@ -167,7 +163,6 @@
 				C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */,
 				C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */,
 				C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */,
-				91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */,
 				C687E3A81B8B4A2800B702D8 /* BKCentral.swift */,
 				C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */,
 				C66888AE1B984792003C8DBB /* BKConfiguration.swift */,
@@ -292,7 +287,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
 				TargetAttributes = {
 					C64CDDF21BE4C46A00F72549 = {
@@ -309,10 +304,11 @@
 			};
 			buildConfigurationList = C687E3921B8B496400B702D8 /* Build configuration list for PBXProject "BluetoothKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C687E38E1B8B496400B702D8;
 			productRefGroup = C687E3991B8B496400B702D8 /* Products */;
@@ -391,7 +387,6 @@
 				C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
 				C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C64CDDFF1BE4C56C00F72549 /* BKCentral.swift in Sources */,
-				91575CE21DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C64CDE001BE4C56C00F72549 /* BKCentralStateMachine.swift in Sources */,
 				C6B2E3771CE52DD900D25393 /* BKRemotePeer.swift in Sources */,
 				C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */,
@@ -415,7 +410,6 @@
 				C67A22781B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
 				C6B2E3711CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
 				C67A22751B8C83D900CB74CE /* BKPeripheralStateMachine.swift in Sources */,
-				91575CE01DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */,
 				C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */,
 				C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */,
@@ -445,7 +439,6 @@
 				C6ED86C91BA955DB00C9B70B /* BKAvailability.swift in Sources */,
 				C6B2E3721CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
 				C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */,
-				91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */,
 				C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
 				C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */,
@@ -482,8 +475,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -500,8 +494,9 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -509,17 +504,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -543,13 +549,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = BluetoothKit;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -560,17 +566,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -588,11 +605,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = BluetoothKit;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -608,10 +625,11 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -623,11 +641,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -643,10 +662,11 @@
 				FRAMEWORK_VERSION = A;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -662,11 +682,12 @@
 				FRAMEWORK_VERSION = A;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
