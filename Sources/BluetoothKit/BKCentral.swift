@@ -150,7 +150,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     /**
         Scan for peripherals for a limited duration of time.
         - parameter duration: The number of seconds to scan for (defaults to 3). A duration of 0 means endless
-        - parameter updateDuplicates: normally, discoveries for the same peripheral are coalesced by IOS. Setting this to true advises the OS to generate new discoveries anyway. This allows you to react to RSSI changes (defaults to false).
+        - parameter updateDuplicates: normally, discoveries for the same peripheral are coalesced by iOS. Setting this to true advises the OS to generate new discoveries anyway. This allows you to react to RSSI changes (defaults to false).
         - parameter progressHandler: A progress handler allowing you to react immediately when a peripheral is discovered during a scan.
         - parameter completionHandler: A completion handler allowing you to react on the full result of discovered peripherals or an error if one occured.
     */
