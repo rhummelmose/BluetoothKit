@@ -59,8 +59,6 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         return BKAvailability(managerState: peripheralManager.state)
     }
 
-
-
     /// The configuration that the BKPeripheral object was started with.
     override public var configuration: BKPeripheralConfiguration? {
         return _configuration
@@ -82,7 +80,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
     private var _configuration: BKPeripheralConfiguration!
     private var peripheralManager: CBPeripheralManager!
     private let stateMachine = BKPeripheralStateMachine()
-    private var peripheralManagerDelegate: BKCBPeripheralManagerDelegateProxy!
+    private var peripheralManagerDelegateProxy: BKCBPeripheralManagerDelegateProxy!
     private var characteristicData: CBMutableCharacteristic!
     private var dataService: CBMutableService!
 
@@ -90,7 +88,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     public override init() {
         super.init()
-        peripheralManagerDelegate = BKCBPeripheralManagerDelegateProxy(delegate: self)
+        peripheralManagerDelegateProxy = BKCBPeripheralManagerDelegateProxy(delegate: self)
     }
 
     // MARK: Public Functions
@@ -105,7 +103,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         do {
             try stateMachine.handleEvent(event: .start)
             _configuration = configuration
-            peripheralManager = CBPeripheralManager(delegate: peripheralManagerDelegate, queue: nil, options: nil)
+            peripheralManager = CBPeripheralManager(delegate: peripheralManagerDelegateProxy, queue: nil, options: nil)
         } catch let error {
             throw BKError.internalError(underlyingError: error)
         }
@@ -183,7 +181,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             break
         case .unsupported, .unauthorized, .poweredOff:
             let newCause = BKUnavailabilityCause(managerState: peripheralManager.state)
-            
+
             switch stateMachine.state {
             case let .unavailable(cause):
                 let oldCause = cause
@@ -206,7 +204,6 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             break
         }
     }
-
 
     internal func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
 

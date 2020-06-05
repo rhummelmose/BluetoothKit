@@ -26,9 +26,12 @@ import Foundation
 
 public func == (lhs: BKDiscoveriesChange, rhs: BKDiscoveriesChange) -> Bool {
     switch (lhs, rhs) {
-        case (.insert(let lhsDiscovery), .insert(let rhsDiscovery)): return lhsDiscovery == rhsDiscovery || lhsDiscovery == nil || rhsDiscovery == nil
-        case (.remove(let lhsDiscovery), .remove(let rhsDiscovery)): return lhsDiscovery == rhsDiscovery || lhsDiscovery == nil || rhsDiscovery == nil
-        default: return false
+    case (.insert(let lhsDiscovery), .insert(let rhsDiscovery)):
+        return lhsDiscovery == rhsDiscovery || lhsDiscovery == nil || rhsDiscovery == nil
+    case (.remove(let lhsDiscovery), .remove(let rhsDiscovery)):
+        return lhsDiscovery == rhsDiscovery || lhsDiscovery == nil || rhsDiscovery == nil
+    default:
+        return false
     }
 }
 
@@ -47,8 +50,10 @@ public enum BKDiscoveriesChange: Equatable {
     /// The discovery associated with the change.
     public var discovery: BKDiscovery! {
         switch self {
-            case .insert(let discovery): return discovery
-            case .remove(let discovery): return discovery
+        case .insert(let discovery):
+            return discovery
+        case .remove(let discovery):
+            return discovery
         }
     }
 

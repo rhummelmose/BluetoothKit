@@ -58,7 +58,7 @@ public class BKConfiguration {
         dataCancelledMark = "COD".data(using: String.Encoding.utf8)!
     }
 
-    // MARK Functions
+    // MARK: Functions
 
     internal func characteristicUUIDsForServiceUUID(_ serviceUUID: CBUUID) -> [CBUUID] {
         if serviceUUID == dataServiceUUID {
