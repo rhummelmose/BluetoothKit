@@ -75,7 +75,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         guard let centralManager = _centralManager else {
             return nil
         }
-        
+
         return BKAvailability(managerState: centralManager.state)
     }
 
@@ -113,7 +113,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     private let connectionPool = BKConnectionPool()
     private var _configuration: BKConfiguration?
     private var continuousScanner: BKContinousScanner!
-    private var centralManagerDelegate: BKCBCentralManagerDelegateProxy!
+    private var centralManagerDelegateProxy: BKCBCentralManagerDelegateProxy!
     private var stateMachine: BKCentralStateMachine!
     private var _centralManager: CBCentralManager!
 
@@ -121,7 +121,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     public override init() {
         super.init()
-        centralManagerDelegate = BKCBCentralManagerDelegateProxy(stateDelegate: self, discoveryDelegate: scanner, connectionDelegate: connectionPool)
+        centralManagerDelegateProxy = BKCBCentralManagerDelegateProxy(stateDelegate: self, discoveryDelegate: scanner, connectionDelegate: connectionPool)
         stateMachine = BKCentralStateMachine()
         connectionPool.delegate = self
         continuousScanner = BKContinousScanner(scanner: scanner)
@@ -138,7 +138,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         do {
             try stateMachine.handleEvent(.start)
             _configuration = configuration
-            _centralManager = CBCentralManager(delegate: centralManagerDelegate, queue: nil, options: nil)
+            _centralManager = CBCentralManager(delegate: centralManagerDelegateProxy, queue: nil, options: nil)
             scanner.configuration = configuration
             scanner.centralManager = centralManager
             connectionPool.centralManager = centralManager
@@ -150,7 +150,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
     /**
         Scan for peripherals for a limited duration of time.
         - parameter duration: The number of seconds to scan for (defaults to 3). A duration of 0 means endless
-        - parameter updateDuplicates: normally, discoveries for the same peripheral are coalesced by IOS. Setting this to true advises the OS to generate new discoveries anyway. This allows you to react to RSSI changes (defaults to false).
+        - parameter updateDuplicates: normally, discoveries for the same peripheral are coalesced by iOS. Setting this to true advises the OS to generate new discoveries anyway. This allows you to react to RSSI changes (defaults to false).
         - parameter progressHandler: A progress handler allowing you to react immediately when a peripheral is discovered during a scan.
         - parameter completionHandler: A completion handler allowing you to react on the full result of discovered peripherals or an error if one occured.
     */
@@ -326,7 +326,6 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
 
     // MARK: BKCBCentralManagerStateDelegate
 
-
     internal func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .unknown, .resetting:
@@ -343,7 +342,7 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
                 _ = try? stateMachine.handleEvent(.setUnavailable(cause: newCause))
                 setUnavailable(newCause, oldCause: nil)
             }
-            
+
         case .poweredOn:
             let state = stateMachine.state
             _ = try? stateMachine.handleEvent(.setAvailable)

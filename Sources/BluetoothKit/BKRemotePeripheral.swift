@@ -72,12 +72,17 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
             return .shallow
         }
         switch peripheral!.state {
-            case .disconnected: return .disconnected
-            case .connecting: return .connecting
-            case .connected: return .connected
-            case .disconnecting: return .disconnecting
-            @unknown default: return .shallow
-                
+        case .disconnected:
+            return .disconnected
+        case .connecting:
+            return .connecting
+        case .connected:
+            return .connected
+        case .disconnecting:
+            return .disconnecting
+        @unknown default:
+            return .shallow
+
         }
     }
 
@@ -175,6 +180,5 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
         }
         handleReceivedData(characteristic.value!)
     }
-
 
 }
