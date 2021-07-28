@@ -24,7 +24,7 @@
 
 import Foundation
 
-public protocol BKRemotePeerDelegate: class {
+public protocol BKRemotePeerDelegate: AnyObject {
     /**
      Called when the remote peer sent data.
      - parameter remotePeripheral: The remote peripheral that sent the data.

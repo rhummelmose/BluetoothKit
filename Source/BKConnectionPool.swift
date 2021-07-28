@@ -25,7 +25,7 @@
 import Foundation
 import CoreBluetooth
 
-internal protocol BKConnectionPoolDelegate: class {
+internal protocol BKConnectionPoolDelegate: AnyObject {
     func connectionPool(_ connectionPool: BKConnectionPool, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral)
 }
 

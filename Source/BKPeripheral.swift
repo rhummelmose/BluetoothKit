@@ -29,7 +29,7 @@ import CoreBluetooth
     The peripheral's delegate is called when asynchronous events occur.
 */
 
-public protocol BKPeripheralDelegate: class {
+public protocol BKPeripheralDelegate: AnyObject {
     /**
         Called when a remote central connects and is ready to receive data.
         - parameter peripheral: The peripheral object to which the remote central connected.

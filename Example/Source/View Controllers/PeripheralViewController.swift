@@ -61,7 +61,7 @@ internal class PeripheralViewController: UIViewController, AvailabilityViewContr
 
     private func applyConstraints() {
         logTextView.snp.makeConstraints { make in
-            make.top.equalTo(topLayoutGuide.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
             make.leading.trailing.equalTo(view)
             make.bottom.equalTo(availabilityView.snp.top)
         }

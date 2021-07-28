@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/rasmusth/Udvikling/BluetoothKit/Example/BKExample.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
     The central's delegate is called when asynchronous events occur.
 */
-public protocol BKCentralDelegate: class {
+public protocol BKCentralDelegate: AnyObject {
     /**
         Called when a remote peripheral disconnects or is disconnected.
         - parameter central: The central from which it disconnected.

@@ -26,7 +26,7 @@ import UIKit
 import BluetoothKit
 import CryptoSwift
 
-internal protocol RemotePeripheralViewControllerDelegate: class {
+internal protocol RemotePeripheralViewControllerDelegate: AnyObject {
     func remotePeripheralViewControllerWillDismiss(_ remotePeripheralViewController: RemotePeripheralViewController)
 }
 

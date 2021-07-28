@@ -94,7 +94,7 @@ public enum BKUnavailabilityCause: ExpressibleByNilLiteral {
 /**
     Classes that can be observed for Bluetooth LE availability implement this protocol.
 */
-public protocol BKAvailabilityObservable: class {
+public protocol BKAvailabilityObservable: AnyObject {
     var availabilityObservers: [BKWeakAvailabilityObserver] { get set }
     func addAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver)
     func removeAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver)
@@ -137,7 +137,7 @@ public extension BKAvailabilityObservable {
 /**
     Observers of Bluetooth LE availability should implement this protocol.
 */
-public protocol BKAvailabilityObserver: class {
+public protocol BKAvailabilityObserver: AnyObject {
 
     /**
         Informs the observer about a change in Bluetooth LE availability.

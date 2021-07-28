@@ -44,7 +44,8 @@ internal extension AvailabilityViewController where Self: UIViewController {
     func applyAvailabilityView() {
         view.addSubview(availabilityView)
         availabilityView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalTo(view)
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.height.equalTo(heightForAvailabilityView)
         }
     }

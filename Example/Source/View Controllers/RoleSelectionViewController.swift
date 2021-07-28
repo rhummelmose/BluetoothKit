@@ -66,7 +66,7 @@ internal class RoleSelectionViewController: UIViewController {
 
     private func applyConstraints() {
         centralButton.snp.makeConstraints { make in
-            make.top.equalTo(topLayoutGuide.snp.bottom).offset(offset)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(offset)
             make.leading.equalTo(view).offset(offset)
             make.trailing.equalTo(view).offset(-offset)
             make.height.equalTo(peripheralButton)

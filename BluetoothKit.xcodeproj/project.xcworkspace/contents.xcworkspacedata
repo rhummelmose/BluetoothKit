@@ -1,7 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:../Source"
+      name = "Source">
+      <FileRef
+         location = "group:BKCBCentralManagerDelegateProxy.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKDiscovery.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKPeripheralStateMachine.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKPeripheralConfiguration.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKErrorDomain.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKCBPeripheralManagerDelegateProxy.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKCentralStateMachine.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKAvailability.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKRemoteCentral.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKRemotePeer.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKContinuousScanner.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKScanner.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKConnectionPool.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKPeripheral.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKCBPeripheralDelegateProxy.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKCentral.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKSendDataTask.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKConfiguration.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKPeer.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKRemotePeripheral.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKDiscoveriesChange.swift">
+      </FileRef>
+      <FileRef
+         location = "group:BKConnectionAttempt.swift">
+      </FileRef>
+   </Group>
    <FileRef
-      location = "self:BluetoothKit.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -25,15 +25,15 @@
 import Foundation
 import CoreBluetooth
 
-internal protocol BKCBCentralManagerStateDelegate: class {
+internal protocol BKCBCentralManagerStateDelegate: AnyObject {
     func centralManagerDidUpdateState(_ central: CBCentralManager)
 }
 
-internal protocol BKCBCentralManagerDiscoveryDelegate: class {
+internal protocol BKCBCentralManagerDiscoveryDelegate: AnyObject {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber)
 }
 
-internal protocol BKCBCentralManagerConnectionDelegate: class {
+internal protocol BKCBCentralManagerConnectionDelegate: AnyObject {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral)
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?)
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?)

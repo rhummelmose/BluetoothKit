@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91A1060826B1AFFC00CB3209 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91A1060726B1AFFC00CB3209 /* CryptoSwift */; };
+		91A1060B26B1B03B00CB3209 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 91A1060A26B1B03B00CB3209 /* SnapKit */; };
 		C668889C1B970123003C8DBB /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
 		C668889D1B970123003C8DBB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
 		C668889E1B970123003C8DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
@@ -19,18 +20,6 @@
 		C66888A41B970123003C8DBB /* RemotePeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */; };
 		C66888A51B970123003C8DBB /* RoleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888991B970123003C8DBB /* RoleSelectionViewController.swift */; };
 		C66888A61B970123003C8DBB /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668889B1B970123003C8DBB /* AvailabilityView.swift */; };
-		C66982AA1CEBA0C300E23B57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888901B970123003C8DBB /* AppDelegate.swift */; };
-		C66982AB1CEBA0C300E23B57 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888911B970123003C8DBB /* Colors.swift */; };
-		C66982AC1CEBA0C300E23B57 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888921B970123003C8DBB /* Logger.swift */; };
-		C66982AD1CEBA0C300E23B57 /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888961B970123003C8DBB /* CentralViewController.swift */; };
-		C66982AF1CEBA0C300E23B57 /* RemotePeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */; };
-		C66982B01CEBA0C300E23B57 /* RoleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888991B970123003C8DBB /* RoleSelectionViewController.swift */; };
-		C66982B11CEBA0C300E23B57 /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668889B1B970123003C8DBB /* AvailabilityView.swift */; };
-		C66982B21CEBA0C300E23B57 /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888941B970123003C8DBB /* AvailabilityViewController.swift */; };
-		C66982B31CEBA0C300E23B57 /* NSData+NumberOfBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */; };
-		C66982B41CEBA0C300E23B57 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668888E1B970123003C8DBB /* UIImage+Color.swift */; };
-		C66982B51CEBA0D600E23B57 /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		C66982B81CEBA0E600E23B57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
 		C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */; };
 		C67653F61B8E2D3C00D43F8E /* BluetoothKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C67653F41B8E2D2B00D43F8E /* BluetoothKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C67A225F1B8C7D5B00CB74CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67A22561B8C7D5B00CB74CE /* Assets.xcassets */; };
@@ -38,67 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		670DAC5C23FFB137008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC5723FFB137008B81A4 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EEBCC9D819CC627D0083B827;
-			remoteInfo = SnapKit;
-		};
-		670DAC5E23FFB137008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC5723FFB137008B81A4 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EEBCC9E219CC627E0083B827;
-			remoteInfo = "SnapKit Tests";
-		};
-		670DAC7A23FFB152008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE45519693E190098E6F3;
-			remoteInfo = CryptoSwift;
-		};
-		670DAC7C23FFB152008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 75211F92207249D8004E41F8;
-			remoteInfo = "CryptoSwift-TestHostApp";
-		};
-		670DAC7E23FFB152008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE46019693E190098E6F3;
-			remoteInfo = CryptoSwiftTests;
-		};
-		670DAC8023FFB152008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
-			remoteInfo = "TestsPerformance-Mac";
-		};
-		670DAC8223FFB152008B81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
-			remoteInfo = "TestsPerformance-iOS";
-		};
 		C669828B1CEB9FA100E23B57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C64CDDF31BE4C46A00F72549;
-			remoteInfo = "BluetoothKit tvOS";
-		};
-		C66982A81CEBA0A900E23B57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C64CDDF21BE4C46A00F72549;
 			remoteInfo = "BluetoothKit tvOS";
 		};
 		C67653F31B8E2D2B00D43F8E /* PBXContainerItemProxy */ = {
@@ -125,17 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2DB03EF71D427E9F00E735CE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2DB03F011D427F0900E735CE /* BluetoothKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C67653F91B8E2D3C00D43F8E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,8 +72,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		670DAC5723FFB137008B81A4 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = Vendor/SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
-		670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = Vendor/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		C668888D1B970123003C8DBB /* NSData+NumberOfBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+NumberOfBytes.swift"; sourceTree = "<group>"; };
 		C668888E1B970123003C8DBB /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		C66888901B970123003C8DBB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,7 +83,6 @@
 		C66888981B970123003C8DBB /* RemotePeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemotePeripheralViewController.swift; sourceTree = "<group>"; };
 		C66888991B970123003C8DBB /* RoleSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleSelectionViewController.swift; sourceTree = "<group>"; };
 		C668889B1B970123003C8DBB /* AvailabilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailabilityView.swift; sourceTree = "<group>"; };
-		C669827B1CEB9FA100E23B57 /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BluetoothKit.xcodeproj; path = ../BluetoothKit.xcodeproj; sourceTree = "<group>"; };
 		C67A22401B8C7D1B00CB74CE /* BKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67A22561B8C7D5B00CB74CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,46 +91,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C66982781CEB9FA100E23B57 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C66982B51CEBA0D600E23B57 /* BluetoothKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C67A223D1B8C7D1B00CB74CE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91A1060B26B1B03B00CB3209 /* SnapKit in Frameworks */,
 				C67653F51B8E2D3C00D43F8E /* BluetoothKit.framework in Frameworks */,
+				91A1060826B1AFFC00CB3209 /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		670DAC5823FFB137008B81A4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				670DAC5D23FFB137008B81A4 /* SnapKit.framework */,
-				670DAC5F23FFB137008B81A4 /* SnapKit Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		670DAC7323FFB152008B81A4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				670DAC7B23FFB152008B81A4 /* CryptoSwift.framework */,
-				670DAC7D23FFB152008B81A4 /* CryptoSwift-TestHostApp.app */,
-				670DAC7F23FFB152008B81A4 /* CryptoSwiftTests.xctest */,
-				670DAC8123FFB152008B81A4 /* TestsPerformance-Mac.xctest */,
-				670DAC8323FFB152008B81A4 /* TestsPerformance-iOS.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C668888B1B970123003C8DBB /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				C67A22401B8C7D1B00CB74CE /* BKExample.app */,
-				C669827B1CEB9FA100E23B57 /* BKExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,8 +203,6 @@
 		C67A226F1B8C7DE300CB74CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */,
-				670DAC5723FFB137008B81A4 /* SnapKit.xcodeproj */,
 				C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */,
 			);
 			name = Frameworks;
@@ -322,25 +211,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C669827A1CEB9FA100E23B57 /* BKExample (tvOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample (tvOS)" */;
-			buildPhases = (
-				C66982771CEB9FA100E23B57 /* Sources */,
-				C66982781CEB9FA100E23B57 /* Frameworks */,
-				C66982791CEB9FA100E23B57 /* Resources */,
-				2DB03EF71D427E9F00E735CE /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C66982A91CEBA0A900E23B57 /* PBXTargetDependency */,
-			);
-			name = "BKExample (tvOS)";
-			productName = "BKExample (tvOS)";
-			productReference = C669827B1CEB9FA100E23B57 /* BKExample.app */;
-			productType = "com.apple.product-type.application";
-		};
 		C67A223F1B8C7D1B00CB74CE /* BKExample (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C67A22521B8C7D1B00CB74CE /* Build configuration list for PBXNativeTarget "BKExample (iOS)" */;
@@ -358,6 +228,10 @@
 				C67653F81B8E2D3C00D43F8E /* PBXTargetDependency */,
 			);
 			name = "BKExample (iOS)";
+			packageProductDependencies = (
+				91A1060726B1AFFC00CB3209 /* CryptoSwift */,
+				91A1060A26B1B03B00CB3209 /* SnapKit */,
+			);
 			productName = BluetoothKitExample;
 			productReference = C67A22401B8C7D1B00CB74CE /* BKExample.app */;
 			productType = "com.apple.product-type.application";
@@ -370,12 +244,9 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
 				TargetAttributes = {
-					C669827A1CEB9FA100E23B57 = {
-						CreatedOnToolsVersion = 7.3;
-					};
 					C67A223F1B8C7D1B00CB74CE = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0800;
@@ -391,6 +262,10 @@
 				Base,
 			);
 			mainGroup = C67A22371B8C7D1B00CB74CE;
+			packageReferences = (
+				91A1060626B1AFFC00CB3209 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				91A1060926B1B03B00CB3209 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = C67A22411B8C7D1B00CB74CE /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -398,73 +273,15 @@
 					ProductGroup = C67653F01B8E2D2B00D43F8E /* Products */;
 					ProjectRef = C67653EF1B8E2D2B00D43F8E /* BluetoothKit.xcodeproj */;
 				},
-				{
-					ProductGroup = 670DAC7323FFB152008B81A4 /* Products */;
-					ProjectRef = 670DAC7223FFB152008B81A4 /* CryptoSwift.xcodeproj */;
-				},
-				{
-					ProductGroup = 670DAC5823FFB137008B81A4 /* Products */;
-					ProjectRef = 670DAC5723FFB137008B81A4 /* SnapKit.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
 				C67A223F1B8C7D1B00CB74CE /* BKExample (iOS) */,
-				C669827A1CEB9FA100E23B57 /* BKExample (tvOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		670DAC5D23FFB137008B81A4 /* SnapKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SnapKit.framework;
-			remoteRef = 670DAC5C23FFB137008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		670DAC5F23FFB137008B81A4 /* SnapKit Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SnapKit Tests.xctest";
-			remoteRef = 670DAC5E23FFB137008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		670DAC7B23FFB152008B81A4 /* CryptoSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CryptoSwift.framework;
-			remoteRef = 670DAC7A23FFB152008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		670DAC7D23FFB152008B81A4 /* CryptoSwift-TestHostApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CryptoSwift-TestHostApp.app";
-			remoteRef = 670DAC7C23FFB152008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		670DAC7F23FFB152008B81A4 /* CryptoSwiftTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CryptoSwiftTests.xctest;
-			remoteRef = 670DAC7E23FFB152008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		670DAC8123FFB152008B81A4 /* TestsPerformance-Mac.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TestsPerformance-Mac.xctest";
-			remoteRef = 670DAC8023FFB152008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		670DAC8323FFB152008B81A4 /* TestsPerformance-iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TestsPerformance-iOS.xctest";
-			remoteRef = 670DAC8223FFB152008B81A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		C669828C1CEB9FA100E23B57 /* BluetoothKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -489,14 +306,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C66982791CEB9FA100E23B57 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C66982B81CEBA0E600E23B57 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C67A223E1B8C7D1B00CB74CE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -540,23 +349,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C66982771CEB9FA100E23B57 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C66982AA1CEBA0C300E23B57 /* AppDelegate.swift in Sources */,
-				C66982AB1CEBA0C300E23B57 /* Colors.swift in Sources */,
-				C66982AC1CEBA0C300E23B57 /* Logger.swift in Sources */,
-				C66982AD1CEBA0C300E23B57 /* CentralViewController.swift in Sources */,
-				C66982AF1CEBA0C300E23B57 /* RemotePeripheralViewController.swift in Sources */,
-				C66982B01CEBA0C300E23B57 /* RoleSelectionViewController.swift in Sources */,
-				C66982B11CEBA0C300E23B57 /* AvailabilityView.swift in Sources */,
-				C66982B21CEBA0C300E23B57 /* AvailabilityViewController.swift in Sources */,
-				C66982B31CEBA0C300E23B57 /* NSData+NumberOfBytes.swift in Sources */,
-				C66982B41CEBA0C300E23B57 /* UIImage+Color.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C67A223C1B8C7D1B00CB74CE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,11 +370,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C66982A91CEBA0A900E23B57 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "BluetoothKit tvOS";
-			targetProxy = C66982A81CEBA0A900E23B57 /* PBXContainerItemProxy */;
-		};
 		C67653F81B8E2D3C00D43F8E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BluetoothKit;
@@ -602,44 +389,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C66982871CEB9FA100E23B57 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
-				SDKROOT = appletvos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Debug;
-		};
-		C66982881CEB9FA100E23B57 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
-				SDKROOT = appletvos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
 		C67A22501B8C7D1B00CB74CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -663,6 +412,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -687,7 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = BKExample;
@@ -721,6 +471,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -739,11 +490,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = BKExample;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -757,8 +509,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
 				SWIFT_VERSION = 5.0;
 			};
@@ -771,8 +526,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKitExample;
 				SWIFT_VERSION = 5.0;
 			};
@@ -781,15 +539,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C66982A31CEB9FA100E23B57 /* Build configuration list for PBXNativeTarget "BKExample (tvOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C66982871CEB9FA100E23B57 /* Debug */,
-				C66982881CEB9FA100E23B57 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C67A223B1B8C7D1B00CB74CE /* Build configuration list for PBXProject "BKExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -809,6 +558,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		91A1060626B1AFFC00CB3209 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
+		91A1060926B1B03B00CB3209 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		91A1060726B1AFFC00CB3209 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91A1060626B1AFFC00CB3209 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		91A1060A26B1B03B00CB3209 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91A1060926B1B03B00CB3209 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C67A22381B8C7D1B00CB74CE /* Project object */;
 }

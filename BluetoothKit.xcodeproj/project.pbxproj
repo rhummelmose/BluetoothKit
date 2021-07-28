@@ -7,99 +7,104 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C64CDDFB1BE4C56C00F72549 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
-		C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
-		C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
-		C64CDDFF1BE4C56C00F72549 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCentral.swift */; };
-		C64CDE001BE4C56C00F72549 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */; };
-		C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; };
-		C64CDE021BE4C56C00F72549 /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */; };
-		C64CDE031BE4C56C00F72549 /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */; };
-		C64CDE041BE4C56C00F72549 /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */; };
-		C64CDE051BE4C56C00F72549 /* BKDiscoveriesChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2911B95885D00AB5CAE /* BKDiscoveriesChange.swift */; };
-		C64CDE061BE4C56C00F72549 /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AC1B978181003C8DBB /* BKDiscovery.swift */; };
-		C64CDE0B1BE4C56C00F72549 /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */; };
-		C64CDE0C1BE4C56C00F72549 /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */; };
+		91A105B626B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A026B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift */; };
+		91A105B726B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A026B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift */; };
+		91A105B826B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A026B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift */; };
+		91A105B926B1A6F700CB3209 /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A126B1A6F700CB3209 /* BKDiscovery.swift */; };
+		91A105BA26B1A6F700CB3209 /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A126B1A6F700CB3209 /* BKDiscovery.swift */; };
+		91A105BB26B1A6F700CB3209 /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A126B1A6F700CB3209 /* BKDiscovery.swift */; };
+		91A105BC26B1A6F700CB3209 /* BKPeripheralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A226B1A6F700CB3209 /* BKPeripheralStateMachine.swift */; };
+		91A105BD26B1A6F700CB3209 /* BKPeripheralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A226B1A6F700CB3209 /* BKPeripheralStateMachine.swift */; };
+		91A105BE26B1A6F700CB3209 /* BKPeripheralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A226B1A6F700CB3209 /* BKPeripheralStateMachine.swift */; };
+		91A105BF26B1A6F700CB3209 /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A326B1A6F700CB3209 /* BKPeripheralConfiguration.swift */; };
+		91A105C026B1A6F700CB3209 /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A326B1A6F700CB3209 /* BKPeripheralConfiguration.swift */; };
+		91A105C126B1A6F700CB3209 /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A326B1A6F700CB3209 /* BKPeripheralConfiguration.swift */; };
+		91A105C226B1A6F700CB3209 /* BKErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A426B1A6F700CB3209 /* BKErrorDomain.swift */; };
+		91A105C326B1A6F700CB3209 /* BKErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A426B1A6F700CB3209 /* BKErrorDomain.swift */; };
+		91A105C426B1A6F700CB3209 /* BKErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A426B1A6F700CB3209 /* BKErrorDomain.swift */; };
+		91A105C526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift */; };
+		91A105C626B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift */; };
+		91A105C726B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift */; };
+		91A105C826B1A6F700CB3209 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A626B1A6F700CB3209 /* BKCentralStateMachine.swift */; };
+		91A105C926B1A6F700CB3209 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A626B1A6F700CB3209 /* BKCentralStateMachine.swift */; };
+		91A105CA26B1A6F700CB3209 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A626B1A6F700CB3209 /* BKCentralStateMachine.swift */; };
+		91A105CB26B1A6F700CB3209 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A726B1A6F700CB3209 /* BKAvailability.swift */; };
+		91A105CC26B1A6F700CB3209 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A726B1A6F700CB3209 /* BKAvailability.swift */; };
+		91A105CD26B1A6F700CB3209 /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A726B1A6F700CB3209 /* BKAvailability.swift */; };
+		91A105CE26B1A6F700CB3209 /* BKRemoteCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A826B1A6F700CB3209 /* BKRemoteCentral.swift */; };
+		91A105CF26B1A6F700CB3209 /* BKRemoteCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A826B1A6F700CB3209 /* BKRemoteCentral.swift */; };
+		91A105D026B1A6F700CB3209 /* BKRemoteCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A826B1A6F700CB3209 /* BKRemoteCentral.swift */; };
+		91A105D126B1A6F700CB3209 /* BKRemotePeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A926B1A6F700CB3209 /* BKRemotePeer.swift */; };
+		91A105D226B1A6F700CB3209 /* BKRemotePeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A926B1A6F700CB3209 /* BKRemotePeer.swift */; };
+		91A105D326B1A6F700CB3209 /* BKRemotePeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105A926B1A6F700CB3209 /* BKRemotePeer.swift */; };
+		91A105D426B1A6F700CB3209 /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AA26B1A6F700CB3209 /* BKContinuousScanner.swift */; };
+		91A105D526B1A6F700CB3209 /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AA26B1A6F700CB3209 /* BKContinuousScanner.swift */; };
+		91A105D626B1A6F700CB3209 /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AA26B1A6F700CB3209 /* BKContinuousScanner.swift */; };
+		91A105D726B1A6F700CB3209 /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AB26B1A6F700CB3209 /* BKScanner.swift */; };
+		91A105D826B1A6F700CB3209 /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AB26B1A6F700CB3209 /* BKScanner.swift */; };
+		91A105D926B1A6F700CB3209 /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AB26B1A6F700CB3209 /* BKScanner.swift */; };
+		91A105DA26B1A6F700CB3209 /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AC26B1A6F700CB3209 /* BKConnectionPool.swift */; };
+		91A105DB26B1A6F700CB3209 /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AC26B1A6F700CB3209 /* BKConnectionPool.swift */; };
+		91A105DC26B1A6F700CB3209 /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AC26B1A6F700CB3209 /* BKConnectionPool.swift */; };
+		91A105DD26B1A6F700CB3209 /* BKPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AD26B1A6F700CB3209 /* BKPeripheral.swift */; };
+		91A105DE26B1A6F700CB3209 /* BKPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AD26B1A6F700CB3209 /* BKPeripheral.swift */; };
+		91A105DF26B1A6F700CB3209 /* BKPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AD26B1A6F700CB3209 /* BKPeripheral.swift */; };
+		91A105E026B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AE26B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift */; };
+		91A105E126B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AE26B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift */; };
+		91A105E226B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AE26B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift */; };
+		91A105E326B1A6F700CB3209 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AF26B1A6F700CB3209 /* BKCentral.swift */; };
+		91A105E426B1A6F700CB3209 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AF26B1A6F700CB3209 /* BKCentral.swift */; };
+		91A105E526B1A6F700CB3209 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105AF26B1A6F700CB3209 /* BKCentral.swift */; };
+		91A105E626B1A6F700CB3209 /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B026B1A6F700CB3209 /* BKSendDataTask.swift */; };
+		91A105E726B1A6F700CB3209 /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B026B1A6F700CB3209 /* BKSendDataTask.swift */; };
+		91A105E826B1A6F700CB3209 /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B026B1A6F700CB3209 /* BKSendDataTask.swift */; };
+		91A105E926B1A6F700CB3209 /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B126B1A6F700CB3209 /* BKConfiguration.swift */; };
+		91A105EA26B1A6F700CB3209 /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B126B1A6F700CB3209 /* BKConfiguration.swift */; };
+		91A105EB26B1A6F700CB3209 /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B126B1A6F700CB3209 /* BKConfiguration.swift */; };
+		91A105EC26B1A6F700CB3209 /* BKPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B226B1A6F700CB3209 /* BKPeer.swift */; };
+		91A105ED26B1A6F700CB3209 /* BKPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B226B1A6F700CB3209 /* BKPeer.swift */; };
+		91A105EE26B1A6F700CB3209 /* BKPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B226B1A6F700CB3209 /* BKPeer.swift */; };
+		91A105EF26B1A6F700CB3209 /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B326B1A6F700CB3209 /* BKRemotePeripheral.swift */; };
+		91A105F026B1A6F700CB3209 /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B326B1A6F700CB3209 /* BKRemotePeripheral.swift */; };
+		91A105F126B1A6F700CB3209 /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B326B1A6F700CB3209 /* BKRemotePeripheral.swift */; };
+		91A105F226B1A6F700CB3209 /* BKDiscoveriesChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B426B1A6F700CB3209 /* BKDiscoveriesChange.swift */; };
+		91A105F326B1A6F700CB3209 /* BKDiscoveriesChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B426B1A6F700CB3209 /* BKDiscoveriesChange.swift */; };
+		91A105F426B1A6F700CB3209 /* BKDiscoveriesChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B426B1A6F700CB3209 /* BKDiscoveriesChange.swift */; };
+		91A105F526B1A6F700CB3209 /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B526B1A6F700CB3209 /* BKConnectionAttempt.swift */; };
+		91A105F626B1A6F700CB3209 /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B526B1A6F700CB3209 /* BKConnectionAttempt.swift */; };
+		91A105F726B1A6F700CB3209 /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A105B526B1A6F700CB3209 /* BKConnectionAttempt.swift */; };
 		C64CDE0E1BE4C57400F72549 /* BluetoothKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C687E3C31B8B4CF100B702D8 /* BluetoothKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C66888AD1B978181003C8DBB /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AC1B978181003C8DBB /* BKDiscovery.swift */; };
-		C66888AF1B984792003C8DBB /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; };
-		C66888B11B984AB7003C8DBB /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888B01B984AB7003C8DBB /* BKPeripheralConfiguration.swift */; };
-		C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */; };
-		C67A22711B8C7EF300CB74CE /* BKPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22701B8C7EF300CB74CE /* BKPeripheral.swift */; };
-		C67A22731B8C80C300CB74CE /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
-		C67A22751B8C83D900CB74CE /* BKPeripheralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22741B8C83D900CB74CE /* BKPeripheralStateMachine.swift */; };
-		C67A22781B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */; };
-		C67A227A1B8CDC7D00CB74CE /* BKRemoteCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22791B8CDC7D00CB74CE /* BKRemoteCentral.swift */; };
-		C67A227C1B8CECB400CB74CE /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */; };
-		C687E3B21B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
-		C687E3B31B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
-		C687E3B41B8B4A2800B702D8 /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCentral.swift */; };
-		C687E3B71B8B4A2800B702D8 /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */; };
-		C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */; };
-		C687E3B91B8B4A2800B702D8 /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */; };
-		C687E3BA1B8B4A2800B702D8 /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */; };
 		C687E3C41B8B4CF100B702D8 /* BluetoothKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C687E3C31B8B4CF100B702D8 /* BluetoothKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C69770021CEBA21B004955E0 /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */; };
-		C6B2E3711CE52C7700D25393 /* BKErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3701CE52C7700D25393 /* BKErrorDomain.swift */; };
-		C6B2E3721CE52C7700D25393 /* BKErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3701CE52C7700D25393 /* BKErrorDomain.swift */; };
-		C6B2E3731CE52C7700D25393 /* BKErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3701CE52C7700D25393 /* BKErrorDomain.swift */; };
-		C6B2E3751CE52DD900D25393 /* BKRemotePeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3741CE52DD900D25393 /* BKRemotePeer.swift */; };
-		C6B2E3761CE52DD900D25393 /* BKRemotePeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3741CE52DD900D25393 /* BKRemotePeer.swift */; };
-		C6B2E3771CE52DD900D25393 /* BKRemotePeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3741CE52DD900D25393 /* BKRemotePeer.swift */; };
-		C6B2E3791CE538FF00D25393 /* BKPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3781CE538FF00D25393 /* BKPeer.swift */; };
-		C6B2E37A1CE538FF00D25393 /* BKPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3781CE538FF00D25393 /* BKPeer.swift */; };
-		C6B2E37B1CE538FF00D25393 /* BKPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2E3781CE538FF00D25393 /* BKPeer.swift */; };
-		C6BFB2921B95885D00AB5CAE /* BKDiscoveriesChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2911B95885D00AB5CAE /* BKDiscoveriesChange.swift */; };
-		C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */; };
-		C6ED86C91BA955DB00C9B70B /* BKAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22721B8C80C300CB74CE /* BKAvailability.swift */; };
-		C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */; };
-		C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */; };
-		C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */; };
-		C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3A81B8B4A2800B702D8 /* BKCentral.swift */; };
-		C6ED86CE1BA955DB00C9B70B /* BKCentralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */; };
-		C6ED86CF1BA955DB00C9B70B /* BKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AE1B984792003C8DBB /* BKConfiguration.swift */; };
-		C6ED86D01BA955DB00C9B70B /* BKConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */; };
-		C6ED86D11BA955DB00C9B70B /* BKConnectionPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */; };
-		C6ED86D21BA955DB00C9B70B /* BKContinuousScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */; };
-		C6ED86D31BA955DB00C9B70B /* BKDiscoveriesChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFB2911B95885D00AB5CAE /* BKDiscoveriesChange.swift */; };
-		C6ED86D41BA955DB00C9B70B /* BKDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888AC1B978181003C8DBB /* BKDiscovery.swift */; };
-		C6ED86D51BA955DB00C9B70B /* BKPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22701B8C7EF300CB74CE /* BKPeripheral.swift */; };
-		C6ED86D61BA955DB00C9B70B /* BKPeripheralConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66888B01B984AB7003C8DBB /* BKPeripheralConfiguration.swift */; };
-		C6ED86D71BA955DB00C9B70B /* BKPeripheralStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22741B8C83D900CB74CE /* BKPeripheralStateMachine.swift */; };
-		C6ED86D81BA955DB00C9B70B /* BKRemoteCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A22791B8CDC7D00CB74CE /* BKRemoteCentral.swift */; };
-		C6ED86D91BA955DB00C9B70B /* BKRemotePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */; };
-		C6ED86DA1BA955DB00C9B70B /* BKScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */; };
-		C6ED86DB1BA955DB00C9B70B /* BKSendDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */; };
 		C6ED86DC1BA9567A00C9B70B /* BluetoothKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C687E3C31B8B4CF100B702D8 /* BluetoothKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91A105A026B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBCentralManagerDelegateProxy.swift; sourceTree = "<group>"; };
+		91A105A126B1A6F700CB3209 /* BKDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscovery.swift; sourceTree = "<group>"; };
+		91A105A226B1A6F700CB3209 /* BKPeripheralStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeripheralStateMachine.swift; sourceTree = "<group>"; };
+		91A105A326B1A6F700CB3209 /* BKPeripheralConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeripheralConfiguration.swift; sourceTree = "<group>"; };
+		91A105A426B1A6F700CB3209 /* BKErrorDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKErrorDomain.swift; sourceTree = "<group>"; };
+		91A105A526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBPeripheralManagerDelegateProxy.swift; sourceTree = "<group>"; };
+		91A105A626B1A6F700CB3209 /* BKCentralStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCentralStateMachine.swift; sourceTree = "<group>"; };
+		91A105A726B1A6F700CB3209 /* BKAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAvailability.swift; sourceTree = "<group>"; };
+		91A105A826B1A6F700CB3209 /* BKRemoteCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemoteCentral.swift; sourceTree = "<group>"; };
+		91A105A926B1A6F700CB3209 /* BKRemotePeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemotePeer.swift; sourceTree = "<group>"; };
+		91A105AA26B1A6F700CB3209 /* BKContinuousScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKContinuousScanner.swift; sourceTree = "<group>"; };
+		91A105AB26B1A6F700CB3209 /* BKScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKScanner.swift; sourceTree = "<group>"; };
+		91A105AC26B1A6F700CB3209 /* BKConnectionPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConnectionPool.swift; sourceTree = "<group>"; };
+		91A105AD26B1A6F700CB3209 /* BKPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeripheral.swift; sourceTree = "<group>"; };
+		91A105AE26B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBPeripheralDelegateProxy.swift; sourceTree = "<group>"; };
+		91A105AF26B1A6F700CB3209 /* BKCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCentral.swift; sourceTree = "<group>"; };
+		91A105B026B1A6F700CB3209 /* BKSendDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKSendDataTask.swift; sourceTree = "<group>"; };
+		91A105B126B1A6F700CB3209 /* BKConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConfiguration.swift; sourceTree = "<group>"; };
+		91A105B226B1A6F700CB3209 /* BKPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeer.swift; sourceTree = "<group>"; };
+		91A105B326B1A6F700CB3209 /* BKRemotePeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemotePeripheral.swift; sourceTree = "<group>"; };
+		91A105B426B1A6F700CB3209 /* BKDiscoveriesChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscoveriesChange.swift; sourceTree = "<group>"; };
+		91A105B526B1A6F700CB3209 /* BKConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConnectionAttempt.swift; sourceTree = "<group>"; };
 		C64CDDF31BE4C46A00F72549 /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C66888AC1B978181003C8DBB /* BKDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscovery.swift; sourceTree = "<group>"; };
-		C66888AE1B984792003C8DBB /* BKConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConfiguration.swift; sourceTree = "<group>"; };
-		C66888B01B984AB7003C8DBB /* BKPeripheralConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeripheralConfiguration.swift; sourceTree = "<group>"; };
-		C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConnectionAttempt.swift; sourceTree = "<group>"; };
-		C67A22701B8C7EF300CB74CE /* BKPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeripheral.swift; sourceTree = "<group>"; };
-		C67A22721B8C80C300CB74CE /* BKAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAvailability.swift; sourceTree = "<group>"; };
-		C67A22741B8C83D900CB74CE /* BKPeripheralStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeripheralStateMachine.swift; sourceTree = "<group>"; };
-		C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBPeripheralManagerDelegateProxy.swift; sourceTree = "<group>"; };
-		C67A22791B8CDC7D00CB74CE /* BKRemoteCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemoteCentral.swift; sourceTree = "<group>"; };
-		C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKSendDataTask.swift; sourceTree = "<group>"; };
 		C687E3981B8B496400B702D8 /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C687E3A41B8B4A2800B702D8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBCentralManagerDelegateProxy.swift; sourceTree = "<group>"; };
-		C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCBPeripheralDelegateProxy.swift; sourceTree = "<group>"; };
-		C687E3A81B8B4A2800B702D8 /* BKCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCentral.swift; sourceTree = "<group>"; };
-		C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKCentralStateMachine.swift; sourceTree = "<group>"; };
-		C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemotePeripheral.swift; sourceTree = "<group>"; };
-		C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConnectionPool.swift; sourceTree = "<group>"; };
-		C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKScanner.swift; sourceTree = "<group>"; };
 		C687E3C31B8B4CF100B702D8 /* BluetoothKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothKit.h; sourceTree = "<group>"; };
-		C6B2E3701CE52C7700D25393 /* BKErrorDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKErrorDomain.swift; sourceTree = "<group>"; };
-		C6B2E3741CE52DD900D25393 /* BKRemotePeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKRemotePeer.swift; sourceTree = "<group>"; };
-		C6B2E3781CE538FF00D25393 /* BKPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKPeer.swift; sourceTree = "<group>"; };
-		C6BFB2911B95885D00AB5CAE /* BKDiscoveriesChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDiscoveriesChange.swift; sourceTree = "<group>"; };
-		C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKContinuousScanner.swift; sourceTree = "<group>"; };
 		C6ED86C11BA955A600C9B70B /* BluetoothKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,11 +133,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91A1059F26B1A6F700CB3209 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				91A105A026B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift */,
+				91A105A126B1A6F700CB3209 /* BKDiscovery.swift */,
+				91A105A226B1A6F700CB3209 /* BKPeripheralStateMachine.swift */,
+				91A105A326B1A6F700CB3209 /* BKPeripheralConfiguration.swift */,
+				91A105A426B1A6F700CB3209 /* BKErrorDomain.swift */,
+				91A105A526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift */,
+				91A105A626B1A6F700CB3209 /* BKCentralStateMachine.swift */,
+				91A105A726B1A6F700CB3209 /* BKAvailability.swift */,
+				91A105A826B1A6F700CB3209 /* BKRemoteCentral.swift */,
+				91A105A926B1A6F700CB3209 /* BKRemotePeer.swift */,
+				91A105AA26B1A6F700CB3209 /* BKContinuousScanner.swift */,
+				91A105AB26B1A6F700CB3209 /* BKScanner.swift */,
+				91A105AC26B1A6F700CB3209 /* BKConnectionPool.swift */,
+				91A105AD26B1A6F700CB3209 /* BKPeripheral.swift */,
+				91A105AE26B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift */,
+				91A105AF26B1A6F700CB3209 /* BKCentral.swift */,
+				91A105B026B1A6F700CB3209 /* BKSendDataTask.swift */,
+				91A105B126B1A6F700CB3209 /* BKConfiguration.swift */,
+				91A105B226B1A6F700CB3209 /* BKPeer.swift */,
+				91A105B326B1A6F700CB3209 /* BKRemotePeripheral.swift */,
+				91A105B426B1A6F700CB3209 /* BKDiscoveriesChange.swift */,
+				91A105B526B1A6F700CB3209 /* BKConnectionAttempt.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		C687E38E1B8B496400B702D8 = {
 			isa = PBXGroup;
 			children = (
 				C687E3C21B8B4CF100B702D8 /* Umbrella */,
-				C687E3A51B8B4A2800B702D8 /* Source */,
+				91A1059F26B1A6F700CB3209 /* Source */,
 				C687E3A31B8B4A2800B702D8 /* Resources */,
 				C687E3991B8B496400B702D8 /* Products */,
 			);
@@ -154,35 +188,6 @@
 				C687E3A41B8B4A2800B702D8 /* Info.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		C687E3A51B8B4A2800B702D8 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				C67A22721B8C80C300CB74CE /* BKAvailability.swift */,
-				C687E3A61B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift */,
-				C687E3A71B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift */,
-				C67A22771B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift */,
-				C687E3A81B8B4A2800B702D8 /* BKCentral.swift */,
-				C687E3AB1B8B4A2800B702D8 /* BKCentralStateMachine.swift */,
-				C66888AE1B984792003C8DBB /* BKConfiguration.swift */,
-				C67A22351B8C49CC00CB74CE /* BKConnectionAttempt.swift */,
-				C687E3AD1B8B4A2800B702D8 /* BKConnectionPool.swift */,
-				C6BFB2931B959C8800AB5CAE /* BKContinuousScanner.swift */,
-				C6BFB2911B95885D00AB5CAE /* BKDiscoveriesChange.swift */,
-				C66888AC1B978181003C8DBB /* BKDiscovery.swift */,
-				C67A22701B8C7EF300CB74CE /* BKPeripheral.swift */,
-				C6B2E3781CE538FF00D25393 /* BKPeer.swift */,
-				C6B2E3741CE52DD900D25393 /* BKRemotePeer.swift */,
-				C66888B01B984AB7003C8DBB /* BKPeripheralConfiguration.swift */,
-				C67A22741B8C83D900CB74CE /* BKPeripheralStateMachine.swift */,
-				C67A22791B8CDC7D00CB74CE /* BKRemoteCentral.swift */,
-				C687E3AC1B8B4A2800B702D8 /* BKRemotePeripheral.swift */,
-				C687E3AE1B8B4A2800B702D8 /* BKScanner.swift */,
-				C67A227B1B8CECB400CB74CE /* BKSendDataTask.swift */,
-				C6B2E3701CE52C7700D25393 /* BKErrorDomain.swift */,
-			);
-			path = Source;
 			sourceTree = "<group>";
 		};
 		C687E3C21B8B4CF100B702D8 /* Umbrella */ = {
@@ -287,7 +292,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Rasmus Taulborg Hummelmose";
 				TargetAttributes = {
 					C64CDDF21BE4C46A00F72549 = {
@@ -382,23 +387,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C69770021CEBA21B004955E0 /* BKSendDataTask.swift in Sources */,
-				C64CDDFB1BE4C56C00F72549 /* BKAvailability.swift in Sources */,
-				C64CDDFC1BE4C56C00F72549 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
-				C64CDDFD1BE4C56C00F72549 /* BKCBPeripheralDelegateProxy.swift in Sources */,
-				C64CDDFF1BE4C56C00F72549 /* BKCentral.swift in Sources */,
-				C64CDE001BE4C56C00F72549 /* BKCentralStateMachine.swift in Sources */,
-				C6B2E3771CE52DD900D25393 /* BKRemotePeer.swift in Sources */,
-				C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */,
-				C64CDE021BE4C56C00F72549 /* BKConnectionAttempt.swift in Sources */,
-				C64CDE031BE4C56C00F72549 /* BKConnectionPool.swift in Sources */,
-				C64CDE041BE4C56C00F72549 /* BKContinuousScanner.swift in Sources */,
-				C6B2E37B1CE538FF00D25393 /* BKPeer.swift in Sources */,
-				C64CDE051BE4C56C00F72549 /* BKDiscoveriesChange.swift in Sources */,
-				C64CDE061BE4C56C00F72549 /* BKDiscovery.swift in Sources */,
-				C6B2E3731CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
-				C64CDE0B1BE4C56C00F72549 /* BKRemotePeripheral.swift in Sources */,
-				C64CDE0C1BE4C56C00F72549 /* BKScanner.swift in Sources */,
+				91A105E526B1A6F700CB3209 /* BKCentral.swift in Sources */,
+				91A105E826B1A6F700CB3209 /* BKSendDataTask.swift in Sources */,
+				91A105F426B1A6F700CB3209 /* BKDiscoveriesChange.swift in Sources */,
+				91A105DF26B1A6F700CB3209 /* BKPeripheral.swift in Sources */,
+				91A105EB26B1A6F700CB3209 /* BKConfiguration.swift in Sources */,
+				91A105DC26B1A6F700CB3209 /* BKConnectionPool.swift in Sources */,
+				91A105BE26B1A6F700CB3209 /* BKPeripheralStateMachine.swift in Sources */,
+				91A105D926B1A6F700CB3209 /* BKScanner.swift in Sources */,
+				91A105B826B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
+				91A105D626B1A6F700CB3209 /* BKContinuousScanner.swift in Sources */,
+				91A105F726B1A6F700CB3209 /* BKConnectionAttempt.swift in Sources */,
+				91A105BB26B1A6F700CB3209 /* BKDiscovery.swift in Sources */,
+				91A105C726B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
+				91A105C126B1A6F700CB3209 /* BKPeripheralConfiguration.swift in Sources */,
+				91A105F126B1A6F700CB3209 /* BKRemotePeripheral.swift in Sources */,
+				91A105EE26B1A6F700CB3209 /* BKPeer.swift in Sources */,
+				91A105D026B1A6F700CB3209 /* BKRemoteCentral.swift in Sources */,
+				91A105CA26B1A6F700CB3209 /* BKCentralStateMachine.swift in Sources */,
+				91A105E226B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift in Sources */,
+				91A105C426B1A6F700CB3209 /* BKErrorDomain.swift in Sources */,
+				91A105D326B1A6F700CB3209 /* BKRemotePeer.swift in Sources */,
+				91A105CD26B1A6F700CB3209 /* BKAvailability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,28 +416,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6B2E3791CE538FF00D25393 /* BKPeer.swift in Sources */,
-				C67A22781B8C86C800CB74CE /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
-				C6B2E3711CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
-				C67A22751B8C83D900CB74CE /* BKPeripheralStateMachine.swift in Sources */,
-				C687E3B81B8B4A2800B702D8 /* BKRemotePeripheral.swift in Sources */,
-				C67A22361B8C49CC00CB74CE /* BKConnectionAttempt.swift in Sources */,
-				C6BFB2941B959C8800AB5CAE /* BKContinuousScanner.swift in Sources */,
-				C66888AD1B978181003C8DBB /* BKDiscovery.swift in Sources */,
-				C687E3B21B8B4A2800B702D8 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
-				C66888B11B984AB7003C8DBB /* BKPeripheralConfiguration.swift in Sources */,
-				C6BFB2921B95885D00AB5CAE /* BKDiscoveriesChange.swift in Sources */,
-				C67A22731B8C80C300CB74CE /* BKAvailability.swift in Sources */,
-				C687E3B31B8B4A2800B702D8 /* BKCBPeripheralDelegateProxy.swift in Sources */,
-				C67A227C1B8CECB400CB74CE /* BKSendDataTask.swift in Sources */,
-				C687E3B41B8B4A2800B702D8 /* BKCentral.swift in Sources */,
-				C67A227A1B8CDC7D00CB74CE /* BKRemoteCentral.swift in Sources */,
-				C66888AF1B984792003C8DBB /* BKConfiguration.swift in Sources */,
-				C67A22711B8C7EF300CB74CE /* BKPeripheral.swift in Sources */,
-				C687E3B71B8B4A2800B702D8 /* BKCentralStateMachine.swift in Sources */,
-				C687E3BA1B8B4A2800B702D8 /* BKScanner.swift in Sources */,
-				C687E3B91B8B4A2800B702D8 /* BKConnectionPool.swift in Sources */,
-				C6B2E3751CE52DD900D25393 /* BKRemotePeer.swift in Sources */,
+				91A105E326B1A6F700CB3209 /* BKCentral.swift in Sources */,
+				91A105E626B1A6F700CB3209 /* BKSendDataTask.swift in Sources */,
+				91A105F226B1A6F700CB3209 /* BKDiscoveriesChange.swift in Sources */,
+				91A105DD26B1A6F700CB3209 /* BKPeripheral.swift in Sources */,
+				91A105E926B1A6F700CB3209 /* BKConfiguration.swift in Sources */,
+				91A105DA26B1A6F700CB3209 /* BKConnectionPool.swift in Sources */,
+				91A105BC26B1A6F700CB3209 /* BKPeripheralStateMachine.swift in Sources */,
+				91A105D726B1A6F700CB3209 /* BKScanner.swift in Sources */,
+				91A105B626B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
+				91A105D426B1A6F700CB3209 /* BKContinuousScanner.swift in Sources */,
+				91A105F526B1A6F700CB3209 /* BKConnectionAttempt.swift in Sources */,
+				91A105B926B1A6F700CB3209 /* BKDiscovery.swift in Sources */,
+				91A105C526B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
+				91A105BF26B1A6F700CB3209 /* BKPeripheralConfiguration.swift in Sources */,
+				91A105EF26B1A6F700CB3209 /* BKRemotePeripheral.swift in Sources */,
+				91A105EC26B1A6F700CB3209 /* BKPeer.swift in Sources */,
+				91A105CE26B1A6F700CB3209 /* BKRemoteCentral.swift in Sources */,
+				91A105C826B1A6F700CB3209 /* BKCentralStateMachine.swift in Sources */,
+				91A105E026B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift in Sources */,
+				91A105C226B1A6F700CB3209 /* BKErrorDomain.swift in Sources */,
+				91A105D126B1A6F700CB3209 /* BKRemotePeer.swift in Sources */,
+				91A105CB26B1A6F700CB3209 /* BKAvailability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,28 +445,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6B2E37A1CE538FF00D25393 /* BKPeer.swift in Sources */,
-				C6ED86C91BA955DB00C9B70B /* BKAvailability.swift in Sources */,
-				C6B2E3721CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
-				C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */,
-				C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */,
-				C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
-				C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */,
-				C6ED86CE1BA955DB00C9B70B /* BKCentralStateMachine.swift in Sources */,
-				C6ED86CF1BA955DB00C9B70B /* BKConfiguration.swift in Sources */,
-				C6ED86D01BA955DB00C9B70B /* BKConnectionAttempt.swift in Sources */,
-				C6ED86D11BA955DB00C9B70B /* BKConnectionPool.swift in Sources */,
-				C6ED86D21BA955DB00C9B70B /* BKContinuousScanner.swift in Sources */,
-				C6ED86D31BA955DB00C9B70B /* BKDiscoveriesChange.swift in Sources */,
-				C6ED86D41BA955DB00C9B70B /* BKDiscovery.swift in Sources */,
-				C6ED86D51BA955DB00C9B70B /* BKPeripheral.swift in Sources */,
-				C6ED86D61BA955DB00C9B70B /* BKPeripheralConfiguration.swift in Sources */,
-				C6ED86D71BA955DB00C9B70B /* BKPeripheralStateMachine.swift in Sources */,
-				C6ED86D81BA955DB00C9B70B /* BKRemoteCentral.swift in Sources */,
-				C6ED86D91BA955DB00C9B70B /* BKRemotePeripheral.swift in Sources */,
-				C6ED86DA1BA955DB00C9B70B /* BKScanner.swift in Sources */,
-				C6ED86DB1BA955DB00C9B70B /* BKSendDataTask.swift in Sources */,
-				C6B2E3761CE52DD900D25393 /* BKRemotePeer.swift in Sources */,
+				91A105E426B1A6F700CB3209 /* BKCentral.swift in Sources */,
+				91A105E726B1A6F700CB3209 /* BKSendDataTask.swift in Sources */,
+				91A105F326B1A6F700CB3209 /* BKDiscoveriesChange.swift in Sources */,
+				91A105DE26B1A6F700CB3209 /* BKPeripheral.swift in Sources */,
+				91A105EA26B1A6F700CB3209 /* BKConfiguration.swift in Sources */,
+				91A105DB26B1A6F700CB3209 /* BKConnectionPool.swift in Sources */,
+				91A105BD26B1A6F700CB3209 /* BKPeripheralStateMachine.swift in Sources */,
+				91A105D826B1A6F700CB3209 /* BKScanner.swift in Sources */,
+				91A105B726B1A6F700CB3209 /* BKCBCentralManagerDelegateProxy.swift in Sources */,
+				91A105D526B1A6F700CB3209 /* BKContinuousScanner.swift in Sources */,
+				91A105F626B1A6F700CB3209 /* BKConnectionAttempt.swift in Sources */,
+				91A105BA26B1A6F700CB3209 /* BKDiscovery.swift in Sources */,
+				91A105C626B1A6F700CB3209 /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
+				91A105C026B1A6F700CB3209 /* BKPeripheralConfiguration.swift in Sources */,
+				91A105F026B1A6F700CB3209 /* BKRemotePeripheral.swift in Sources */,
+				91A105ED26B1A6F700CB3209 /* BKPeer.swift in Sources */,
+				91A105CF26B1A6F700CB3209 /* BKRemoteCentral.swift in Sources */,
+				91A105C926B1A6F700CB3209 /* BKCentralStateMachine.swift in Sources */,
+				91A105E126B1A6F700CB3209 /* BKCBPeripheralDelegateProxy.swift in Sources */,
+				91A105C326B1A6F700CB3209 /* BKErrorDomain.swift in Sources */,
+				91A105D226B1A6F700CB3209 /* BKRemotePeer.swift in Sources */,
+				91A105CC26B1A6F700CB3209 /* BKAvailability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,7 +488,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -498,7 +508,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -525,6 +535,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -551,7 +562,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = BluetoothKit;
@@ -587,6 +598,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -607,7 +619,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = BluetoothKit;
 				SDKROOT = iphoneos;
@@ -627,7 +639,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MARKETING_VERSION = 0.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;
@@ -644,7 +656,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MARKETING_VERSION = 0.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rasmusth.BluetoothKit;

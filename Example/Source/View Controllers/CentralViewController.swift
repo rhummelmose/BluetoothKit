@@ -39,7 +39,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
         return activityIndicator
     }
 
-    private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white))
+    private let activityIndicatorBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium))
     private let discoveriesTableView = UITableView()
     private var discoveries = [BKDiscovery]()
     private let discoveriesTableViewCellIdentifier = "Discoveries Table View Cell Identifier"
@@ -77,7 +77,7 @@ internal class CentralViewController: UIViewController, UITableViewDataSource, U
 
     private func applyConstraints() {
         discoveriesTableView.snp.makeConstraints { make in
-            make.top.equalTo(topLayoutGuide.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalTo(view)
             make.bottom.equalTo(availabilityView.snp.top)
         }

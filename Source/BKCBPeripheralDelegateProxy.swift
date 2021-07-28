@@ -25,7 +25,7 @@
 import Foundation
 import CoreBluetooth
 
-internal protocol BKCBPeripheralDelegate: class {
+internal protocol BKCBPeripheralDelegate: AnyObject {
     func peripheralDidUpdateName(_ peripheral: CBPeripheral)
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?)
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?)

@@ -24,7 +24,7 @@
 
 import Foundation
 
-internal protocol LoggerDelegate: class {
+internal protocol LoggerDelegate: AnyObject {
     func loggerDidLogString(_ string: String)
 }
 
