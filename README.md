@@ -6,7 +6,7 @@ Easily communicate between iOS devices using BLE.
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Background
-Apple mostly did a great job with the CoreBluetooth API, but because it encapsulated the entire Bluetooth 4.0 LE specification, it can be a lot of work to achieve simple tasks like sending data back and forth between iOS devices, without having to worry about the specification and the inner workings of the CoreBluetooth stack.
+Apple did a great job with the CoreBluetooth API, but because it encapsulated the entire Bluetooth 4.0 LE specification, it can be a lot of work to achieve simple tasks like sending data back and forth between iOS devices, without having to worry about the specification and the inner workings of the CoreBluetooth stack.
 
 BluetoothKit tries to address the challenges this may cause by providing a much simpler, modern, closure-based API all implemented in Swift.
 
@@ -18,7 +18,7 @@ BluetoothKit tries to address the challenges this may cause by providing a much 
 
 #### Central
 - Scan for remote peripherals for a given time interval.
-- Continuously scan for remote peripherals for a give time interval, with an in-between delay until interrupted.
+- Continuously scan for remote peripherals for a given time interval, with an in-between delay until interrupted.
 - Connect to remote peripherals with a given time interval as time out.
 - Receive any size of data without having to worry about chunking.
 
@@ -144,7 +144,7 @@ central.scanWithDuration(3, progressHandler: { newDiscoveries in
 Scan continuously for 3 seconds at a time, with an in-between delay of 3 seconds.
 ```swift
 central.scanContinuouslyWithChangeHandler({ changes, discoveries in
-	// Handle changes to "availabile" discoveries, [BKDiscoveriesChange].
+	// Handle changes to "available" discoveries, [BKDiscoveriesChange].
 	// Handle current "available" discoveries, [BKDiscovery].
 	// This is where you'd ie. update a table view.
 }, stateHandler: { newState in
