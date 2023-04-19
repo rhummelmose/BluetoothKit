@@ -24,7 +24,7 @@
 
 import Foundation
 
-public protocol BKRemotePeerDelegate: AnyObject {
+public protocol BKRemotePeerDelegate: class {
     /**
      Called when the remote peer sent data.
      - parameter remotePeripheral: The remote peripheral that sent the data.
@@ -56,18 +56,21 @@ public class BKRemotePeer: Equatable {
     }
 
     internal func handleReceivedData(_ receivedData: Data) {
-        if receivedData == configuration!.endOfDataMark {
-            if let finalData = data {
-                delegate?.remotePeer(self, didSendArbitraryData: finalData)
-            }
-            data = nil
-            return
-        }
-        if self.data != nil {
-            self.data?.append(receivedData)
-            return
-        }
-        self.data = receivedData
+        //
+        delegate?.remotePeer(self, didSendArbitraryData: receivedData)
+        
+//        if receivedData == configuration!.endOfDataMark {
+//            if let finalData = data {
+//                delegate?.remotePeer(self, didSendArbitraryData: finalData)
+//            }
+//            data = nil
+//            return
+//        }
+//        if self.data != nil {
+//            self.data?.append(receivedData)
+//            return
+//        }
+//        self.data = receivedData
     }
 
 }

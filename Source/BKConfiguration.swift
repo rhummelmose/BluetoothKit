@@ -51,9 +51,16 @@ public class BKConfiguration {
 
     // MARK: Initialization
 
-    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID) {
-        self.dataServiceUUID = CBUUID(nsuuid: dataServiceUUID)
-        self.dataServiceCharacteristicUUID = CBUUID(nsuuid: dataServiceCharacteristicUUID)
+//    public init(dataServiceUUID: UUID, dataServiceCharacteristicUUID: UUID) {
+//        self.dataServiceUUID = CBUUID(nsuuid: dataServiceUUID)
+//        self.dataServiceCharacteristicUUID = CBUUID(nsuuid: dataServiceCharacteristicUUID)
+//        endOfDataMark = "EOD".data(using: String.Encoding.utf8)!
+//        dataCancelledMark = "COD".data(using: String.Encoding.utf8)!
+//    }
+    
+    public init(dataServiceUUID: CBUUID, dataServiceCharacteristicUUID: CBUUID) {
+        self.dataServiceUUID = dataServiceUUID
+        self.dataServiceCharacteristicUUID = dataServiceCharacteristicUUID
         endOfDataMark = "EOD".data(using: String.Encoding.utf8)!
         dataCancelledMark = "COD".data(using: String.Encoding.utf8)!
     }
