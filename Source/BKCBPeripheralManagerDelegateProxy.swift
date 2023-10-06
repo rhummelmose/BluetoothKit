@@ -75,10 +75,12 @@ internal class BKCBPeripheralManagerDelegateProxy: NSObject, CBPeripheralManager
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
+        peripheral.respond(to: request, withResult: .success)
 //         print("peripheralManager: \(peripheral) didReceiveReadRequest: \(request)")
     }
 
     internal func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
+        peripheral.respond(to: requests[0], withResult: .success)
 //         print("peripheralManager: \(peripheral) didReceiveWriteRequests: \(requests)")
         delegate?.peripheralManager(peripheral, didReceiveWriteRequests: requests)
     }
