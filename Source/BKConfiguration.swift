@@ -39,7 +39,7 @@ public class BKConfiguration {
     public var dataServiceCharacteristicUUID: CBUUID
 
     /// Data used to indicate that no more data is coming when communicating.
-    public var endOfDataMark: Data
+    public var endOfDataMark: Data?
 
     /// Data used to indicate that a transfer was cancellen when communicating.
     public var dataCancelledMark: Data

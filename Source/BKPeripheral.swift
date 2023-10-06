@@ -160,10 +160,11 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
         }
     }
 
-    internal override func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
+    internal override func sendData(_ data: Data?, toRemotePeer remotePeer: BKRemotePeer) -> Bool {
         guard let remoteCentral = remotePeer as? BKRemoteCentral else {
             return false
         }
+        guard let data = data else { return true }
         return peripheralManager.updateValue(data, for: characteristicData, onSubscribedCentrals: [ remoteCentral.central ])
     }
 
